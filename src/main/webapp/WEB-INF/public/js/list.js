@@ -10,6 +10,11 @@ var classData = {
 		       {   
 		    	   key: 'special',
 		    	   value: '特殊医疗业务'
+		       },
+		       {
+		    	   key:'other',
+		    	   value: '住院登记'
+		       
 		}],
 		enterprise: [{
 			key: 'companyType',
@@ -50,12 +55,38 @@ var moduleData = {
 			value: '医生占比排名'
 		}],
 		
+		
+		other: [{
+			url: 'charts/other/otherGetHisHospital',
+			key: 'year',
+			list: 'otherHosYear',
+			value: '医院排名'
+		},{
+			url: 'charts/other/otherGetHisHosPercent',
+			key: 'time',
+			list: 'otherHosTime',
+			value: '医院占比排名'
+		},{
+			url: 'charts/other/otherGetHisDepartment',
+			key: 'year',
+			list: 'otherDepYear',
+			value: '科室排名'
+		},{
+			url: 'charts/other/otherGetHisDepPercent',
+			key: 'time',
+			list: 'otherDepTime',
+			value: '科室占比排名'
+		}],
+	
+		
 		companyType: [{
 			url: 'charts/company/data',
 			key: 'year',
 			list: 'enterpriseCompanyType',
 			value: '单位类型参保基数分析'
 		}]
+
+
 };
 
 var filterData = {
@@ -71,7 +102,12 @@ var listThead = {
 	registerDepTime: ['医院名称', '科室名称', '年总挂号数量占比'],
 	registerDocYear: ['医院名称', '科室名称', '医生名称', '年总挂号数量'],
 	registerDocTime: ['医院名称', '科室名称', '医生名称', '年总挂号数量占比'],
-	enterpriseCompanyType: ['单位类型名称', '单位类型参保基数']
+	enterpriseCompanyType: ['单位类型名称', '单位类型参保基数'],
+
+	otherHosYear: ['医院名称', '年总住院登记数量'],
+	otherHosTime: ['医院名称', '年总住院登记数量占比'],
+	otherDepYear: ['医院名称', '科室名称', '年总住院登记数量'],
+	otherDepTime: ['医院名称', '科室名称', '年总住院登记数量占比'],
 };
 
 var curP = 1, totalP = 1;
@@ -192,7 +228,7 @@ function getData() {
 		},
 		error: function(err) {
 			alert('Error: ' + JSON.stringify(err));
-		}
+		}                                                                                                                                                                                                                                                  
 	});
 }
 
@@ -408,6 +444,38 @@ function renderList(data) {
 			tbodyLis.push('<th>' + data[i].value + '元</th></tr>');
 		}
 	}
+	
+	
+	else if(listType === 'otherHosYear') {
+		for(i = 0; i < data.length; i++) {
+			tbodyLis.push('<tr><th>'+ (i+1) +'</th>');
+			tbodyLis.push('<th>' + data[i].hos_name + '</th>');
+			tbodyLis.push('<th>' + data[i].person_num + '</th></tr>');
+		}
+			
+	}else if(listType === 'otherHosTime') {
+		for(i = 0; i < data.length; i++) {
+			tbodyLis.push('<tr><th>'+ (i+1) +'</th>');
+			tbodyLis.push('<th>' + data[i].key + '</th>');
+			tbodyLis.push('<th>' + data[i].value + '% </th></tr>');
+		}
+	} else if(listType === 'otherDepYear') {
+		for(i = 0; i < data.length; i++) {
+			tbodyLis.push('<tr><th>'+ (i+1) +'</th>');
+			tbodyLis.push('<th>' + data[i].hos_name + '</th>');
+			tbodyLis.push('<th>' + data[i].dep_name + '</th>');
+			tbodyLis.push('<th>' + data[i].person_num + '</th></tr>');
+		}
+	} else if(listType === 'otherDepTime') {
+		for(i = 0; i < data.length; i++) {
+			names = data[i].key.split('-');
+			tbodyLis.push('<tr><th>'+ (i+1) +'</th>');
+			tbodyLis.push('<th>' + names[0] + '</th>');
+			tbodyLis.push('<th>' + names[1] + '</th>');
+			tbodyLis.push('<th>' + data[i].value + '% </th></tr>');
+		}
+	}
+	
 	
 	$('.table thead tr').html(theadLis.join(''));
 	$('.table tbody').html(tbodyLis.join(''));
