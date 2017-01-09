@@ -75,7 +75,7 @@ var listThead = {
 };
 
 var curP = 1, totalP = 1;
-
+hideLoading();
 $(function() {
 	$('.business-label').on('click', function() {
 		$('.business-select').slideToggle('normal');
@@ -142,6 +142,7 @@ $(function() {
 	});
 	
 	$('.search-btn').on('click', function() {
+		showLoading();
 		curP = 1;
 		getData();
 	});
@@ -165,6 +166,7 @@ $(function() {
 });
 
 function getData() {
+
 	var filter = $('.filter-wrapper').data('filter');
 	var param = {};
 	param.p = curP+'';
@@ -189,9 +191,11 @@ function getData() {
 		data: param,
 		success: function(res) {
 			handleData(res);
+			hideLoading();
 		},
 		error: function(err) {
 			alert('Error: ' + JSON.stringify(err));
+			hideLoading();
 		}
 	});
 }
@@ -411,4 +415,14 @@ function renderList(data) {
 	
 	$('.table thead tr').html(theadLis.join(''));
 	$('.table tbody').html(tbodyLis.join(''));
+}
+
+/*** loading动画 ***/
+//加载loading
+function showLoading() {
+	$('.spinner').show();
+}
+//结束loading
+function hideLoading() {
+	$('.spinner').hide();
 }
