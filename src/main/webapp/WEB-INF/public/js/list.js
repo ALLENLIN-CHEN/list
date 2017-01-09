@@ -126,7 +126,7 @@ var listThead = {
 };
 
 var curP = 1, totalP = 1;
-
+hideLoading();
 $(function() {
 	$('.business-label').on('click', function() {
 		$('.business-select').slideToggle('normal');
@@ -170,6 +170,7 @@ $(function() {
 	});
 	
 	$(document).on('click', '.module-select li', function() {
+		showLoading();
 		var url = $(this).data('url');
 		var filter = $(this).data('filter');
 		$('.module-label label').data('url', url);
@@ -240,9 +241,11 @@ function getData() {
 		data: param,
 		success: function(res) {
 			handleData(res);
+			hideLoading();
 		},
 		error: function(err) {
 			alert('Error: ' + JSON.stringify(err));
+			hideLoading();
 		}                                                                                                                                                                                                                                                  
 	});
 }
@@ -501,4 +504,14 @@ function renderList(data) {
 	
 	$('.table thead tr').html(theadLis.join(''));
 	$('.table tbody').html(tbodyLis.join(''));
+}
+
+/*** loading动画 ***/
+//加载loading
+function showLoading() {
+	$('.spinner').show();
+}
+//结束loading
+function hideLoading() {
+	$('.spinner').hide();
 }
