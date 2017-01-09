@@ -6,6 +6,7 @@ import org.scut.mychart.service.CompanyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
@@ -29,59 +30,11 @@ public class CompanyController {
 		return result;
 	} 
 
-	@RequestMapping("/top10")
+	@RequestMapping("/data")
     @ResponseBody
-    public Map<String, Object> getCountByGenderLine(){
-		Map<String, Object> result = companyService.getTop10Company();
+    public Map<String, Object> getCountByGenderLine(@RequestParam String year, @RequestParam String p){
+		Map<String, Object> result = companyService.getCompany(year, p);
 		return result;
     } 
 	
-	@RequestMapping("/areaCoverage")
-    @ResponseBody
-    public Map<String, Object> getAreaCoverage(){
-		Map<String, Object> result = companyService.getAreaCoverage();
-		return result;
-    } 
-	
-	@RequestMapping("/hospitalTotal")
-	@ResponseBody
-	public Map<String, Object> getHospitalTotal(){
-		Map<String, Object> result = companyService.getHospitalTotal();
-		return result;
-	} 
-
-	@RequestMapping("/hospitalPercent")
-	@ResponseBody
-	public Map<String, Object> getHospitalPercent(int startTime, int endTime){
-		Map<String, Object> result = companyService.getHospitalPercent(startTime, endTime);
-		return result;
-	} 
-	
-	@RequestMapping("/departmentTotal")
-	@ResponseBody
-	public Map<String, Object> getDepartmentTotal(){
-		Map<String, Object> result = companyService.getDepartmentTotal();
-		return result;
-	}
-	
-	@RequestMapping("/departmentPercent")
-	@ResponseBody
-	public Map<String, Object> getDepartmentPercent(int startTime, int endTime){
-		Map<String, Object> result = companyService.getDepartmentPercent(startTime, endTime);
-		return result;
-	} 
-	
-	@RequestMapping("/docotorTotal")
-	@ResponseBody
-	public Map<String, Object> getDoctorTotal(){
-		Map<String, Object> result = companyService.getDoctorTotal();
-		return result;
-	} 
-	
-	@RequestMapping("/docotorPercent")
-	@ResponseBody
-	public Map<String, Object> getDocotorPercent(int startTime, int endTime){
-		Map<String, Object> result = companyService.getDoctorPercent(startTime, endTime);
-		return result;
-	} 
 }

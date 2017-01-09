@@ -26,19 +26,21 @@
 
 	<select id="getCompanyInsuranceTotal" resultType="org.scut.mychart.model.CompanyModel" useCache="true">
 		<![CDATA[
-			select year(base_date) as year, company_type as ctype, sum(social_insurance_base) as total  
+			select company_type as ctype, sum(social_insurance_base) as total  
 			from company_social_security 
-			group by year, company_type
-			order by year, ctype
+			where base_date between #{stime} and #{etime}
+			group by company_type
+			order by ctype
 		]]>
 	</select>
 	
 	<select id="getCompanyInsurancePersonTotal" resultType="org.scut.mychart.model.CompanyModel" useCache="true">
 		<![CDATA[
-			select year(base_date) as year, company_type as ctype, count(distinct(social_security_card)) as personTotal  
+			select company_type as ctype, count(distinct(social_security_card)) as personTotal  
 			from company_social_security 
-			group by year, company_type 
-			order by year, ctype
+			where base_date between #{stime} and #{etime}
+			group by company_type 
+			order by ctype
 		]]>	
 	</select>
 </mapper>

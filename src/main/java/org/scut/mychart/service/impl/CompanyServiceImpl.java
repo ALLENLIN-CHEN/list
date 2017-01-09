@@ -24,6 +24,8 @@ public class CompanyServiceImpl implements CompanyService {
 	@Autowired
 	private CompanyMapper companyMapper;
 	
+	private final static int PAGE_NUM = 15;
+	
 	@Override
 	public Map<String, Object> getCountByGender() {
 		Map<String, Object> result = new HashMap<String, Object>();
@@ -161,147 +163,92 @@ public class CompanyServiceImpl implements CompanyService {
 	}
 
 	@Override
-	public Map<String, Object> getTop10Company() {
+	public Map<String, Object> getCompany(String year, String p) {
 		Map<String, Object> result = new HashMap<String, Object>();
-		List<CompanyModel> companyTotal = companyMapper.getCompanyInsuranceTotal();
-		List<CompanyModel> personTotal = companyMapper.getCompanyInsurancePersonTotal();
 		
-		Map<String, Map<String, Double>> allRank = new HashMap<String, Map<String,Double>>();
-		Map<String, List<Map.Entry<String, Double>>> orderedRank = new HashMap<String, List<Entry<String,Double>>>();
-		String year, company;
+		Map<String, Object> param = new HashMap<String, Object>();
+		String stime = "";
+		String etime = "";
+		if(!year.equalsIgnoreCase("all")) {
+			stime = year + "-01-01";
+			etime = year + "-12-31";
+			param.put("stime", stime);
+			param.put("etime", etime);
+		}else {
+			stime = "2010-01-01";
+			etime = "2015-12-31";
+			param.put("stime", stime);
+			param.put("etime", etime);
+		}
+		
+		List<CompanyModel> companyTotal = companyMapper.getCompanyInsuranceTotal(param);
+		List<CompanyModel> personTotal = companyMapper.getCompanyInsurancePersonTotal(param);
+		
+		int pageCount = getPageCount(companyTotal.size());
+		
+		Map<String, Double> allRank = new HashMap<String, Double>();
+		String company;
 		DecimalFormat df = new DecimalFormat("#.##");
 		double per = 0.0;
 		for(CompanyModel m : companyTotal) {
-			year = String.valueOf(m.getYear());
-			if(!allRank.containsKey(year)) {
-				allRank.put(year, new HashMap<String, Double>());
-			}
-			
 			company = m.getCtype();
-			allRank.get(year).put(company, (double)m.getTotal());
+			allRank.put(company, (double)m.getTotal());
 		}
 		
 		for(CompanyModel m : personTotal) {
-			year = String.valueOf(m.getYear());
 			company = m.getCtype();
-			per = allRank.get(year).get(company) / m.getPersonTotal();
-			allRank.get(year).put(company, Double.valueOf(df.format(per)));
+			per = allRank.get(company) / m.getPersonTotal();
+			allRank.put(company, Double.valueOf(df.format(per)));
 		}
 		
-		List<Map.Entry<String, Double>> list = null;
-		
-		for(Map.Entry<String, Map<String, Double>> entry : allRank.entrySet()) {
-			list = new ArrayList<Map.Entry<String,Double>>(entry.getValue().entrySet());
-			Collections.sort(list, new Comparator<Map.Entry<String, Double>>() {
+		List<Map.Entry<String, Double>> list = new ArrayList<Map.Entry<String,Double>>(allRank.entrySet());
+		Collections.sort(list, new Comparator<Map.Entry<String, Double>>() {
 
-				@Override
-				public int compare(Entry<String, Double> o1,
-						Entry<String, Double> o2) {
-					if(o2.getValue() - o1.getValue() > 0) {
-						return 1;
-					}
-					if(o2.getValue() - o1.getValue() == 0) {
-						return 0;
-					}
-					if(o2.getValue() - o1.getValue() < 0){
-						return -1;
-					}
+			@Override
+			public int compare(Entry<String, Double> o1,
+					Entry<String, Double> o2) {
+				if(o2.getValue() - o1.getValue() > 0) {
+					return 1;
+				}
+				if(o2.getValue() - o1.getValue() == 0) {
 					return 0;
 				}
-			});
-			list = list.subList(0, 11);
-			orderedRank.put(entry.getKey(), list);
+				if(o2.getValue() - o1.getValue() < 0){
+					return -1;
+				}
+				return 0;
+			}
+		});
+
+		int offset = (Integer.valueOf(p).intValue() - 1) * PAGE_NUM;
+		int len = offset+PAGE_NUM;
+		if(len > list.size()) {
+			len = list.size();
 		}
+		list = list.subList(offset, len);
 		
-		result.put("type", DictionaryString.COMPANY_TOP_BAR);
-		result.put("rank", orderedRank);
+		result.put("pageCount", pageCount);
+		result.put("data", list);
 		
 		return result;
 	}
 
-	@Override
-	public Map<String, Object> getCountByGenderLine() {
-		Map<String, Object> result = new HashMap<String, Object>();
-		return result;
+	/**
+	 * 用于返回总页数
+	 * @param total
+	 * @return
+	 */
+	private int getPageCount(int total) {
+		int pageCount = 0;
+		if(total < PAGE_NUM) {
+			pageCount = 1;
+		} else {
+			int rest = total % PAGE_NUM;
+			pageCount = total / PAGE_NUM;
+			if(rest > 0) {
+				pageCount++;
+			}
+		}
+		return pageCount;
 	}
-
-	@Override
-	public Map<String, Object> getAreaCoverage() {
-		Map<String, Object> result = new HashMap<String, Object>();
-		return result;
-	}
-
-	@Override
-	public Map<String, Object> getHospitalTotal() {
-		Map<String, Object> result = new HashMap<String, Object>();
-		return result;
-	}
-
-	@Override
-	public Map<String, Object> getHospitalPercent(int startTime, int endTime) {
-		Map<String, Object> result = new HashMap<String, Object>();
-//		String stime = startTime + "-01-01";
-//		String etime = endTime + "-12-31";
-//		List<CompanyModel> total = companyMapper.getHospitalByTime(DictionaryString.BUSINESS_REGISTER, stime, etime);
-//		List<CompanyModel> day = companyMapper.getHospitalMaxByDay(DictionaryString.BUSINESS_REGISTER, stime, etime);
-//		Map<String, Double> per = new HashMap<String, Double>();
-//		
-//		DecimalFormat df = new DecimalFormat("#.##");
-//		double calPer = 0.0;
-//		CompanyModel d = null;
-//		int index = 0;
-//		for(CompanyModel m : total) {
-//			d = day.get(index);
-//			calPer = (double)m.getSum() / (d.getMaxNum() * 365 * (endTime - startTime + 1)) * 100;
-//			per.put(m.getHospital(), Double.valueOf(df.format(calPer)));
-//			index++;
-//		}
-//		
-//		/**
-//		 * 用于排序
-//		 */
-//		List<Map.Entry<String, Double>> list = new ArrayList<Map.Entry<String,Double>>(per.entrySet());
-//		Collections.sort(list, new Comparator<Map.Entry<String, Double>>() {
-//
-//			@Override
-//			public int compare(Entry<String, Double> o1,
-//					Entry<String, Double> o2) {
-//				if(o2.getValue() - o1.getValue() >= 0) {
-//					return 1;
-//				}else {
-//					return -1;
-//				}
-//			}
-//		});
-//		
-//		result.put("type", DictionaryString.REGISTER_BAR_HOSPITAL_PERCENT);
-//		result.put("percent", list);
-		return result;
-	}
-
-	@Override
-	public Map<String, Object> getDepartmentTotal() {
-		Map<String, Object> result = new HashMap<String, Object>();
-		return result;
-	}
-
-	@Override
-	public Map<String, Object> getDepartmentPercent(int startTime, int endTime) {
-		Map<String, Object> result = new HashMap<String, Object>();
-		return result;
-	}
-
-	@Override
-	public Map<String, Object> getDoctorTotal() {
-		Map<String, Object> result = new HashMap<String, Object>();
-		return result;
-	}
-
-	@Override
-	public Map<String, Object> getDoctorPercent(int startTime, int endTime) {
-		System.setProperty("java.util.Arrays.useLegacyMergeSort", "true");  
-		Map<String, Object> result = new HashMap<String, Object>();
-		return result;
-	}
-
 }
