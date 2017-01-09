@@ -23,6 +23,9 @@ var classData = {
 			{
 				key: 'industryType',
 				value: '行业类型参保业务'
+			},{
+				key: 'financialType',
+				value: '经济类型参保业务'
 			}
 		]
 };
@@ -96,8 +99,14 @@ var moduleData = {
 				key: 'year',
 				list: 'enterpriseIndustryType',
 				value: '行业类型参保基数分析'
-		}]
+		}],
 
+	    financialType:[{
+		    url: 'charts/base_3/data',
+	    	key: 'year',
+	    	list: 'enterpriseFinancialType',
+	    	value: '经济类型参保基数分析'
+	    }]
 };
 
 var filterData = {
@@ -121,7 +130,9 @@ var listThead = {
 	otherDepYear: ['医院名称', '科室名称', '年总住院登记数量'],
 	otherDepTime: ['医院名称', '科室名称', '年总住院登记数量占比'],
 
-	enterpriseIndustryType: ['行业名称', '行业参保基数']
+	enterpriseIndustryType: ['行业名称', '行业参保基数'],
+
+	enterpriseFinancialType: ['经济类型名称', '经济类型参保基数']
 
 };
 
@@ -460,6 +471,13 @@ function renderList(data) {
 		}
 	}
 	else if(listType === 'enterpriseIndustryType') {
+		for(i = 0; i < data.length; i++) {
+			tbodyLis.push('<tr><th>'+ (i+1) +'</th>');
+			tbodyLis.push('<th>' + data[i].key + '</th>');
+			tbodyLis.push('<th>' + data[i].value + '元</th></tr>');
+		}
+	}
+	else if(listType === 'enterpriseFinancialType') {
 		for(i = 0; i < data.length; i++) {
 			tbodyLis.push('<tr><th>'+ (i+1) +'</th>');
 			tbodyLis.push('<th>' + data[i].key + '</th>');

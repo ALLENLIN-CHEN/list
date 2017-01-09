@@ -44,5 +44,12 @@ public class Base_3Controller {
         List<String> data = this.base_3Service.getBase_3Financial();
         return data;
     }
+
+    @RequestMapping("/data")
+    @ResponseBody
+    public Map<String, Object> getBase_3_List(@RequestParam String year, @RequestParam String p){
+        Map<String, Object> result = this.base_3Service.getAllList(year, p);
+        return result;
+    }
 }   
 

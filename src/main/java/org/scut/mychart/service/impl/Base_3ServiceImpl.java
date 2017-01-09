@@ -13,6 +13,8 @@ public class Base_3ServiceImpl implements Base_3Service {
 	@Resource
 	private Base_3Mapper base_3Dao;
 
+	private final static int PAGE_NUM = 15;
+
 	public List<Base_3> getBase_3(int title,String f){
 		HashMap<String,String> param = new HashMap<String,String>();
 		switch (title){
@@ -28,7 +30,12 @@ public class Base_3ServiceImpl implements Base_3Service {
 				}
 				return this.base_3Dao.selectBase_3_3(param);
 			}
-			case 4:return this.base_3Dao.selectBase_3_4(new HashMap());
+			case 4:{
+				if(!f.equals("all")){
+					param.put("year","where year(base_date) = "+Integer.parseInt(f));
+				}
+				return this.base_3Dao.selectBase_3_4(param);
+			}
 			case 0:return this.base_3Dao.selectBase_3(new HashMap());
 		}
 		return  null;
@@ -105,40 +112,43 @@ public class Base_3ServiceImpl implements Base_3Service {
 	public Map<String, Object> getBase_3_4ChartOption(){
 		List<Map<String, Object>> result = new ArrayList<Map<String, Object>>();
 		Map<String, Object> data = new HashMap<String, Object>();
-		List<Base_3> lists = getBase_3(4,null);
 		Map<String, Object> financial_type = new HashMap<String, Object>();
 		List<Double> base = new ArrayList<Double>();
 		List<String> name = new ArrayList<String>();
 		int i=1;
 		int y=0;
-		for(Base_3 list:lists){
-			if(list.getyear()!=y){
-				base = new ArrayList<Double>();
-				name = new ArrayList<String>();
-				financial_type = new HashMap<String, Object>();
-				y=list.getyear();
-				i=1;
-			}
-			if(i>=1&&i<=10){
-				base.add(list.getBase());
 
-				String label ="";
-				if(list.getFinancial_type().length()>5){
-					int n=list.getFinancial_type().length()/5;
-					for(int nn=0;nn<n;nn++){
-						label+=list.getFinancial_type().substring(5*nn,5*nn+5)+"\n";
-					}
-					label+=list.getFinancial_type().substring(5*n,list.getFinancial_type().length());
-				}else label=list.getFinancial_type();
-				name.add(label);
+		for (int culyear=2010;culyear<=2015;culyear++){
+			List<Base_3> lists = getBase_3(4,culyear+"");
+			for(Base_3 list:lists){
+				if(culyear!=y){
+					base = new ArrayList<Double>();
+					name = new ArrayList<String>();
+					financial_type = new HashMap<String, Object>();
+					y=culyear;
+					i=1;
+				}
+				if(i>=1&&i<=10){
+					base.add(list.getBase());
+
+					String label ="";
+					if(list.getFinancial_type().length()>5){
+						int n=list.getFinancial_type().length()/5;
+						for(int nn=0;nn<n;nn++){
+							label+=list.getFinancial_type().substring(5*nn,5*nn+5)+"\n";
+						}
+						label+=list.getFinancial_type().substring(5*n,list.getFinancial_type().length());
+					}else label=list.getFinancial_type();
+					name.add(label);
 //				name.add(list.getFinancial_type());
+				}
+				if(i==10){
+					financial_type.put("financial_name",name);
+					financial_type.put("base",base);
+					result.add(financial_type);
+				}
+				i++;
 			}
-			if(i==10){
-				financial_type.put("financial_name",name);
-				financial_type.put("base",base);
-				result.add(financial_type);
-			}
-			i++;
 		}
 		data.put("financial_type",result);
 		data.put("type", "base_3_4");
@@ -152,5 +162,29 @@ public class Base_3ServiceImpl implements Base_3Service {
 			name.add(list.getFinancial_type());
 		}
 		return name;
+	}
+
+	public Map<String, Object> getAllList(String year,String p){
+		int pages = 0;
+		Map<String, Object> data = new HashMap<String, Object>();
+		List<Map<String, Object>> result = new ArrayList<Map<String, Object>>();
+		List<Base_3> lists = getBase_3(4,year);
+
+		for(Base_3 list:lists){
+			Map<String, Object> financial_type = new HashMap<String, Object>();
+			financial_type.put("key",list.getFinancial_type());
+			financial_type.put("value",list.getBase());
+			result.add(financial_type);
+		}
+		int offset = (Integer.valueOf(p).intValue() - 1) * PAGE_NUM;
+		int len = offset+PAGE_NUM;
+		if(len > result.size()) {
+			len = result.size();
+		}
+		pages = result.size()/PAGE_NUM+1;
+		result=result.subList(offset, len);
+		data.put("pageCount",pages);
+		data.put("data", result);
+		return data;
 	}
 }

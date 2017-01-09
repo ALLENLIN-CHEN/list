@@ -26,12 +26,13 @@
 		order by year,age
 	</select>
 	<select id="selectBase_3_4" parameterType="java.util.Map" resultType="org.scut.mychart.model.Base_3" statementType="STATEMENT">
-		SELECT year(base_date) as year,financial_type as financial_type,
+		SELECT financial_type as financial_type,
         sum(social_insurance_base)/count(company_social_security.social_security_card) as base
         FROM company_social_security
         join person on company_social_security.social_security_card = person.social_security_card
-        group by year,financial_type
-        order by year,base DESC
+        ${year}
+        group by financial_type
+        order by base DESC
 	</select>
 	<select id="selectBase_3" parameterType="java.util.Map" resultType="org.scut.mychart.model.Base_3" statementType="STATEMENT">
 		SELECT financial_type as financial_type

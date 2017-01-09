@@ -11,4 +11,5 @@ public interface Base_3Service {
     public Map<String, Object> getBase_3_3ChartOption(String financial_type);
     public Map<String, Object> getBase_3_4ChartOption();
     public List<String> getBase_3Financial();
+    public Map<String, Object> getAllList(String year,String p);
 }
