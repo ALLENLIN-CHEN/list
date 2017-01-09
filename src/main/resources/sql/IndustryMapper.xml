@@ -55,10 +55,16 @@
 		order by year,age
 	</select>
 	<select id="selectOrderByCardinality" parameterType="java.util.Map" resultType="org.scut.mychart.model.IndustryModel" statementType="STATEMENT">
-		select year(base_date) as "year",industry_code,avg(social_insurance_base) as cardinality
+		select year(base_date) as "year",industry_code,sum(social_insurance_base)/count(DISTINCT social_security_card) as cardinality
 		from company_social_security
 		group by year,industry_code
 		order by year,cardinality DESC
 	</select>
-
+	<select id="selectListOrderByCardinality" parameterType="java.util.Map" resultType="org.scut.mychart.model.IndustryModel" statementType="STATEMENT">
+		select industry_code,sum(social_insurance_base)/count(DISTINCT social_security_card) as cardinality
+		from company_social_security
+		where base_date between '${stime}' and '${etime}'
+		group by industry_code
+		order by cardinality DESC
+	</select>
 </mapper>

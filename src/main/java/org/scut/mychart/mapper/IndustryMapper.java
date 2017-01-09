@@ -13,4 +13,5 @@ public interface IndustryMapper {
 	public List<IndustryModel> selectByAge(Map<String, String> param);
 	public List<IndustryModel> selectByAgeAll(Map<String, String> param);
 	public List<IndustryModel> selectOrderByCardinality(Map<String, String> param);
+	public List<IndustryModel> selectListOrderByCardinality(Map<String, String> param);
 }	

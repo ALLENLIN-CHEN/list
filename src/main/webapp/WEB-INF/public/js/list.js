@@ -19,7 +19,12 @@ var classData = {
 		enterprise: [{
 			key: 'companyType',
 			value: '单位类型参保业务'
-		}]
+		},
+			{
+				key: 'industryType',
+				value: '行业类型参保业务'
+			}
+		]
 };
 
 var moduleData = {
@@ -84,8 +89,14 @@ var moduleData = {
 			key: 'year',
 			list: 'enterpriseCompanyType',
 			value: '单位类型参保基数分析'
+		}],
+		
+		industryType:[{
+				url: 'charts/industry/data',
+				key: 'year',
+				list: 'enterpriseIndustryType',
+				value: '行业类型参保基数分析'
 		}]
-
 
 };
 
@@ -104,10 +115,14 @@ var listThead = {
 	registerDocTime: ['医院名称', '科室名称', '医生名称', '年总挂号数量占比'],
 	enterpriseCompanyType: ['单位类型名称', '单位类型参保基数'],
 
+
 	otherHosYear: ['医院名称', '年总住院登记数量'],
 	otherHosTime: ['医院名称', '年总住院登记数量占比'],
 	otherDepYear: ['医院名称', '科室名称', '年总住院登记数量'],
 	otherDepTime: ['医院名称', '科室名称', '年总住院登记数量占比'],
+
+	enterpriseIndustryType: ['行业名称', '行业参保基数']
+
 };
 
 var curP = 1, totalP = 1;
@@ -438,6 +453,13 @@ function renderList(data) {
 			tbodyLis.push('<th>' + data[i].value + '% </th></tr>');
 		}
 	} else if(listType === 'enterpriseCompanyType') {
+		for(i = 0; i < data.length; i++) {
+			tbodyLis.push('<tr><th>'+ (i+1) +'</th>');
+			tbodyLis.push('<th>' + data[i].key + '</th>');
+			tbodyLis.push('<th>' + data[i].value + '元</th></tr>');
+		}
+	}
+	else if(listType === 'enterpriseIndustryType') {
 		for(i = 0; i < data.length; i++) {
 			tbodyLis.push('<tr><th>'+ (i+1) +'</th>');
 			tbodyLis.push('<th>' + data[i].key + '</th>');
