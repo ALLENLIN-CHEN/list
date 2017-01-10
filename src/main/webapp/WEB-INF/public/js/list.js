@@ -3,6 +3,10 @@ var classData = {
 		    	   key: 'register',
 		    	   value: '挂号业务'
 		       },
+			   {
+				   key: 'hos_2',
+				   value: '就医服务'
+			   },
 		       {   
 		    	   key: 'external',
 		    	   value: '异地就医业务'
@@ -60,6 +64,38 @@ var moduleData = {
 			url: 'charts/register/docotorPercent',
 			key: 'time',
 			list: 'registerDocTime',
+			value: '医生占比排名'
+		}],
+
+        hos_2: [{
+			url: 'charts/hos_2/hospitalTotal',
+    		key: 'year',
+			list: 'hos_2HospYear',
+			value: '医院排名'
+		},{
+			url: 'charts/hos_2/hospitalPercent',
+			key: 'time',
+			list: 'hos_2HospTime',
+			value: '医院占比排名'
+		},{
+			url: 'charts/hos_2/departmentTotal',
+			key: 'year',
+			list: 'hos_2DepYear',
+			value: '科室排名'
+		},{
+			url: 'charts/hos_2/departmentPercent',
+			key: 'time',
+			list: 'hos_2DepTime',
+			value: '科室占比排名'
+		},{
+			url: 'charts/hos_2/doctorTotal',
+			key: 'year',
+			list: 'hos_2DocYear',
+			value: '医生排名'
+		},{
+			url: 'charts/hos_2/doctorPercent',
+			key: 'time',
+			list: 'hos_2DocTime',
 			value: '医生占比排名'
 		}],
 		
@@ -122,6 +158,14 @@ var listThead = {
 	registerDepTime: ['医院名称', '科室名称', '年总挂号数量占比'],
 	registerDocYear: ['医院名称', '科室名称', '医生名称', '年总挂号数量'],
 	registerDocTime: ['医院名称', '科室名称', '医生名称', '年总挂号数量占比'],
+
+    hos_2HospYear: ['医院名称', '年总挂号数量'],
+    hos_2HospTime: ['医院名称', '年总挂号数量占比'],
+    hos_2DepYear: ['医院名称', '科室名称', '年总挂号数量'],
+    hos_2DepTime: ['医院名称', '科室名称', '年总挂号数量占比'],
+    hos_2DocYear: ['医院名称', '科室名称', '医生名称', '年总挂号数量'],
+    hos_2DocTime: ['医院名称', '科室名称', '医生名称', '年总挂号数量占比'],
+
 	enterpriseCompanyType: ['单位类型名称', '单位类型参保基数'],
 
 
@@ -487,7 +531,50 @@ function renderList(data) {
 			tbodyLis.push('<th>' + data[i].value + '元</th></tr>');
 		}
 	}
-	
+
+    else if(listType === 'hos_2HospYear') {
+        for(i = 0; i < data.length; i++) {
+            tbodyLis.push('<tr><th>'+ (i+1) +'</th>');
+            tbodyLis.push('<th>' + data[i].hospital + '</th>');
+            tbodyLis.push('<th>' + data[i].num + '</th></tr>');
+        }
+    } else if(listType === 'hos_2HospTime') {
+        for(i = 0; i < data.length; i++) {
+            tbodyLis.push('<tr><th>'+ (i+1) +'</th>');
+            tbodyLis.push('<th>' + data[i].hospital + '</th>');
+            tbodyLis.push('<th>' + data[i].num + '% </th></tr>');
+        }
+    } else if(listType === 'hos_2DepYear') {
+        for(i = 0; i < data.length; i++) {
+            tbodyLis.push('<tr><th>'+ (i+1) +'</th>');
+            tbodyLis.push('<th>' + data[i].hospital + '</th>');
+            tbodyLis.push('<th>' + data[i].department + '</th>');
+            tbodyLis.push('<th>' + data[i].num + '</th></tr>');
+        }
+    } else if(listType === 'hos_2DepTime') {
+        for(i = 0; i < data.length; i++) {
+            tbodyLis.push('<tr><th>'+ (i+1) +'</th>');
+            tbodyLis.push('<th>' + data[i].hospital + '</th>');
+            tbodyLis.push('<th>' + data[i].department + '</th>');
+            tbodyLis.push('<th>' + data[i].num + '% </th></tr>');
+        }
+    } else if(listType === 'hos_2DocYear') {
+        for(i = 0; i < data.length; i++) {
+            tbodyLis.push('<tr><th>'+ (i+1) +'</th>');
+            tbodyLis.push('<th>' + data[i].hospital + '</th>');
+            tbodyLis.push('<th>' + data[i].department + '</th>');
+            tbodyLis.push('<th>' + data[i].doctor + '</th>');
+            tbodyLis.push('<th>' + data[i].num + '</th></tr>');
+        }
+    } else if(listType === 'hos_2DocTime') {
+        for(i = 0; i < data.length; i++) {
+            tbodyLis.push('<tr><th>'+ (i+1) +'</th>');
+            tbodyLis.push('<th>' + data[i].hospital + '</th>');
+            tbodyLis.push('<th>' + data[i].department + '</th>');
+            tbodyLis.push('<th>' + data[i].doctor + '</th>');
+            tbodyLis.push('<th>' + data[i].num + '% </th></tr>');
+        }
+    }
 	
 	else if(listType === 'otherHosYear') {
 		for(i = 0; i < data.length; i++) {

@@ -33,11 +33,11 @@
 		order by year,age
 	</select>
 	<select id="selectHospital_2_6810" parameterType="java.util.Map" resultType="org.scut.mychart.model.Hospital_2" statementType="STATEMENT">
-		select year(operation_time) as "year"${where},count(*) as hospital_num
+		select ${where},count(*) as hospital_num
 		from hospital_business
-		where operation = "就医服务"
-		group by year${group}
-		order by year,hospital_num DESC
+		where operation = "就医服务" ${year}
+		group by ${group}
+		order by hospital_num DESC
 	</select>
 	<select id="selectHospital_2_7911" parameterType="java.util.Map" resultType="org.scut.mychart.model.Hospital_2" statementType="STATEMENT">
 		select ${type},A.hospital_num as hospital_sim,B.hospital_num as hospital_sum

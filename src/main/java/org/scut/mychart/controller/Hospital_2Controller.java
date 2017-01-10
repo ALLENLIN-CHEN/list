@@ -126,5 +126,47 @@ public class Hospital_2Controller {
         result.put("data", this.hospital_2Service.getHospital_2_7911ChartOption(11,p));
         return  result;
     }
+
+    @RequestMapping("/hospitalTotal")
+    @ResponseBody
+    public Map<String, Object> getHospitalTotal(@RequestParam String year, @RequestParam String p){
+        Map<String, Object> result = this.hospital_2Service.getHospitalTotal(year, p);
+        return result;
+    }
+
+    @RequestMapping("/hospitalPercent")
+    @ResponseBody
+    public Map<String, Object> getHospitalPercent(@RequestParam String startTime, @RequestParam String endTime, @RequestParam String p){
+        Map<String, Object> result = this.hospital_2Service.getHospitalPercent(startTime, endTime, p);
+        return result;
+    }
+
+    @RequestMapping("/departmentTotal")
+    @ResponseBody
+    public Map<String, Object> getDepartmentTotal(@RequestParam String year, @RequestParam String p){
+        Map<String, Object> result = this.hospital_2Service.getDepartmentTotal(year, p);
+        return result;
+    }
+
+    @RequestMapping("/departmentPercent")
+    @ResponseBody
+    public Map<String, Object> getDepartmentPercent(@RequestParam String startTime, @RequestParam String endTime, @RequestParam String p){
+        Map<String, Object> result = this.hospital_2Service.getDepartmentPercent(startTime, endTime, p);
+        return result;
+    }
+
+    @RequestMapping("/doctorTotal")
+    @ResponseBody
+    public Map<String, Object> getDoctorTotal(@RequestParam String year, @RequestParam String p){
+        Map<String, Object> result = this.hospital_2Service.getDoctorTotal(year, p);
+        return result;
+    }
+
+    @RequestMapping("/doctorPercent")
+    @ResponseBody
+    public Map<String, Object> getDoctorPercent(@RequestParam String startTime, @RequestParam String endTime, @RequestParam String p){
+        Map<String, Object> result = this.hospital_2Service.getDoctorPercent(startTime, endTime, p);
+        return result;
+    }
 }   
 

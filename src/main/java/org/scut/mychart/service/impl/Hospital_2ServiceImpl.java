@@ -19,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.*;
@@ -33,6 +34,8 @@ public class Hospital_2ServiceImpl implements Hospital_2Service {
 	@Autowired
 	private Hospital_2RedisDao hospital_2RedisDao;
 
+	private final static int PAGE_NUM = 15;
+
 	public List<Hospital_2> getHospital_2(int title,String[] p){
 		HashMap<String,String> param = new HashMap<String,String>();
 		switch (title){
@@ -44,18 +47,27 @@ public class Hospital_2ServiceImpl implements Hospital_2Service {
 			}
 			case 5:return this.hospitao_2Dao.selectHospital_2_5(new HashMap());
 			case 6:{
-				param.put("where",",hospital as hospital");
-				param.put("group",",hospital");
+				if(!p[0].equals("all")){
+					param.put("year"," and year(operation_time)="+p[0]);
+				}
+				param.put("where","hospital as hospital");
+				param.put("group","hospital");
 				return this.hospitao_2Dao.selectHospital_2_6810(param);
 			}
 			case 8:{
-				param.put("where",",hospital as hospital, department as department");
-				param.put("group",",hospital,department");
+				if(!p[0].equals("all")){
+					param.put("year"," and year(operation_time)="+p[0]);
+				}
+				param.put("where","hospital as hospital, department as department");
+				param.put("group","hospital,department");
 				return this.hospitao_2Dao.selectHospital_2_6810(param);
 			}
 			case 10:{
-				param.put("where",",hospital as hospital, department as department, doctor as doctor");
-				param.put("group",",hospital,department,doctor");
+				if(!p[0].equals("all")){
+					param.put("year"," and year(operation_time)="+p[0]);
+				}
+				param.put("where","hospital as hospital, department as department, doctor as doctor");
+				param.put("group","hospital,department,doctor");
 				return this.hospitao_2Dao.selectHospital_2_6810(param);
 			}
 			case 7:{
@@ -450,5 +462,188 @@ public class Hospital_2ServiceImpl implements Hospital_2Service {
 		hospital_2RedisDao.setWordcloudData(type, option.toString());
 
 		return option.toString();
+	}
+
+	@Override
+	public Map<String, Object> getHospitalTotal(String year, String p) {
+		int pages = 0;
+		Map<String, Object> data = new HashMap<String, Object>();
+		List<Map<String, Object>> result = new ArrayList<Map<String, Object>>();
+		List<Hospital_2> lists = getHospital_2(6,new String[]{year});
+
+		for(Hospital_2 list:lists){
+			Map<String, Object> financial_type = new HashMap<String, Object>();
+			financial_type.put("hospital",list.gethospital());
+			financial_type.put("num",list.getHospital_num());
+			result.add(financial_type);
+		}
+		int offset = (Integer.valueOf(p).intValue() - 1) * PAGE_NUM;
+		int len = offset+PAGE_NUM;
+		if(len > result.size()) {
+			len = result.size();
+		}
+		pages=result.size()<=PAGE_NUM?1:result.size()/PAGE_NUM+1;
+		result=result.subList(offset, len);
+		data.put("pageCount",pages);
+		data.put("data", result);
+		return data;
+	}
+
+	@Override
+	public Map<String, Object> getHospitalPercent(String startTime, String endTime, String p) {
+		int pages = 0;
+		final int days = (Integer.parseInt(endTime)-Integer.parseInt(startTime)+1)*365;
+		Map<String, Object> data = new HashMap<String, Object>();
+		List<Map<String, Object>> result = new ArrayList<Map<String, Object>>();
+		List<Hospital_2> lists = getHospital_2(7,new String[]{startTime,endTime});
+		//将全部的Hospital_2按人数排序
+		Collections.sort(lists, new Comparator<Hospital_2>() {
+			public int compare(Hospital_2 o1, Hospital_2 o2) {
+				return o1.getRate(days).compareTo(o2.getRate(days));
+			}
+		});
+
+		for(Hospital_2 list:lists){
+			Map<String, Object> financial_type = new HashMap<String, Object>();
+			financial_type.put("hospital",list.gethospital());
+			double num = (double)(list.getSum()*100)/((double)(list.getSim())*days);
+			BigDecimal b = new BigDecimal(num);
+			financial_type.put("num",b.setScale(2,BigDecimal.ROUND_HALF_UP).doubleValue());
+			result.add(financial_type);
+		}
+		int offset = (Integer.valueOf(p).intValue() - 1) * PAGE_NUM;
+		int len = offset+PAGE_NUM;
+		if(len > result.size()) {
+			len = result.size();
+		}
+		pages=result.size()<=PAGE_NUM?1:result.size()/PAGE_NUM+1;
+		result=result.subList(offset, len);
+		data.put("pageCount",pages);
+		data.put("data", result);
+		return data;
+	}
+
+	@Override
+	public Map<String, Object> getDepartmentTotal(String year, String p) {
+		int pages = 0;
+		Map<String, Object> data = new HashMap<String, Object>();
+		List<Map<String, Object>> result = new ArrayList<Map<String, Object>>();
+		List<Hospital_2> lists = getHospital_2(8,new String[]{year});
+
+		for(Hospital_2 list:lists){
+			Map<String, Object> financial_type = new HashMap<String, Object>();
+			financial_type.put("hospital",list.gethospital());
+			financial_type.put("department",list.getdepartment());
+			financial_type.put("num",list.getHospital_num());
+			result.add(financial_type);
+		}
+		int offset = (Integer.valueOf(p).intValue() - 1) * PAGE_NUM;
+		int len = offset+PAGE_NUM;
+		if(len > result.size()) {
+			len = result.size();
+		}
+		pages=result.size()<=PAGE_NUM?1:result.size()/PAGE_NUM+1;
+		result=result.subList(offset, len);
+		data.put("pageCount",pages);
+		data.put("data", result);
+		return data;
+	}
+
+	@Override
+	public Map<String, Object> getDepartmentPercent(String startTime, String endTime, String p) {
+		int pages = 0;
+		final int days = (Integer.parseInt(endTime)-Integer.parseInt(startTime)+1)*365;
+		Map<String, Object> data = new HashMap<String, Object>();
+		List<Map<String, Object>> result = new ArrayList<Map<String, Object>>();
+		List<Hospital_2> lists = getHospital_2(9,new String[]{startTime,endTime});
+		//将全部的Hospital_2按人数排序
+		Collections.sort(lists, new Comparator<Hospital_2>() {
+			public int compare(Hospital_2 o1, Hospital_2 o2) {
+				return o1.getRate(days).compareTo(o2.getRate(days));
+			}
+		});
+
+		for(Hospital_2 list:lists){
+			Map<String, Object> financial_type = new HashMap<String, Object>();
+			financial_type.put("hospital",list.gethospital());
+			financial_type.put("department",list.getdepartment());
+			double num = (double)(list.getSum()*100)/((double)(list.getSim())*days);
+			BigDecimal b = new BigDecimal(num);
+			financial_type.put("num",b.setScale(2,BigDecimal.ROUND_HALF_UP).doubleValue());
+			result.add(financial_type);
+		}
+		int offset = (Integer.valueOf(p).intValue() - 1) * PAGE_NUM;
+		int len = offset+PAGE_NUM;
+		if(len > result.size()) {
+			len = result.size();
+		}
+		pages=result.size()<=PAGE_NUM?1:result.size()/PAGE_NUM+1;
+		result=result.subList(offset, len);
+		data.put("pageCount",pages);
+		data.put("data", result);
+		return data;
+	}
+
+	@Override
+	public Map<String, Object> getDoctorTotal(String year, String p) {
+		int pages = 0;
+		Map<String, Object> data = new HashMap<String, Object>();
+		List<Map<String, Object>> result = new ArrayList<Map<String, Object>>();
+		List<Hospital_2> lists = getHospital_2(10,new String[]{year});
+
+		for(Hospital_2 list:lists){
+			Map<String, Object> financial_type = new HashMap<String, Object>();
+			financial_type.put("hospital",list.gethospital());
+			financial_type.put("department",list.getdepartment());
+			financial_type.put("doctor",list.getdoctor());
+			financial_type.put("num",list.getHospital_num());
+			result.add(financial_type);
+		}
+		int offset = (Integer.valueOf(p).intValue() - 1) * PAGE_NUM;
+		int len = offset+PAGE_NUM;
+		if(len > result.size()) {
+			len = result.size();
+		}
+		pages=result.size()<=PAGE_NUM?1:result.size()/PAGE_NUM+1;
+		result=result.subList(offset, len);
+		data.put("pageCount",pages);
+		data.put("data", result);
+		return data;
+	}
+
+	@Override
+	public Map<String, Object> getDoctorPercent(String startTime, String endTime, String p) {
+		int pages = 0;
+		final int days = (Integer.parseInt(endTime)-Integer.parseInt(startTime)+1)*365;
+		Map<String, Object> data = new HashMap<String, Object>();
+		List<Map<String, Object>> result = new ArrayList<Map<String, Object>>();
+		List<Hospital_2> lists = getHospital_2(11,new String[]{startTime,endTime});
+		//将全部的Hospital_2按人数排序
+		Collections.sort(lists, new Comparator<Hospital_2>() {
+			public int compare(Hospital_2 o1, Hospital_2 o2) {
+				return o1.getRate(days).compareTo(o2.getRate(days));
+			}
+		});
+
+		for(Hospital_2 list:lists){
+			Map<String, Object> financial_type = new HashMap<String, Object>();
+			financial_type.put("hospital",list.gethospital());
+			financial_type.put("department",list.getdepartment());
+			financial_type.put("doctor",list.getdoctor());
+			double num = (double)(list.getSum()*100)/((double)(list.getSim())*days);
+			BigDecimal b = new BigDecimal(num);
+			financial_type.put("num",b.setScale(2,BigDecimal.ROUND_HALF_UP).doubleValue());
+			result.add(financial_type);
+		}
+		int offset = (Integer.valueOf(p).intValue() - 1) * PAGE_NUM;
+		int len = offset+PAGE_NUM;
+		if(len > result.size()) {
+			len = result.size();
+		}
+		pages=result.size()<=PAGE_NUM?1:result.size()/PAGE_NUM+1;
+		result=result.subList(offset, len);
+		data.put("pageCount",pages);
+		data.put("data", result);
+		return data;
 	}
 }

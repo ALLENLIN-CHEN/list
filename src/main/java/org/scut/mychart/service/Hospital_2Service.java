@@ -15,4 +15,16 @@ public interface Hospital_2Service {
     public String getHospital_2_5ChartOption();
     public String getHospital_2_6810ChartOption(int title);
     public String getHospital_2_7911ChartOption(int title,String[] p);
+
+    public Map<String, Object> getHospitalTotal(String year, String p);
+
+    public Map<String, Object> getHospitalPercent(String startTime, String endTime, String p);
+
+    public Map<String, Object> getDepartmentTotal(String year, String p);
+
+    public Map<String, Object> getDepartmentPercent(String startTime, String endTime, String p);
+
+    public Map<String, Object> getDoctorTotal(String year, String p);
+
+    public Map<String, Object> getDoctorPercent(String startTime, String endTime, String p);
 }
