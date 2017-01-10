@@ -17,6 +17,7 @@ public class DictionaryString {
 	public static final String MALE = "男";
 	public static final String FEMALE = "女";
 	public static final String BUSINESS_REGISTER = "挂号";
+    public static final String BUSINESS_EXTERNAL = "异地就医申请";
     public static final String BUSINESS_TSYL = "特殊医疗待遇申请";
 
 	public static final String REGISTER_BAR_X = "REGISTER_BAR_X";

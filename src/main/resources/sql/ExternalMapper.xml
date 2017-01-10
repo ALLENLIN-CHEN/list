@@ -51,4 +51,100 @@
 		group by hospital,department,doctor
 		order by num limit 10
 	</select>
+	<select id="selectExternalHospitalList" resultType="org.scut.mychart.model.ExternalList" useCache="true">
+		<![CDATA[
+			select hospital, count(*) as sum from hospital_business
+			where operation_time between #{stime} and #{etime} and operation = '异地就医申请'
+			group by hospital
+			order by sum desc
+			limit 15 offset #{offset}
+		]]>
+	</select>
+	<select id="selectExternalHospitalTotalCount" resultType="int" useCache="true">
+		<![CDATA[
+			select count(*) from (select hospital, count(*) as sum from hospital_business
+			where operation_time between #{stime} and #{etime} and operation = '异地就医申请'
+			group by hospital) temp
+		]]>
+	</select>
+	<select id="selectExternalHospitalByTime" resultType="org.scut.mychart.model.ExternalList" useCache="true">
+		<![CDATA[
+			select hospital, count(*) as sum
+			from hospital_business where operation = #{0} and operation_time between #{1} and #{2}
+			group by hospital
+			order by hospital
+		]]>
+	</select>
+	<select id="selectExternalHospitalMaxByDay" resultType="org.scut.mychart.model.ExternalList" useCache="true">
+		<![CDATA[
+			select temp.hospital as hospital, max(temp.dsum) as maxNum
+			from (select hospital, count(*) as dsum from hospital_business where operation = #{0} and operation_time between #{1} and #{2} group by hospital, operation_time) temp
+			group by hospital
+			order by hospital
+		]]>
+	</select>
+	<select id="selectExternalDepartmentList" resultType="org.scut.mychart.model.ExternalList" useCache="true">
+		<![CDATA[
+			select hospital, department, count(*) as sum from hospital_business
+			where operation_time between #{stime} and #{etime} and operation = '异地就医申请'
+			group by hospital, department
+			order by sum desc
+			limit 15 offset #{offset}
+		]]>
+	</select>
+	<select id="selectExternalDepartmentCount" resultType="int" useCache="true">
+		<![CDATA[
+			select count(*) from (select hospital, department, count(*) as sum from hospital_business
+			where operation_time between #{stime} and #{etime} and operation = '异地就医申请'
+			group by hospital, department) temp
+		]]>
+	</select>
+	<select id="selectExternalDepartmentByTime" resultType="org.scut.mychart.model.ExternalList" useCache="true">
+		<![CDATA[
+			select hospital, department, count(*) as sum
+			from hospital_business where operation = #{0} and operation_time between #{1} and #{2}
+			group by hospital, department
+			order by hospital
+		]]>
+	</select>
+	<select id="selectExternalDepartmentMaxByDay" resultType="org.scut.mychart.model.ExternalList" useCache="true">
+		<![CDATA[
+			select temp.hospital as hospital, temp.department as department, max(temp.dsum) as maxNum
+			from (select hospital, department, count(*) as dsum from hospital_business where operation = #{0} and operation_time between #{1} and #{2} group by hospital, department, operation_time) temp
+			group by hospital, department
+			order by hospital
+		]]>
+	</select>
+	<select id="selectExternalDoctorList" resultType="org.scut.mychart.model.ExternalList" useCache="true">
+		<![CDATA[
+			select hospital, department, doctor, count(*) as sum from hospital_business
+			where operation_time between #{stime} and #{etime} and operation = '异地就医申请'
+			group by hospital, department, doctor
+			order by sum desc
+			limit 15 offset #{offset}
+		]]>
+	</select>
+	<select id="selectExternalDoctorCount" resultType="int" useCache="true">
+		<![CDATA[
+			select count(*) from (select hospital, department, doctor, count(*) as sum from hospital_business
+			where operation_time between #{stime} and #{etime} and operation = '异地就医申请'
+			group by hospital, department, doctor) temp
+		]]>
+	</select>
+	<select id="selectExternalDoctorByTime" resultType="org.scut.mychart.model.ExternalList" useCache="true">
+		<![CDATA[
+			select hospital, department, doctor, count(*) as sum
+			from hospital_business where operation = #{0} and operation_time between #{1} and #{2}
+			group by hospital, department, doctor
+			order by hospital
+		]]>
+	</select>
+	<select id="selectExternalDoctorMaxByDay" resultType="org.scut.mychart.model.ExternalList" useCache="true">
+		<![CDATA[
+			select temp.hospital as hospital, temp.department as department, temp.doctor as doctor, max(temp.dsum) as maxNum
+			from (select hospital, department, doctor, count(*) as dsum from hospital_business where operation = #{0} and operation_time between #{1} and #{2} group by hospital, department, doctor, operation_time) temp
+			group by hospital, department, doctor
+			order by hospital
+		]]>
+	</select>
 </mapper>

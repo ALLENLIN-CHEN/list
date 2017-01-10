@@ -7,7 +7,7 @@ var classData = {
 				   key: 'hos_2',
 				   value: '就医服务'
 			   },
-		       {   
+		       {
 		    	   key: 'external',
 		    	   value: '异地就医业务'
 		       },
@@ -66,6 +66,38 @@ var moduleData = {
 			list: 'registerDocTime',
 			value: '医生占比排名'
 		}],
+
+	external: [{
+		url: 'charts/externalList/hospitalTotal',
+		key: 'year',
+		list: 'externalHospYear',
+		value: '医院排名'
+	},{
+		url: 'charts/externalList/hospitalPercent',
+		key: 'time',
+		list: 'externalHospTime',
+		value: '医院占比排名'
+	},{
+		url: 'charts/externalList/departmentTotal',
+		key: 'year',
+		list: 'externalDepYear',
+		value: '科室排名'
+	},{
+		url: 'charts/externalList/departmentPercent',
+		key: 'time',
+		list: 'externalDepTime',
+		value: '科室占比排名'
+	},{
+		url: 'charts/externalList/doctorTotal',
+		key: 'year',
+		list: 'externalDocYear',
+		value: '医生排名'
+	},{
+		url: 'charts/externalList/doctorPercent',
+		key: 'time',
+		list: 'externalDocTime',
+		value: '医生占比排名'
+	}],
 
         hos_2: [{
 			url: 'charts/hos_2/hospitalTotal',
@@ -159,6 +191,13 @@ var listThead = {
 	registerDocYear: ['医院名称', '科室名称', '医生名称', '年总挂号数量'],
 	registerDocTime: ['医院名称', '科室名称', '医生名称', '年总挂号数量占比'],
 
+	externalHospYear: ['医院名称', '年总挂号数量'],
+	externalHospTime: ['医院名称', '年总挂号数量占比'],
+	externalDepYear: ['医院名称', '科室名称', '年总挂号数量'],
+	externalDepTime: ['医院名称', '科室名称', '年总挂号数量占比'],
+	externalDocYear: ['医院名称', '科室名称', '医生名称', '年总挂号数量'],
+	externalDocTime: ['医院名称', '科室名称', '医生名称', '年总挂号数量占比'],
+
     hos_2HospYear: ['医院名称', '年总挂号数量'],
     hos_2HospTime: ['医院名称', '年总挂号数量占比'],
     hos_2DepYear: ['医院名称', '科室名称', '年总挂号数量'],
@@ -225,7 +264,7 @@ $(function() {
 	});
 	
 	$(document).on('click', '.module-select li', function() {
-		showLoading();
+
 		var url = $(this).data('url');
 		var filter = $(this).data('filter');
 		$('.module-label label').data('url', url);
@@ -249,6 +288,7 @@ $(function() {
 	});
 	
 	$('.search-btn').on('click', function() {
+		showLoading();
 		curP = 1;
 		getData();
 	});
@@ -510,7 +550,54 @@ function renderList(data) {
 			tbodyLis.push('<th>' + names[2] + '</th>');
 			tbodyLis.push('<th>' + data[i].value + '% </th></tr>');
 		}
-	} else if(listType === 'enterpriseCompanyType') {
+	}
+	else if(listType === 'externalHospYear') {
+		for(i = 0; i < data.length; i++) {
+			tbodyLis.push('<tr><th>'+ (i+1) +'</th>');
+			tbodyLis.push('<th>' + data[i].hospital + '</th>');
+			tbodyLis.push('<th>' + data[i].sum + '</th></tr>');
+		}
+	} else if(listType === 'externalHospTime') {
+		for(i = 0; i < data.length; i++) {
+			tbodyLis.push('<tr><th>'+ (i+1) +'</th>');
+			tbodyLis.push('<th>' + data[i].key + '</th>');
+			tbodyLis.push('<th>' + data[i].value + '% </th></tr>');
+		}
+	} else if(listType === 'externalDepYear') {
+		for(i = 0; i < data.length; i++) {
+			tbodyLis.push('<tr><th>'+ (i+1) +'</th>');
+			tbodyLis.push('<th>' + data[i].hospital + '</th>');
+			tbodyLis.push('<th>' + data[i].department + '</th>');
+			tbodyLis.push('<th>' + data[i].sum + '</th></tr>');
+		}
+	} else if(listType === 'externalDepTime') {
+		for(i = 0; i < data.length; i++) {
+			names = data[i].key.split('-');
+			tbodyLis.push('<tr><th>'+ (i+1) +'</th>');
+			tbodyLis.push('<th>' + names[0] + '</th>');
+			tbodyLis.push('<th>' + names[1] + '</th>');
+			tbodyLis.push('<th>' + data[i].value + '% </th></tr>');
+		}
+	} else if(listType === 'externalDocYear') {
+		for(i = 0; i < data.length; i++) {
+			tbodyLis.push('<tr><th>'+ (i+1) +'</th>');
+			tbodyLis.push('<th>' + data[i].hospital + '</th>');
+			tbodyLis.push('<th>' + data[i].department + '</th>');
+			tbodyLis.push('<th>' + data[i].doctor + '</th>');
+			tbodyLis.push('<th>' + data[i].sum + '</th></tr>');
+		}
+	} else if(listType === 'externalDocTime') {
+		for(i = 0; i < data.length; i++) {
+			names = data[i].key.split('-');
+			tbodyLis.push('<tr><th>'+ (i+1) +'</th>');
+			tbodyLis.push('<th>' + names[0] + '</th>');
+			tbodyLis.push('<th>' + names[1] + '</th>');
+			tbodyLis.push('<th>' + names[2] + '</th>');
+			tbodyLis.push('<th>' + data[i].value + '% </th></tr>');
+		}
+	}
+
+	else if(listType === 'enterpriseCompanyType') {
 		for(i = 0; i < data.length; i++) {
 			tbodyLis.push('<tr><th>'+ (i+1) +'</th>');
 			tbodyLis.push('<th>' + data[i].key + '</th>');
