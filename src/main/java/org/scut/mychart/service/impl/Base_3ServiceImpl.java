@@ -181,7 +181,7 @@ public class Base_3ServiceImpl implements Base_3Service {
 		if(len > result.size()) {
 			len = result.size();
 		}
-		pages = result.size()/PAGE_NUM+1;
+		pages=result.size()<=PAGE_NUM?1:result.size()/PAGE_NUM+1;
 		result=result.subList(offset, len);
 		data.put("pageCount",pages);
 		data.put("data", result);
