@@ -356,8 +356,9 @@ public class Hospital_2ServiceImpl implements Hospital_2Service {
 
 		GsonOption baseOption = new GsonOption();
 		List<GsonOption> options = new ArrayList<GsonOption>();
-		List<Hospital_2> totalList = getHospital_2(title,null);
+
 		for (int i=2010;i<=2015;i++){
+			List<Hospital_2> totalList = getHospital_2(title,new String[]{i+""});
 			CategoryAxis category = new CategoryAxis();
 			GsonOption option = new GsonOption();
 			option.tooltip().trigger(Trigger.axis).formatter("{b} : {c}");
@@ -369,7 +370,7 @@ public class Hospital_2ServiceImpl implements Hospital_2Service {
 			Bar bar = new Bar();
 			int t=1;
 			for (Hospital_2 list:totalList){
-				if(t<=10&&i==list.getyear()){
+				if(t<=10){
 					list=totalList.get(totalList.indexOf(list)+1-t+10-t);
 					if(title==6){
 						option.title(i+"年医院就医服务数量排序TOP10");
