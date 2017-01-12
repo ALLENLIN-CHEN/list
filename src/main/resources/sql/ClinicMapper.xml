@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.scut.mychart.mapper.ClinicMapper">
+	<!-- 开启二级缓存 -->
+	<cache size="1024" readOnly="true" />
+	
+	<select id="getHospitalTotal" resultType="org.scut.mychart.model.ClinicModel" useCache="true">
+		<![CDATA[
+			select hospital,count(*) as sum from hospital_business 
+			where operation_time between #{stime} and #{etime} and operation = '门诊统筹申请'
+			group by hospital
+			order by sum desc
+			limit 15 offset #{offset}
+		]]>
+	</select>
+	
+	<select id="getHospitalCount" resultType="int" useCache="true">
+		<![CDATA[
+			select count(*) from (select hospital,count(*) as sum from hospital_business 
+			where operation_time between #{stime} and #{etime} and operation = '门诊统筹申请'
+			group by hospital) temp
+		]]>
+	</select>		
+
+	<select id="getDepartmentTotal" resultType="org.scut.mychart.model.ClinicModel" useCache="true">
+		<![CDATA[
+			select hospital, department, count(*) as sum from hospital_business 
+			where operation_time between #{stime} and #{etime} and operation = '门诊统筹申请'
+			group by hospital, department
+			order by sum desc
+			limit 15 offset #{offset}
+		]]>
+	</select>
+	
+	<select id="getDepartmentCount" resultType="int" useCache="true">
+		<![CDATA[
+			select count(*) from (select hospital, department, count(*) as sum from hospital_business 
+			where operation_time between #{stime} and #{etime} and operation = '门诊统筹申请'
+			group by hospital, department) temp
+		]]>
+	</select>
+	
+	<select id="getDoctorTotal" resultType="org.scut.mychart.model.ClinicModel" useCache="true">
+		<![CDATA[
+			select hospital, department, doctor, count(*) as sum from hospital_business 
+			where operation_time between #{stime} and #{etime} and operation = '门诊统筹申请'
+			group by hospital, department, doctor
+			order by sum desc
+			limit 15 offset #{offset}
+		]]>
+	</select>
+	
+	<select id="getDoctorCount" resultType="int" useCache="true">
+		<![CDATA[
+			select count(*) from (select hospital, department, doctor, count(*) as sum from hospital_business 
+			where operation_time between #{stime} and #{etime} and operation = '门诊统筹申请'
+			group by hospital, department, doctor) temp
+		]]>
+	</select>
+	
+</mapper>

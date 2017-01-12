@@ -18,6 +18,10 @@ var classData = {
 		       {
 		    	   key:'other',
 		    	   value: '住院登记'
+			   },
+			   {
+				   key: 'clinic',
+				   value: '门诊统筹业务'			   
 		       
 		}],
 		enterprise: [{
@@ -177,7 +181,25 @@ var moduleData = {
 			value: '科室占比排名'
 		}],
 	
-		
+		clinic:[{
+		        	url: 'charts/clinic/hospitalTotal',
+		        	key: 'year',
+		        	list: 'clinicHospYear',
+		        	value: '医院排名'
+		        },
+		        {
+		        	url: 'charts/clinic/departmentTotal',
+		        	key: 'year',
+		        	list: 'clinicDepYear',
+		        	value: '科室排名'
+		        },
+		        {
+		        	url:'charts/clinic/doctorTotal',
+		        	key:'year',
+		        	list:'clinicDocYear',
+		        	value:'医生排名'
+		        }],
+				
 		companyType: [{
 			url: 'charts/company/data',
 			key: 'year',
@@ -241,6 +263,10 @@ var listThead = {
 	otherDepYear: ['医院名称', '科室名称', '年总住院登记数量'],
 	otherDepTime: ['医院名称', '科室名称', '年总住院登记数量占比'],
 
+	clinicHospYear: ['医院名称', '年总门诊统筹申请数量'],
+	clinicDepYear: ['医院名称', '科室名称', '年总门诊统筹申请数量'],
+	clinicDocYear: ['医院名称', '科室名称', '医生名称', '年总门诊统筹申请数量'],	
+	
 	enterpriseIndustryType: ['行业名称', '行业参保基数'],
 
 	enterpriseFinancialType: ['经济类型名称', '经济类型参保基数']
@@ -871,7 +897,28 @@ function renderList(data) {
 			tbodyLis.push('<th>' + data[i].value + '% </th></tr>');
 		}
 	}
-	
+	else if(listType === 'clinicHospYear'){
+		for(i = 0; i < data.length; i++) {
+			tbodyLis.push('<tr><th>'+ (i+1) +'</th>');
+			tbodyLis.push('<th>' + data[i].hospital + '</th>');
+			tbodyLis.push('<th>' + data[i].sum + '</th></tr>');
+		}
+	}else if(listType === 'clinicDepYear'){
+		for(i = 0;i < data.length; i++){
+			tbodyLis.push('<tr><th>' + (i+1) +'</th>');
+			tbodyLis.push('<th>' + data[i].hospital + '</th>');
+			tbodyLis.push('<th>' + data[i].department + '</th>');
+			tbodyLis.push('<th>' + data[i].sum + '</th></tr>');
+		}
+	}else if(listType === 'clinicDocYear'){
+		for(i = 0;i < data.length; i++){
+			tbodyLis.push('<tr><th>' + (i+1) +'</th>');
+			tbodyLis.push('<th>' + data[i].hospital + '</th>');
+			tbodyLis.push('<th>' + data[i].department + '</th>');
+			tbodyLis.push('<th>' + data[i].doctor + '</th>');
+			tbodyLis.push('<th>' + data[i].sum + '</th></tr>');
+		}
+	}
 	
 	$('.table thead tr').html(theadLis.join(''));
 	$('.table tbody').html(tbodyLis.join(''));
