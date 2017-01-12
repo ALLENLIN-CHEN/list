@@ -130,8 +130,31 @@ var moduleData = {
 			list: 'hos_2DocTime',
 			value: '医生占比排名'
 		}],
-		
-		
+
+	special: [{
+		url: 'charts/special/hospitalTotal',
+		key: 'year',
+		list: 'specialHospYear',
+		value: '医院排名'
+	},{
+		url: 'charts/special/hospitalPercent',
+		key: 'time',
+		list: 'specialHospTime',
+		value: '医院占比排名'
+	},{
+		url: 'charts/special/departmentTotal',
+		key: 'year',
+		list: 'specialDepYear',
+		value: '科室排名'
+	},{
+		url: 'charts/special/departmentPercent',
+		key: 'time',
+		list: 'specialDepTime',
+		value: '科室占比排名'
+	    }],
+
+
+
 		other: [{
 			url: 'charts/other/otherGetHisHospital',
 			key: 'year',
@@ -206,6 +229,11 @@ var listThead = {
     hos_2DocTime: ['医院名称', '科室名称', '医生名称', '年总挂号数量占比'],
 
 	enterpriseCompanyType: ['单位类型名称', '单位类型参保基数'],
+
+	specialHospYear: ['医院名称', '年总特殊医疗数量'],
+	specialHospTime: ['医院名称', '年总特殊医疗数量占比'],
+	specialDepYear: ['医院名称', '科室名称', '年总特殊医疗数量'],
+	specialDepTime: ['医院名称', '科室名称', '年总特殊医疗数量占比'],
 
 
 	otherHosYear: ['医院名称', '年总住院登记数量'],
@@ -662,7 +690,36 @@ function renderList(data) {
             tbodyLis.push('<th>' + data[i].num + '% </th></tr>');
         }
     }
-	
+
+	if(listType === 'specialHospYear') {
+		for(i = 0; i < data.length; i++) {
+			tbodyLis.push('<tr><th>'+ (i+1) +'</th>');
+			tbodyLis.push('<th>' + data[i].hospital + '</th>');
+			tbodyLis.push('<th>' + data[i].sum + '</th></tr>');
+		}
+	} else if(listType === 'specialHospTime') {
+		for(i = 0; i < data.length; i++) {
+			tbodyLis.push('<tr><th>'+ (i+1) +'</th>');
+			tbodyLis.push('<th>' + data[i].key + '</th>');
+			tbodyLis.push('<th>' + data[i].value + '% </th></tr>');
+		}
+	} else if(listType === 'specialDepYear') {
+		for(i = 0; i < data.length; i++) {
+			tbodyLis.push('<tr><th>'+ (i+1) +'</th>');
+			tbodyLis.push('<th>' + data[i].hospital + '</th>');
+			tbodyLis.push('<th>' + data[i].department + '</th>');
+			tbodyLis.push('<th>' + data[i].sum + '</th></tr>');
+		}
+	} else if(listType === 'specialDepTime') {
+		for(i = 0; i < data.length; i++) {
+			names = data[i].key.split('-');
+			tbodyLis.push('<tr><th>'+ (i+1) +'</th>');
+			tbodyLis.push('<th>' + names[0] + '</th>');
+			tbodyLis.push('<th>' + names[1] + '</th>');
+			tbodyLis.push('<th>' + data[i].value + '% </th></tr>');
+		}
+	}
+
 	else if(listType === 'otherHosYear') {
 		for(i = 0; i < data.length; i++) {
 			tbodyLis.push('<tr><th>'+ (i+1) +'</th>');
