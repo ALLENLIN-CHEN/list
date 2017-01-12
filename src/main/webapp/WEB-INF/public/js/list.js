@@ -783,19 +783,31 @@ function renderList(data) {
 
 	if(listType === 'specialHospYear') {
 		for(i = 0; i < data.length; i++) {
-			tbodyLis.push('<tr><th>'+ (i+1) +'</th>');
+			if(i % 2 != 0) {
+				tbodyLis.push('<tr ' + bgColor + '><th>'+ (curpage+i+1) +'</th>');
+			} else {
+				tbodyLis.push('<tr><th>'+ (curpage+i+1) +'</th>');
+			}
 			tbodyLis.push('<th>' + data[i].hospital + '</th>');
 			tbodyLis.push('<th>' + data[i].sum + '</th></tr>');
 		}
 	} else if(listType === 'specialHospTime') {
 		for(i = 0; i < data.length; i++) {
-			tbodyLis.push('<tr><th>'+ (i+1) +'</th>');
+			if(i % 2 != 0) {
+				tbodyLis.push('<tr ' + bgColor + '><th>'+ (curpage+i+1) +'</th>');
+			} else {
+				tbodyLis.push('<tr><th>'+ (curpage+i+1) +'</th>');
+			}
 			tbodyLis.push('<th>' + data[i].key + '</th>');
 			tbodyLis.push('<th>' + data[i].value + '% </th></tr>');
 		}
 	} else if(listType === 'specialDepYear') {
 		for(i = 0; i < data.length; i++) {
-			tbodyLis.push('<tr><th>'+ (i+1) +'</th>');
+			if(i % 2 != 0) {
+				tbodyLis.push('<tr ' + bgColor + '><th>'+ (curpage+i+1) +'</th>');
+			} else {
+				tbodyLis.push('<tr><th>'+ (curpage+i+1) +'</th>');
+			}
 			tbodyLis.push('<th>' + data[i].hospital + '</th>');
 			tbodyLis.push('<th>' + data[i].department + '</th>');
 			tbodyLis.push('<th>' + data[i].sum + '</th></tr>');
@@ -803,7 +815,11 @@ function renderList(data) {
 	} else if(listType === 'specialDepTime') {
 		for(i = 0; i < data.length; i++) {
 			names = data[i].key.split('-');
-			tbodyLis.push('<tr><th>'+ (i+1) +'</th>');
+			if(i % 2 != 0) {
+				tbodyLis.push('<tr ' + bgColor + '><th>'+ (curpage+i+1) +'</th>');
+			} else {
+				tbodyLis.push('<tr><th>'+ (curpage+i+1) +'</th>');
+			}
 			tbodyLis.push('<th>' + names[0] + '</th>');
 			tbodyLis.push('<th>' + names[1] + '</th>');
 			tbodyLis.push('<th>' + data[i].value + '% </th></tr>');
