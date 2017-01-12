@@ -139,3 +139,14 @@
 .pagination li .dotted:hover {
 	background-color: #fff;
 }
+
+.table-title {
+	font-size: 20px;
+    font-weight: bolder;
+    margin: 10px 0;
+}
+
+table thead {
+	background-color: rgb(52, 152, 219);
+    color: #fff;
+}

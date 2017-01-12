@@ -514,7 +514,7 @@ function renderList(data) {
 	var listType = $('.module-label label').data('list');
 	var theads = listThead[listType];
 	var theadLis = [];
-	
+	var curpage = (curP-1)*15;
 	var title = '';
 	var filter = $('.filter-wrapper').data('filter');
 	if(filter === 'year') {
@@ -528,27 +528,45 @@ function renderList(data) {
 		title = $('.startTime').val() + '年 至 ' + $('.endTime').val() + '年';
 	}
 	
-	theadLis.push('<th>'+title+'</th>');
+	//设置标题
+	$('.table-title').html(title);
+	
+	theadLis.push('<th>序号</th>');
 	for(i = 0; i < theads.length; i++) {
 		theadLis.push('<th>' + theads[i] + '</th>');
 	}
 	
+	// 用于设定奇偶行数据的背景颜色差异
+	var bgColor = 'style="background-color:rgba(52, 152, 219, 0.15);"';
+	
 	var tbodyLis = [];
 	if(listType === 'registerHospYear') {
 		for(i = 0; i < data.length; i++) {
-			tbodyLis.push('<tr><th>'+ (i+1) +'</th>');
+			if(i % 2 != 0) {
+				tbodyLis.push('<tr ' + bgColor + '><th>'+ (curpage+i+1) +'</th>');
+			} else {
+				tbodyLis.push('<tr><th>'+ (curpage+i+1) +'</th>');
+			}
 			tbodyLis.push('<th>' + data[i].hospital + '</th>');
 			tbodyLis.push('<th>' + data[i].sum + '</th></tr>');
 		}
 	} else if(listType === 'registerHospTime') {
 		for(i = 0; i < data.length; i++) {
-			tbodyLis.push('<tr><th>'+ (i+1) +'</th>');
+			if(i % 2 != 0) {
+				tbodyLis.push('<tr ' + bgColor + '><th>'+ (curpage+i+1) +'</th>');
+			} else {
+				tbodyLis.push('<tr><th>'+ (curpage+i+1) +'</th>');
+			}
 			tbodyLis.push('<th>' + data[i].key + '</th>');
 			tbodyLis.push('<th>' + data[i].value + '% </th></tr>');
 		}
 	} else if(listType === 'registerDepYear') {
 		for(i = 0; i < data.length; i++) {
-			tbodyLis.push('<tr><th>'+ (i+1) +'</th>');
+			if(i % 2 != 0) {
+				tbodyLis.push('<tr ' + bgColor + '><th>'+ (curpage+i+1) +'</th>');
+			} else {
+				tbodyLis.push('<tr><th>'+ (curpage+i+1) +'</th>');
+			}
 			tbodyLis.push('<th>' + data[i].hospital + '</th>');
 			tbodyLis.push('<th>' + data[i].department + '</th>');
 			tbodyLis.push('<th>' + data[i].sum + '</th></tr>');
@@ -556,14 +574,22 @@ function renderList(data) {
 	} else if(listType === 'registerDepTime') {
 		for(i = 0; i < data.length; i++) {
 			names = data[i].key.split('-');
-			tbodyLis.push('<tr><th>'+ (i+1) +'</th>');
+			if(i % 2 != 0) {
+				tbodyLis.push('<tr ' + bgColor + '><th>'+ (curpage+i+1) +'</th>');
+			} else {
+				tbodyLis.push('<tr><th>'+ (curpage+i+1) +'</th>');
+			}
 			tbodyLis.push('<th>' + names[0] + '</th>');
 			tbodyLis.push('<th>' + names[1] + '</th>');
 			tbodyLis.push('<th>' + data[i].value + '% </th></tr>');
 		}
 	} else if(listType === 'registerDocYear') {
 		for(i = 0; i < data.length; i++) {
-			tbodyLis.push('<tr><th>'+ (i+1) +'</th>');
+			if(i % 2 != 0) {
+				tbodyLis.push('<tr ' + bgColor + '><th>'+ (curpage+i+1) +'</th>');
+			} else {
+				tbodyLis.push('<tr><th>'+ (curpage+i+1) +'</th>');
+			}
 			tbodyLis.push('<th>' + data[i].hospital + '</th>');
 			tbodyLis.push('<th>' + data[i].department + '</th>');
 			tbodyLis.push('<th>' + data[i].doctor + '</th>');
@@ -572,7 +598,11 @@ function renderList(data) {
 	} else if(listType === 'registerDocTime') {
 		for(i = 0; i < data.length; i++) {
 			names = data[i].key.split('-');
-			tbodyLis.push('<tr><th>'+ (i+1) +'</th>');
+			if(i % 2 != 0) {
+				tbodyLis.push('<tr ' + bgColor + '><th>'+ (curpage+i+1) +'</th>');
+			} else {
+				tbodyLis.push('<tr><th>'+ (curpage+i+1) +'</th>');
+			}
 			tbodyLis.push('<th>' + names[0] + '</th>');
 			tbodyLis.push('<th>' + names[1] + '</th>');
 			tbodyLis.push('<th>' + names[2] + '</th>');
@@ -581,19 +611,31 @@ function renderList(data) {
 	}
 	else if(listType === 'externalHospYear') {
 		for(i = 0; i < data.length; i++) {
-			tbodyLis.push('<tr><th>'+ (i+1) +'</th>');
+			if(i % 2 != 0) {
+				tbodyLis.push('<tr ' + bgColor + '><th>'+ (curpage+i+1) +'</th>');
+			} else {
+				tbodyLis.push('<tr><th>'+ (curpage+i+1) +'</th>');
+			}
 			tbodyLis.push('<th>' + data[i].hospital + '</th>');
 			tbodyLis.push('<th>' + data[i].sum + '</th></tr>');
 		}
 	} else if(listType === 'externalHospTime') {
 		for(i = 0; i < data.length; i++) {
-			tbodyLis.push('<tr><th>'+ (i+1) +'</th>');
+			if(i % 2 != 0) {
+				tbodyLis.push('<tr ' + bgColor + '><th>'+ (curpage+i+1) +'</th>');
+			} else {
+				tbodyLis.push('<tr><th>'+ (curpage+i+1) +'</th>');
+			}
 			tbodyLis.push('<th>' + data[i].key + '</th>');
 			tbodyLis.push('<th>' + data[i].value + '% </th></tr>');
 		}
 	} else if(listType === 'externalDepYear') {
 		for(i = 0; i < data.length; i++) {
-			tbodyLis.push('<tr><th>'+ (i+1) +'</th>');
+			if(i % 2 != 0) {
+				tbodyLis.push('<tr ' + bgColor + '><th>'+ (curpage+i+1) +'</th>');
+			} else {
+				tbodyLis.push('<tr><th>'+ (curpage+i+1) +'</th>');
+			}
 			tbodyLis.push('<th>' + data[i].hospital + '</th>');
 			tbodyLis.push('<th>' + data[i].department + '</th>');
 			tbodyLis.push('<th>' + data[i].sum + '</th></tr>');
@@ -601,14 +643,22 @@ function renderList(data) {
 	} else if(listType === 'externalDepTime') {
 		for(i = 0; i < data.length; i++) {
 			names = data[i].key.split('-');
-			tbodyLis.push('<tr><th>'+ (i+1) +'</th>');
+			if(i % 2 != 0) {
+				tbodyLis.push('<tr ' + bgColor + '><th>'+ (curpage+i+1) +'</th>');
+			} else {
+				tbodyLis.push('<tr><th>'+ (curpage+i+1) +'</th>');
+			}
 			tbodyLis.push('<th>' + names[0] + '</th>');
 			tbodyLis.push('<th>' + names[1] + '</th>');
 			tbodyLis.push('<th>' + data[i].value + '% </th></tr>');
 		}
 	} else if(listType === 'externalDocYear') {
 		for(i = 0; i < data.length; i++) {
-			tbodyLis.push('<tr><th>'+ (i+1) +'</th>');
+			if(i % 2 != 0) {
+				tbodyLis.push('<tr ' + bgColor + '><th>'+ (curpage+i+1) +'</th>');
+			} else {
+				tbodyLis.push('<tr><th>'+ (curpage+i+1) +'</th>');
+			}
 			tbodyLis.push('<th>' + data[i].hospital + '</th>');
 			tbodyLis.push('<th>' + data[i].department + '</th>');
 			tbodyLis.push('<th>' + data[i].doctor + '</th>');
@@ -617,7 +667,11 @@ function renderList(data) {
 	} else if(listType === 'externalDocTime') {
 		for(i = 0; i < data.length; i++) {
 			names = data[i].key.split('-');
-			tbodyLis.push('<tr><th>'+ (i+1) +'</th>');
+			if(i % 2 != 0) {
+				tbodyLis.push('<tr ' + bgColor + '><th>'+ (curpage+i+1) +'</th>');
+			} else {
+				tbodyLis.push('<tr><th>'+ (curpage+i+1) +'</th>');
+			}
 			tbodyLis.push('<th>' + names[0] + '</th>');
 			tbodyLis.push('<th>' + names[1] + '</th>');
 			tbodyLis.push('<th>' + names[2] + '</th>');
@@ -627,21 +681,33 @@ function renderList(data) {
 
 	else if(listType === 'enterpriseCompanyType') {
 		for(i = 0; i < data.length; i++) {
-			tbodyLis.push('<tr><th>'+ (i+1) +'</th>');
+			if(i % 2 != 0) {
+				tbodyLis.push('<tr ' + bgColor + '><th>'+ (curpage+i+1) +'</th>');
+			} else {
+				tbodyLis.push('<tr><th>'+ (curpage+i+1) +'</th>');
+			}
 			tbodyLis.push('<th>' + data[i].key + '</th>');
 			tbodyLis.push('<th>' + data[i].value + '元</th></tr>');
 		}
 	}
 	else if(listType === 'enterpriseIndustryType') {
 		for(i = 0; i < data.length; i++) {
-			tbodyLis.push('<tr><th>'+ (i+1) +'</th>');
+			if(i % 2 != 0) {
+				tbodyLis.push('<tr ' + bgColor + '><th>'+ (curpage+i+1) +'</th>');
+			} else {
+				tbodyLis.push('<tr><th>'+ (curpage+i+1) +'</th>');
+			}
 			tbodyLis.push('<th>' + data[i].key + '</th>');
 			tbodyLis.push('<th>' + data[i].value + '元</th></tr>');
 		}
 	}
 	else if(listType === 'enterpriseFinancialType') {
 		for(i = 0; i < data.length; i++) {
-			tbodyLis.push('<tr><th>'+ (i+1) +'</th>');
+			if(i % 2 != 0) {
+				tbodyLis.push('<tr ' + bgColor + '><th>'+ (curpage+i+1) +'</th>');
+			} else {
+				tbodyLis.push('<tr><th>'+ (curpage+i+1) +'</th>');
+			}
 			tbodyLis.push('<th>' + data[i].key + '</th>');
 			tbodyLis.push('<th>' + data[i].value + '元</th></tr>');
 		}
@@ -649,33 +715,53 @@ function renderList(data) {
 
     else if(listType === 'hos_2HospYear') {
         for(i = 0; i < data.length; i++) {
-            tbodyLis.push('<tr><th>'+ (i+1) +'</th>');
+        	if(i % 2 != 0) {
+				tbodyLis.push('<tr ' + bgColor + '><th>'+ (curpage+i+1) +'</th>');
+			} else {
+				tbodyLis.push('<tr><th>'+ (curpage+i+1) +'</th>');
+			}
             tbodyLis.push('<th>' + data[i].hospital + '</th>');
             tbodyLis.push('<th>' + data[i].num + '</th></tr>');
         }
     } else if(listType === 'hos_2HospTime') {
         for(i = 0; i < data.length; i++) {
-            tbodyLis.push('<tr><th>'+ (i+1) +'</th>');
+        	if(i % 2 != 0) {
+				tbodyLis.push('<tr ' + bgColor + '><th>'+ (curpage+i+1) +'</th>');
+			} else {
+				tbodyLis.push('<tr><th>'+ (curpage+i+1) +'</th>');
+			}
             tbodyLis.push('<th>' + data[i].hospital + '</th>');
             tbodyLis.push('<th>' + data[i].num + '% </th></tr>');
         }
     } else if(listType === 'hos_2DepYear') {
         for(i = 0; i < data.length; i++) {
-            tbodyLis.push('<tr><th>'+ (i+1) +'</th>');
+        	if(i % 2 != 0) {
+				tbodyLis.push('<tr ' + bgColor + '><th>'+ (curpage+i+1) +'</th>');
+			} else {
+				tbodyLis.push('<tr><th>'+ (curpage+i+1) +'</th>');
+			}
             tbodyLis.push('<th>' + data[i].hospital + '</th>');
             tbodyLis.push('<th>' + data[i].department + '</th>');
             tbodyLis.push('<th>' + data[i].num + '</th></tr>');
         }
     } else if(listType === 'hos_2DepTime') {
         for(i = 0; i < data.length; i++) {
-            tbodyLis.push('<tr><th>'+ (i+1) +'</th>');
+        	if(i % 2 != 0) {
+				tbodyLis.push('<tr ' + bgColor + '><th>'+ (curpage+i+1) +'</th>');
+			} else {
+				tbodyLis.push('<tr><th>'+ (curpage+i+1) +'</th>');
+			}
             tbodyLis.push('<th>' + data[i].hospital + '</th>');
             tbodyLis.push('<th>' + data[i].department + '</th>');
             tbodyLis.push('<th>' + data[i].num + '% </th></tr>');
         }
     } else if(listType === 'hos_2DocYear') {
         for(i = 0; i < data.length; i++) {
-            tbodyLis.push('<tr><th>'+ (i+1) +'</th>');
+        	if(i % 2 != 0) {
+				tbodyLis.push('<tr ' + bgColor + '><th>'+ (curpage+i+1) +'</th>');
+			} else {
+				tbodyLis.push('<tr><th>'+ (curpage+i+1) +'</th>');
+			}
             tbodyLis.push('<th>' + data[i].hospital + '</th>');
             tbodyLis.push('<th>' + data[i].department + '</th>');
             tbodyLis.push('<th>' + data[i].doctor + '</th>');
@@ -683,7 +769,11 @@ function renderList(data) {
         }
     } else if(listType === 'hos_2DocTime') {
         for(i = 0; i < data.length; i++) {
-            tbodyLis.push('<tr><th>'+ (i+1) +'</th>');
+        	if(i % 2 != 0) {
+				tbodyLis.push('<tr ' + bgColor + '><th>'+ (curpage+i+1) +'</th>');
+			} else {
+				tbodyLis.push('<tr><th>'+ (curpage+i+1) +'</th>');
+			}
             tbodyLis.push('<th>' + data[i].hospital + '</th>');
             tbodyLis.push('<th>' + data[i].department + '</th>');
             tbodyLis.push('<th>' + data[i].doctor + '</th>');
@@ -722,20 +812,32 @@ function renderList(data) {
 
 	else if(listType === 'otherHosYear') {
 		for(i = 0; i < data.length; i++) {
-			tbodyLis.push('<tr><th>'+ (i+1) +'</th>');
+			if(i % 2 != 0) {
+				tbodyLis.push('<tr ' + bgColor + '><th>'+ (curpage+i+1) +'</th>');
+			} else {
+				tbodyLis.push('<tr><th>'+ (curpage+i+1) +'</th>');
+			}
 			tbodyLis.push('<th>' + data[i].hos_name + '</th>');
 			tbodyLis.push('<th>' + data[i].person_num + '</th></tr>');
 		}
 			
 	}else if(listType === 'otherHosTime') {
 		for(i = 0; i < data.length; i++) {
-			tbodyLis.push('<tr><th>'+ (i+1) +'</th>');
+			if(i % 2 != 0) {
+				tbodyLis.push('<tr ' + bgColor + '><th>'+ (curpage+i+1) +'</th>');
+			} else {
+				tbodyLis.push('<tr><th>'+ (curpage+i+1) +'</th>');
+			}
 			tbodyLis.push('<th>' + data[i].key + '</th>');
 			tbodyLis.push('<th>' + data[i].value + '% </th></tr>');
 		}
 	} else if(listType === 'otherDepYear') {
 		for(i = 0; i < data.length; i++) {
-			tbodyLis.push('<tr><th>'+ (i+1) +'</th>');
+			if(i % 2 != 0) {
+				tbodyLis.push('<tr ' + bgColor + '><th>'+ (curpage+i+1) +'</th>');
+			} else {
+				tbodyLis.push('<tr><th>'+ (curpage+i+1) +'</th>');
+			}
 			tbodyLis.push('<th>' + data[i].hos_name + '</th>');
 			tbodyLis.push('<th>' + data[i].dep_name + '</th>');
 			tbodyLis.push('<th>' + data[i].person_num + '</th></tr>');
@@ -743,7 +845,11 @@ function renderList(data) {
 	} else if(listType === 'otherDepTime') {
 		for(i = 0; i < data.length; i++) {
 			names = data[i].key.split('-');
-			tbodyLis.push('<tr><th>'+ (i+1) +'</th>');
+			if(i % 2 != 0) {
+				tbodyLis.push('<tr ' + bgColor + '><th>'+ (curpage+i+1) +'</th>');
+			} else {
+				tbodyLis.push('<tr><th>'+ (curpage+i+1) +'</th>');
+			}
 			tbodyLis.push('<th>' + names[0] + '</th>');
 			tbodyLis.push('<th>' + names[1] + '</th>');
 			tbodyLis.push('<th>' + data[i].value + '% </th></tr>');

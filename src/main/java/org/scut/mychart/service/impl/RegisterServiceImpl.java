@@ -360,7 +360,7 @@ public class RegisterServiceImpl implements RegisterService {
 		
 		List<RegisterModel> data = registerMapper.getDoctorTotal(param);
 		
-		int total = registerMapper.getDepartmentCount(param);
+		int total = registerMapper.getDoctorCount(param);
 		int pageCount = getPageCount(total);
 		
 		result.put("pageCount", pageCount);
