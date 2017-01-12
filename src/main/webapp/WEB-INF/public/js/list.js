@@ -546,7 +546,7 @@ function renderList(data) {
 	if(filter === 'year') {
 		title = $('input[name="year"]:checked').val();
 		if(title === 'all') {
-			title = '总季度';
+			title = '总年度';
 		}else {
 			title += '年';
 		}
@@ -899,20 +899,32 @@ function renderList(data) {
 	}
 	else if(listType === 'clinicHospYear'){
 		for(i = 0; i < data.length; i++) {
-			tbodyLis.push('<tr><th>'+ (i+1) +'</th>');
+			if(i % 2 != 0) {
+				tbodyLis.push('<tr ' + bgColor + '><th>'+ (curpage+i+1) +'</th>');
+			} else {
+				tbodyLis.push('<tr><th>'+ (curpage+i+1) +'</th>');
+			}
 			tbodyLis.push('<th>' + data[i].hospital + '</th>');
 			tbodyLis.push('<th>' + data[i].sum + '</th></tr>');
 		}
 	}else if(listType === 'clinicDepYear'){
 		for(i = 0;i < data.length; i++){
-			tbodyLis.push('<tr><th>' + (i+1) +'</th>');
+			if(i % 2 != 0) {
+				tbodyLis.push('<tr ' + bgColor + '><th>'+ (curpage+i+1) +'</th>');
+			} else {
+				tbodyLis.push('<tr><th>'+ (curpage+i+1) +'</th>');
+			}
 			tbodyLis.push('<th>' + data[i].hospital + '</th>');
 			tbodyLis.push('<th>' + data[i].department + '</th>');
 			tbodyLis.push('<th>' + data[i].sum + '</th></tr>');
 		}
 	}else if(listType === 'clinicDocYear'){
 		for(i = 0;i < data.length; i++){
-			tbodyLis.push('<tr><th>' + (i+1) +'</th>');
+			if(i % 2 != 0) {
+				tbodyLis.push('<tr ' + bgColor + '><th>'+ (curpage+i+1) +'</th>');
+			} else {
+				tbodyLis.push('<tr><th>'+ (curpage+i+1) +'</th>');
+			}
 			tbodyLis.push('<th>' + data[i].hospital + '</th>');
 			tbodyLis.push('<th>' + data[i].department + '</th>');
 			tbodyLis.push('<th>' + data[i].doctor + '</th>');
