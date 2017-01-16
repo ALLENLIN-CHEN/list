@@ -15,6 +15,10 @@ var classData = {
 		    	   key: 'special',
 		    	   value: '特殊医疗业务'
 		       },
+			   {
+				   key: 'expense',
+				   value: '医疗费用报销申请业务'
+			   },
 		       {
 		    	   key:'other',
 		    	   value: '住院登记'
@@ -157,6 +161,28 @@ var moduleData = {
 		value: '科室占比排名'
 	    }],
 
+		expense: [{
+			url: 'charts/expense/hospitalTotal',
+			key: 'year',
+			list: 'expenseHospYear',
+			value: '医院排名'
+		},{
+			url: 'charts/expense/hospitalPercent',
+			key: 'time',
+			list: 'expenseHospTime',
+			value: '医院占比排名'
+		},{
+			url: 'charts/expense/departmentTotal',
+			key: 'year',
+			list: 'expenseDepYear',
+			value: '科室排名'
+		},{
+			url: 'charts/expense/departmentPercent',
+			key: 'time',
+			list: 'expenseDepTime',
+			value: '科室占比排名'
+		}],
+
 
 
 		other: [{
@@ -256,6 +282,11 @@ var listThead = {
 	specialHospTime: ['医院名称', '年总特殊医疗数量占比'],
 	specialDepYear: ['医院名称', '科室名称', '年总特殊医疗数量'],
 	specialDepTime: ['医院名称', '科室名称', '年总特殊医疗数量占比'],
+
+	expenseHospYear: ['医院名称', '年总医疗费用报销申请数量'],
+	expenseHospTime: ['医院名称', '年总医疗费用报销申请数量占比'],
+	expenseDepYear: ['医院名称', '科室名称', '年总医疗费用报销数量'],
+	expenseDepTime: ['医院名称', '科室名称', '年总医疗费用报销数量占比'],
 
 
 	otherHosYear: ['医院名称', '年总住院登记数量'],
@@ -839,6 +870,51 @@ function renderList(data) {
 			tbodyLis.push('<th>' + data[i].sum + '</th></tr>');
 		}
 	} else if(listType === 'specialDepTime') {
+		for(i = 0; i < data.length; i++) {
+			names = data[i].key.split('-');
+			if(i % 2 != 0) {
+				tbodyLis.push('<tr ' + bgColor + '><th>'+ (curpage+i+1) +'</th>');
+			} else {
+				tbodyLis.push('<tr><th>'+ (curpage+i+1) +'</th>');
+			}
+			tbodyLis.push('<th>' + names[0] + '</th>');
+			tbodyLis.push('<th>' + names[1] + '</th>');
+			tbodyLis.push('<th>' + data[i].value + '% </th></tr>');
+		}
+	}
+
+	if(listType === 'expenseHospYear') {
+		for(i = 0; i < data.length; i++) {
+			if(i % 2 != 0) {
+				tbodyLis.push('<tr ' + bgColor + '><th>'+ (curpage+i+1) +'</th>');
+			} else {
+				tbodyLis.push('<tr><th>'+ (curpage+i+1) +'</th>');
+			}
+			tbodyLis.push('<th>' + data[i].hospital + '</th>');
+			tbodyLis.push('<th>' + data[i].sum + '</th></tr>');
+		}
+	} else if(listType === 'expenseHospTime') {
+		for(i = 0; i < data.length; i++) {
+			if(i % 2 != 0) {
+				tbodyLis.push('<tr ' + bgColor + '><th>'+ (curpage+i+1) +'</th>');
+			} else {
+				tbodyLis.push('<tr><th>'+ (curpage+i+1) +'</th>');
+			}
+			tbodyLis.push('<th>' + data[i].key + '</th>');
+			tbodyLis.push('<th>' + data[i].value + '% </th></tr>');
+		}
+	} else if(listType === 'expenseDepYear') {
+		for(i = 0; i < data.length; i++) {
+			if(i % 2 != 0) {
+				tbodyLis.push('<tr ' + bgColor + '><th>'+ (curpage+i+1) +'</th>');
+			} else {
+				tbodyLis.push('<tr><th>'+ (curpage+i+1) +'</th>');
+			}
+			tbodyLis.push('<th>' + data[i].hospital + '</th>');
+			tbodyLis.push('<th>' + data[i].department + '</th>');
+			tbodyLis.push('<th>' + data[i].sum + '</th></tr>');
+		}
+	} else if(listType === 'expenseDepTime') {
 		for(i = 0; i < data.length; i++) {
 			names = data[i].key.split('-');
 			if(i % 2 != 0) {
