@@ -23,6 +23,15 @@
     background-color: #000;
 }
 
+.line-arrow {
+	display: inline-block;
+    width: 100%;
+    height: 36px;
+    background: url('../images/arrow.png') no-repeat;
+    background-size: contain;
+    background-position: 50%;
+}
+
 .line-icon {
 	float: right;
     margin-top: -14px;
