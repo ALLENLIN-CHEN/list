@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.scut.mychart.mapper.NetPointMapper">
+	<!-- 开启二级缓存 -->
+	<cache size="1024" readOnly="true" />
+	<select id="selectTerminalAmout" resultType="org.scut.mychart.model.NetPointModel" useCache="true">
+		<![CDATA[
+			select branchName,branchAddress,count(distinct terminal_no) as terminalAmount
+			from (
+				select distinct branch_name as branchName,branch_address as branchAddress,terminal_no
+				from zdsj2	
+				where operation_time between #{stime} and #{etime}						
+				) temp			
+			group by branchName,branchAddress
+			order by terminalAmount desc
+			limit 15 offset #{offset}				
+		]]>
+	</select>
+	
+	<select id="countTerminal" resultType="int">
+		<![CDATA[
+			select count(*) from (
+				select branchName,branchAddress,count(distinct terminal_no) as terminalAmount
+				from (
+					select distinct branch_name as branchName,branch_address as branchAddress,terminal_no
+					from zdsj2	
+					where operation_time between #{stime} and #{etime}						
+					) temp			
+				group by branchName,branchAddress
+			) temp2
+		]]>
+	</select>
+	
+	<!-- 统计网点的工作状态:网点的所有终端在一天里面有记录就算正常工作
+		 截取年月日再统计即可
+	-->
+	<select id="selectWorkState" resultType="org.scut.mychart.model.NetPointModel" useCache="true">
+		<![CDATA[
+			select branchName,branchAddress,count(*) as work
+			from(
+				select distinct TO_DATE(operation_time) as d,branch_name as branchName,branch_address as branchAddress				
+				from zdsj2
+				where operation_time between #{stime} and #{etime}
+			) temp
+			group by branchName,branchAddress		
+			order by work desc
+			limit 15 offset #{offset}	
+		]]>
+	</select>
+	
+	<select id="countWorkState" resultType="int">
+		<![CDATA[
+			select count(*) from(
+				select branchName,branchAddress,count(*) as work
+				from(
+					select distinct TO_DATE(operation_time) as d,branch_name as branchName,branch_address as branchAddress				
+					from zdsj2
+					where operation_time between #{stime} and #{etime}
+				) temp
+				group by branchName,branchAddress
+			) temp2
+		]]>
+	</select>
+	
+	<select id="selectOperationAmout" resultType="org.scut.mychart.model.NetPointModel" useCache="true">
+		<![CDATA[
+			select branchName,branchAddress,count(*) as operationAmount
+			from (
+				select branch_name as branchName,branch_address as branchAddress				
+				from zdsj2
+				where operation_time between #{stime} and #{etime}	
+			) temp
+			group by branchName,branchAddress
+			order by operationAmount desc
+			limit 15 offset #{offset}		
+		]]>
+	</select>
+
+	<select id="countOperation" resultType="int">
+		<![CDATA[
+			select count(*)
+			from (
+				select branchName,branchAddress,count(*) as operationAmount
+				from (
+					select branch_name as branchName,branch_address as branchAddress				
+					from zdsj2
+					where operation_time between #{stime} and #{etime}	
+					) temp
+				group by branchName,branchAddress
+			) temp2
+		]]>
+	</select>
+</mapper>
