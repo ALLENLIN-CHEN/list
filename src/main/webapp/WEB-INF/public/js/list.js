@@ -42,7 +42,7 @@ var classData = {
 		],
 		cardTotal:[{
 			key:'netpoint',
-			value:'用卡次数与区域资源的关系分析'
+			value:'社保终端网点分析'
 		}]
 };
 
@@ -266,7 +266,26 @@ var moduleData = {
         	key:'year',
         	list:'npTerminal',
         	value:'网点终端数量'
-        }]
+        },
+			{
+				url: 'charts/terminal/getTypeData',
+				key: 'year',
+				list: 'terminalType',
+				value: '终端类型数量'
+			},
+			{
+				url: 'charts/terminal/getBusinessData',
+				key: 'year',
+				list: 'terminalBusiness',
+				value: '终端业务量'
+			},
+			{
+				url: 'charts/terminal/getStatusData',
+				key: 'year',
+				list: 'terminalStatus',
+				value: '终端工作状态'
+			}
+		]
 			
 };
 
@@ -326,7 +345,11 @@ var listThead = {
 
 	npState:['网点名称','网点地址','正常工作天数','异常工作天数'],
 	npOperation:['网点名称','网点地址','业务量'],
-	npTerminal:['网点名称','网点地址','终端数量']
+	npTerminal:['网点名称','网点地址','终端数量'],
+
+	terminalType:['终端类型','终端数量'],
+	terminalBusiness:['终端编号','终端业务量'],
+	terminalStatus:['终端编号','正常工作天数','异常工作天数']
 };
 
 var curP = 1, totalP = 1;
@@ -591,10 +614,10 @@ function handleData(res) {
 }
 
 function renderList(data) {
-	for(var index=0;index<data.length;index++){
-		console.log(data[index].branchName);
-		console.log(data[index].branchAddress);
-	}
+	// for(var index=0;index<data.length;index++){
+	// 	console.log(data[index].branchName);
+	// 	console.log(data[index].branchAddress);
+	// }
 	var i = 0;
 	var names = [];
 	var listType = $('.module-label label').data('list');
@@ -783,8 +806,8 @@ function renderList(data) {
 			} else {
 				tbodyLis.push('<tr><th>'+ (curpage+i+1) +'</th>');
 			}
-			tbodyLis.push('<th>' + data[i].key + '</th>');
-			tbodyLis.push('<th>' + data[i].value + '元</th></tr>');
+			tbodyLis.push('<th>' + data[i].industry_code + '</th>');
+			tbodyLis.push('<th>' + data[i].cardinality + '元</th></tr>');
 		}
 	}
 	else if(listType === 'enterpriseFinancialType') {
@@ -1072,7 +1095,29 @@ function renderList(data) {
 			tbodyLis.push('<th>' + data[i].terminalAmount + '</th>');			
 		}
 	}
-	
+	else if(listType === 'terminalType'||listType === 'terminalBusiness') {
+		for(i = 0; i < data.length; i++) {
+			if(i % 2 != 0) {
+				tbodyLis.push('<tr ' + bgColor + '><th>'+ (curpage+i+1) +'</th>');
+			} else {
+				tbodyLis.push('<tr><th>'+ (curpage+i+1) +'</th>');
+			}
+			tbodyLis.push('<th>' + data[i].category + '</th>');
+			tbodyLis.push('<th>' + data[i].value + '</th></tr>');
+		}
+	}
+	else if(listType === 'terminalStatus') {
+		for(i = 0; i < data.length; i++) {
+			if(i % 2 != 0) {
+				tbodyLis.push('<tr ' + bgColor + '><th>'+ (curpage+i+1) +'</th>');
+			} else {
+				tbodyLis.push('<tr><th>'+ (curpage+i+1) +'</th>');
+			}
+			tbodyLis.push('<th>' + data[i].category + '</th>');
+			tbodyLis.push('<th>' + data[i].value + '</th>');
+			tbodyLis.push('<th>' + data[i].errorDays + '</th></tr>');
+		}
+	}
 	$('.table thead tr').html(theadLis.join(''));
 	$('.table tbody').html(tbodyLis.join(''));
 }
