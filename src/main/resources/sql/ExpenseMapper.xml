@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.scut.mychart.mapper.ExpenseMapper">
+	<!-- 开启二级缓存 -->
+	<cache size="1024" readOnly="true" />
+
+	<select id="getHospitalTotalList" resultType="org.scut.mychart.model.ExpenseModel" useCache="true">
+		<![CDATA[
+			select hospital, count(*) as sum from hospital_business
+			where operation_time between #{stime} and #{etime} and operation = '医疗费用报销申请'
+			group by hospital
+			order by sum desc
+			limit 15 offset #{offset}
+		]]>
+	</select>
+
+	<select id="getHospitalTotalCount" resultType="int" useCache="true">
+		<![CDATA[
+			select count(*) from (select hospital, count(*) as sum from hospital_business
+			where operation_time between #{stime} and #{etime} and operation = '医疗费用报销申请'
+			group by hospital) temp
+		]]>
+	</select>
+
+	<select id="getDepartmentTotal" resultType="org.scut.mychart.model.ExpenseModel" useCache="true">
+		<![CDATA[
+			select hospital, department, count(*) as sum from hospital_business
+			where operation_time between #{stime} and #{etime} and operation = '医疗费用报销申请'
+			group by hospital, department
+			order by sum desc
+			limit 15 offset #{offset}
+		]]>
+	</select>
+
+	<select id="getHospitalByTime" resultType="org.scut.mychart.model.ExpenseModel" useCache="true">
+		<![CDATA[
+			select hospital, count(*) as sum
+			from hospital_business where operation = #{0} and operation_time between #{1} and #{2}
+			group by hospital
+			order by hospital
+		]]>
+	</select>
+
+	<select id="getHospitalMaxByDay" resultType="org.scut.mychart.model.ExpenseModel" useCache="true">
+		<![CDATA[
+			select temp.hospital as hospital, max(temp.dsum) as maxNum
+			from (select hospital, count(*) as dsum from hospital_business where operation = #{0} and operation_time between #{1} and #{2} group by hospital, operation_time) temp
+			group by hospital
+			order by hospital
+		]]>
+	</select>
+
+	<select id="getDepartmentCount" resultType="int" useCache="true">
+		<![CDATA[
+			select count(*) from (select hospital, department, count(*) as sum from hospital_business
+			where operation_time between #{stime} and #{etime} and operation = '医疗费用报销申请'
+			group by hospital, department) temp
+		]]>
+	</select>
+
+	<select id="getDepartmentByTime" resultType="org.scut.mychart.model.ExpenseModel" useCache="true">
+		<![CDATA[
+			select hospital, department, count(*) as sum
+			from hospital_business where operation = #{0} and operation_time between #{1} and #{2}
+			group by hospital, department
+			order by hospital
+		]]>
+	</select>
+
+	<select id="getDepartmentMaxByDay" resultType="org.scut.mychart.model.ExpenseModel" useCache="true">
+		<![CDATA[
+			select temp.hospital as hospital, temp.department as department, max(temp.dsum) as maxNum
+			from (select hospital, department, count(*) as dsum from hospital_business where operation = #{0} and operation_time between #{1} and #{2} group by hospital, department, operation_time) temp
+			group by hospital, department
+			order by hospital
+		]]>
+	</select>
+
+
+	<select id="getAreaByYear" resultType="org.scut.mychart.model.ExpenseModel" useCache="true">
+		<![CDATA[
+			select year(operation_time) as year, count(*) as sum, area
+			from hospital_business
+			where operation='医疗费用报销申请'
+			group by year, area
+			order by year, area
+		]]>
+	</select>
+	
+
+
+	
+</mapper>

@@ -3,7 +3,7 @@ package org.scut.mychart.model;
 /**
  * Created by linqidi on 2016/12/8.
  */
-public class TsylModel {
+public class SpecialModel {
     private int year;
 
     private String sex;

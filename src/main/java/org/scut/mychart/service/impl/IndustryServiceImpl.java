@@ -154,23 +154,20 @@ public class IndustryServiceImpl implements IndustryService {
         }
         List<IndustryModel> totalList = industryMapper.selectListOrderByCardinality(param);
         int pageCount = getPageCount(totalList.size());
-
-        Map<String, Double> allRank = new HashMap<String, Double>();
         DecimalFormat df = new DecimalFormat("#.##");
         for(IndustryModel m : totalList) {
-            allRank.put(m.getIndustry_code(), Double.valueOf(df.format(m.getCardinality())));
+//            allRank.put(m.getIndustry_code(), Double.valueOf(df.format(m.getCardinality())));
+            m.setCardinality(Double.valueOf(df.format(m.getCardinality())));
         }
-
-        List<Map.Entry<String, Double>> list = new ArrayList<Map.Entry<String,Double>>(allRank.entrySet());
         int offset = (Integer.valueOf(p).intValue() - 1) * PAGE_NUM;
         int len = offset+PAGE_NUM;
-        if(len > list.size()) {
-            len = list.size();
+        if(len > totalList.size()) {
+            len = totalList.size();
         }
-        list = list.subList(offset, len);
+        totalList = totalList.subList(offset, len);
 
         result.put("pageCount", pageCount);
-        result.put("data", list);
+        result.put("data", totalList);
 
         return result;
 

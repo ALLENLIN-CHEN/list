@@ -15,9 +15,17 @@ var classData = {
 		    	   key: 'special',
 		    	   value: '特殊医疗业务'
 		       },
+			   {
+				   key: 'expense',
+				   value: '医疗费用报销申请业务'
+			   },
 		       {
 		    	   key:'other',
 		    	   value: '住院登记'
+			   },
+			   {
+				   key: 'clinic',
+				   value: '门诊统筹业务'			   
 		       
 		}],
 		enterprise: [{
@@ -32,6 +40,7 @@ var classData = {
 				value: '经济类型参保业务'
 			}
 		],
+<<<<<<< HEAD
 		staff:[
 			{
 				key:'totalData',
@@ -45,6 +54,12 @@ var classData = {
 			
 		]
 
+=======
+		cardTotal:[{
+			key:'netpoint',
+			value:'社保终端网点分析'
+		}]
+>>>>>>> 4358f785ac5c5dd10f37eae354599b72674fb01e
 };
 
 var moduleData = {
@@ -80,7 +95,7 @@ var moduleData = {
 			value: '医生占比排名'
 		}],
 
-	external: [{
+		external: [{
 		url: 'charts/externalList/hospitalTotal',
 		key: 'year',
 		list: 'externalHospYear',
@@ -143,8 +158,51 @@ var moduleData = {
 			list: 'hos_2DocTime',
 			value: '医生占比排名'
 		}],
-		
-		
+
+		special: [{
+		url: 'charts/special/hospitalTotal',
+		key: 'year',
+		list: 'specialHospYear',
+		value: '医院排名'
+	},{
+		url: 'charts/special/hospitalPercent',
+		key: 'time',
+		list: 'specialHospTime',
+		value: '医院占比排名'
+	},{
+		url: 'charts/special/departmentTotal',
+		key: 'year',
+		list: 'specialDepYear',
+		value: '科室排名'
+	},{
+		url: 'charts/special/departmentPercent',
+		key: 'time',
+		list: 'specialDepTime',
+		value: '科室占比排名'
+	    }],
+
+		expense: [{
+			url: 'charts/expense/hospitalTotal',
+			key: 'year',
+			list: 'expenseHospYear',
+			value: '医院排名'
+		},{
+			url: 'charts/expense/hospitalPercent',
+			key: 'time',
+			list: 'expenseHospTime',
+			value: '医院占比排名'
+		},{
+			url: 'charts/expense/departmentTotal',
+			key: 'year',
+			list: 'expenseDepYear',
+			value: '科室排名'
+		},{
+			url: 'charts/expense/departmentPercent',
+			key: 'time',
+			list: 'expenseDepTime',
+			value: '科室占比排名'
+		}],
+
 		other: [{
 			url: 'charts/other/otherGetHisHospital',
 			key: 'year',
@@ -177,7 +235,25 @@ var moduleData = {
 			
 		],
 	
-		
+		clinic:[{
+		        	url: 'charts/clinic/hospitalTotal',
+		        	key: 'year',
+		        	list: 'clinicHospYear',
+		        	value: '医院排名'
+		        },
+		        {
+		        	url: 'charts/clinic/departmentTotal',
+		        	key: 'year',
+		        	list: 'clinicDepYear',
+		        	value: '科室排名'
+		        },
+		        {
+		        	url:'charts/clinic/doctorTotal',
+		        	key:'year',
+		        	list:'clinicDocYear',
+		        	value:'医生排名'
+		        }],
+				
 		companyType: [{
 			url: 'charts/company/data',
 			key: 'year',
@@ -197,7 +273,46 @@ var moduleData = {
 	    	key: 'year',
 	    	list: 'enterpriseFinancialType',
 	    	value: '经济类型参保基数分析'
-	    }]
+	    }],
+	    
+	    netpoint:[{
+        	url: 'charts/netpoint/getWorkState',
+        	key: 'year',
+        	list: 'npState',
+        	value: '网点状态统计'
+        },
+        {
+        	url: 'charts/netpoint/getOperationAmount',
+        	key: 'year',
+        	list: 'npOperation',
+        	value: '网点业务量'
+        },
+        {
+        	url:'charts/netpoint/getTerminalAmount',
+        	key:'year',
+        	list:'npTerminal',
+        	value:'网点终端数量'
+        },
+			{
+				url: 'charts/terminal/getTypeData',
+				key: 'year',
+				list: 'terminalType',
+				value: '终端类型数量'
+			},
+			{
+				url: 'charts/terminal/getBusinessData',
+				key: 'year',
+				list: 'terminalBusiness',
+				value: '终端业务量'
+			},
+			{
+				url: 'charts/terminal/getStatusData',
+				key: 'year',
+				list: 'terminalStatus',
+				value: '终端工作状态'
+			}
+		]
+			
 };
 
 var filterData = {
@@ -230,6 +345,16 @@ var listThead = {
 
 	enterpriseCompanyType: ['单位类型名称', '单位类型参保基数'],
 
+	specialHospYear: ['医院名称', '年总特殊医疗数量'],
+	specialHospTime: ['医院名称', '年总特殊医疗数量占比'],
+	specialDepYear: ['医院名称', '科室名称', '年总特殊医疗数量'],
+	specialDepTime: ['医院名称', '科室名称', '年总特殊医疗数量占比'],
+
+	expenseHospYear: ['医院名称', '年总医疗费用报销申请数量'],
+	expenseHospTime: ['医院名称', '年总医疗费用报销申请数量占比'],
+	expenseDepYear: ['医院名称', '科室名称', '年总医疗费用报销数量'],
+	expenseDepTime: ['医院名称', '科室名称', '年总医疗费用报销数量占比'],
+
 
 	otherHosYear: ['医院名称', '年总住院登记数量'],
 	otherHosTime: ['医院名称', '年总住院登记数量占比'],
@@ -238,10 +363,21 @@ var listThead = {
 	
 	allData:['城市','流出人次','流入人次','流入流出率'],
 
+	clinicHospYear: ['医院名称', '年总门诊统筹申请数量'],
+	clinicDepYear: ['医院名称', '科室名称', '年总门诊统筹申请数量'],
+	clinicDocYear: ['医院名称', '科室名称', '医生名称', '年总门诊统筹申请数量'],	
+	
 	enterpriseIndustryType: ['行业名称', '行业参保基数'],
 
-	enterpriseFinancialType: ['经济类型名称', '经济类型参保基数']
+	enterpriseFinancialType: ['经济类型名称', '经济类型参保基数'],
 
+	npState:['网点名称','网点地址','正常工作天数','异常工作天数'],
+	npOperation:['网点名称','网点地址','业务量'],
+	npTerminal:['网点名称','网点地址','终端数量'],
+
+	terminalType:['终端类型','终端数量'],
+	terminalBusiness:['终端编号','终端业务量'],
+	terminalStatus:['终端编号','正常工作天数','异常工作天数']
 };
 
 var curP = 1, totalP = 1;
@@ -506,6 +642,10 @@ function handleData(res) {
 }
 
 function renderList(data) {
+	// for(var index=0;index<data.length;index++){
+	// 	console.log(data[index].branchName);
+	// 	console.log(data[index].branchAddress);
+	// }
 	var i = 0;
 	var names = [];
 	var listType = $('.module-label label').data('list');
@@ -517,7 +657,7 @@ function renderList(data) {
 	if(filter === 'year') {
 		title = $('input[name="year"]:checked').val();
 		if(title === 'all') {
-			title = '总季度';
+			title = '总年度';
 		}else {
 			title += '年';
 		}
@@ -525,27 +665,45 @@ function renderList(data) {
 		title = $('.startTime').val() + '年 至 ' + $('.endTime').val() + '年';
 	}
 	
+	//设置标题
+	$('.table-title').html(title);
+	
 	theadLis.push('<th>序号</th>');
 	for(i = 0; i < theads.length; i++) {
 		theadLis.push('<th>' + theads[i] + '</th>');
 	}
 	
+	// 用于设定奇偶行数据的背景颜色差异
+	var bgColor = 'style="background-color:rgba(52, 152, 219, 0.15);"';
+	
 	var tbodyLis = [];
 	if(listType === 'registerHospYear') {
 		for(i = 0; i < data.length; i++) {
-			tbodyLis.push('<tr><th>'+ (curpage+i+1) +'</th>');
+			if(i % 2 != 0) {
+				tbodyLis.push('<tr ' + bgColor + '><th>'+ (curpage+i+1) +'</th>');
+			} else {
+				tbodyLis.push('<tr><th>'+ (curpage+i+1) +'</th>');
+			}
 			tbodyLis.push('<th>' + data[i].hospital + '</th>');
 			tbodyLis.push('<th>' + data[i].sum + '</th></tr>');
 		}
 	} else if(listType === 'registerHospTime') {
 		for(i = 0; i < data.length; i++) {
-			tbodyLis.push('<tr><th>'+ (curpage+i+1) +'</th>');
+			if(i % 2 != 0) {
+				tbodyLis.push('<tr ' + bgColor + '><th>'+ (curpage+i+1) +'</th>');
+			} else {
+				tbodyLis.push('<tr><th>'+ (curpage+i+1) +'</th>');
+			}
 			tbodyLis.push('<th>' + data[i].key + '</th>');
 			tbodyLis.push('<th>' + data[i].value + '% </th></tr>');
 		}
 	} else if(listType === 'registerDepYear') {
 		for(i = 0; i < data.length; i++) {
-			tbodyLis.push('<tr><th>'+ (curpage+i+1) +'</th>');
+			if(i % 2 != 0) {
+				tbodyLis.push('<tr ' + bgColor + '><th>'+ (curpage+i+1) +'</th>');
+			} else {
+				tbodyLis.push('<tr><th>'+ (curpage+i+1) +'</th>');
+			}
 			tbodyLis.push('<th>' + data[i].hospital + '</th>');
 			tbodyLis.push('<th>' + data[i].department + '</th>');
 			tbodyLis.push('<th>' + data[i].sum + '</th></tr>');
@@ -553,14 +711,22 @@ function renderList(data) {
 	} else if(listType === 'registerDepTime') {
 		for(i = 0; i < data.length; i++) {
 			names = data[i].key.split('-');
-			tbodyLis.push('<tr><th>'+ (curpage+i+1) +'</th>');
+			if(i % 2 != 0) {
+				tbodyLis.push('<tr ' + bgColor + '><th>'+ (curpage+i+1) +'</th>');
+			} else {
+				tbodyLis.push('<tr><th>'+ (curpage+i+1) +'</th>');
+			}
 			tbodyLis.push('<th>' + names[0] + '</th>');
 			tbodyLis.push('<th>' + names[1] + '</th>');
 			tbodyLis.push('<th>' + data[i].value + '% </th></tr>');
 		}
 	} else if(listType === 'registerDocYear') {
 		for(i = 0; i < data.length; i++) {
-			tbodyLis.push('<tr><th>'+ (curpage+i+1) +'</th>');
+			if(i % 2 != 0) {
+				tbodyLis.push('<tr ' + bgColor + '><th>'+ (curpage+i+1) +'</th>');
+			} else {
+				tbodyLis.push('<tr><th>'+ (curpage+i+1) +'</th>');
+			}
 			tbodyLis.push('<th>' + data[i].hospital + '</th>');
 			tbodyLis.push('<th>' + data[i].department + '</th>');
 			tbodyLis.push('<th>' + data[i].doctor + '</th>');
@@ -569,7 +735,11 @@ function renderList(data) {
 	} else if(listType === 'registerDocTime') {
 		for(i = 0; i < data.length; i++) {
 			names = data[i].key.split('-');
-			tbodyLis.push('<tr><th>'+ (curpage+i+1) +'</th>');
+			if(i % 2 != 0) {
+				tbodyLis.push('<tr ' + bgColor + '><th>'+ (curpage+i+1) +'</th>');
+			} else {
+				tbodyLis.push('<tr><th>'+ (curpage+i+1) +'</th>');
+			}
 			tbodyLis.push('<th>' + names[0] + '</th>');
 			tbodyLis.push('<th>' + names[1] + '</th>');
 			tbodyLis.push('<th>' + names[2] + '</th>');
@@ -578,19 +748,31 @@ function renderList(data) {
 	}
 	else if(listType === 'externalHospYear') {
 		for(i = 0; i < data.length; i++) {
-			tbodyLis.push('<tr><th>'+ (curpage+i+1) +'</th>');
+			if(i % 2 != 0) {
+				tbodyLis.push('<tr ' + bgColor + '><th>'+ (curpage+i+1) +'</th>');
+			} else {
+				tbodyLis.push('<tr><th>'+ (curpage+i+1) +'</th>');
+			}
 			tbodyLis.push('<th>' + data[i].hospital + '</th>');
 			tbodyLis.push('<th>' + data[i].sum + '</th></tr>');
 		}
 	} else if(listType === 'externalHospTime') {
 		for(i = 0; i < data.length; i++) {
-			tbodyLis.push('<tr><th>'+ (curpage+i+1) +'</th>');
+			if(i % 2 != 0) {
+				tbodyLis.push('<tr ' + bgColor + '><th>'+ (curpage+i+1) +'</th>');
+			} else {
+				tbodyLis.push('<tr><th>'+ (curpage+i+1) +'</th>');
+			}
 			tbodyLis.push('<th>' + data[i].key + '</th>');
 			tbodyLis.push('<th>' + data[i].value + '% </th></tr>');
 		}
 	} else if(listType === 'externalDepYear') {
 		for(i = 0; i < data.length; i++) {
-			tbodyLis.push('<tr><th>'+ (curpage+i+1) +'</th>');
+			if(i % 2 != 0) {
+				tbodyLis.push('<tr ' + bgColor + '><th>'+ (curpage+i+1) +'</th>');
+			} else {
+				tbodyLis.push('<tr><th>'+ (curpage+i+1) +'</th>');
+			}
 			tbodyLis.push('<th>' + data[i].hospital + '</th>');
 			tbodyLis.push('<th>' + data[i].department + '</th>');
 			tbodyLis.push('<th>' + data[i].sum + '</th></tr>');
@@ -598,14 +780,22 @@ function renderList(data) {
 	} else if(listType === 'externalDepTime') {
 		for(i = 0; i < data.length; i++) {
 			names = data[i].key.split('-');
-			tbodyLis.push('<tr><th>'+ (curpage+i+1) +'</th>');
+			if(i % 2 != 0) {
+				tbodyLis.push('<tr ' + bgColor + '><th>'+ (curpage+i+1) +'</th>');
+			} else {
+				tbodyLis.push('<tr><th>'+ (curpage+i+1) +'</th>');
+			}
 			tbodyLis.push('<th>' + names[0] + '</th>');
 			tbodyLis.push('<th>' + names[1] + '</th>');
 			tbodyLis.push('<th>' + data[i].value + '% </th></tr>');
 		}
 	} else if(listType === 'externalDocYear') {
 		for(i = 0; i < data.length; i++) {
-			tbodyLis.push('<tr><th>'+ (curpage+i+1) +'</th>');
+			if(i % 2 != 0) {
+				tbodyLis.push('<tr ' + bgColor + '><th>'+ (curpage+i+1) +'</th>');
+			} else {
+				tbodyLis.push('<tr><th>'+ (curpage+i+1) +'</th>');
+			}
 			tbodyLis.push('<th>' + data[i].hospital + '</th>');
 			tbodyLis.push('<th>' + data[i].department + '</th>');
 			tbodyLis.push('<th>' + data[i].doctor + '</th>');
@@ -614,7 +804,11 @@ function renderList(data) {
 	} else if(listType === 'externalDocTime') {
 		for(i = 0; i < data.length; i++) {
 			names = data[i].key.split('-');
-			tbodyLis.push('<tr><th>'+ (curpage+i+1) +'</th>');
+			if(i % 2 != 0) {
+				tbodyLis.push('<tr ' + bgColor + '><th>'+ (curpage+i+1) +'</th>');
+			} else {
+				tbodyLis.push('<tr><th>'+ (curpage+i+1) +'</th>');
+			}
 			tbodyLis.push('<th>' + names[0] + '</th>');
 			tbodyLis.push('<th>' + names[1] + '</th>');
 			tbodyLis.push('<th>' + names[2] + '</th>');
@@ -624,21 +818,33 @@ function renderList(data) {
 
 	else if(listType === 'enterpriseCompanyType') {
 		for(i = 0; i < data.length; i++) {
-			tbodyLis.push('<tr><th>'+ (curpage+i+1) +'</th>');
+			if(i % 2 != 0) {
+				tbodyLis.push('<tr ' + bgColor + '><th>'+ (curpage+i+1) +'</th>');
+			} else {
+				tbodyLis.push('<tr><th>'+ (curpage+i+1) +'</th>');
+			}
 			tbodyLis.push('<th>' + data[i].key + '</th>');
 			tbodyLis.push('<th>' + data[i].value + '元</th></tr>');
 		}
 	}
 	else if(listType === 'enterpriseIndustryType') {
 		for(i = 0; i < data.length; i++) {
-			tbodyLis.push('<tr><th>'+ (curpage+i+1) +'</th>');
-			tbodyLis.push('<th>' + data[i].key + '</th>');
-			tbodyLis.push('<th>' + data[i].value + '元</th></tr>');
+			if(i % 2 != 0) {
+				tbodyLis.push('<tr ' + bgColor + '><th>'+ (curpage+i+1) +'</th>');
+			} else {
+				tbodyLis.push('<tr><th>'+ (curpage+i+1) +'</th>');
+			}
+			tbodyLis.push('<th>' + data[i].industry_code + '</th>');
+			tbodyLis.push('<th>' + data[i].cardinality + '元</th></tr>');
 		}
 	}
 	else if(listType === 'enterpriseFinancialType') {
 		for(i = 0; i < data.length; i++) {
-			tbodyLis.push('<tr><th>'+ (curpage+i+1) +'</th>');
+			if(i % 2 != 0) {
+				tbodyLis.push('<tr ' + bgColor + '><th>'+ (curpage+i+1) +'</th>');
+			} else {
+				tbodyLis.push('<tr><th>'+ (curpage+i+1) +'</th>');
+			}
 			tbodyLis.push('<th>' + data[i].key + '</th>');
 			tbodyLis.push('<th>' + data[i].value + '元</th></tr>');
 		}
@@ -646,33 +852,53 @@ function renderList(data) {
 
     else if(listType === 'hos_2HospYear') {
         for(i = 0; i < data.length; i++) {
-            tbodyLis.push('<tr><th>'+ (curpage+i+1) +'</th>');
+        	if(i % 2 != 0) {
+				tbodyLis.push('<tr ' + bgColor + '><th>'+ (curpage+i+1) +'</th>');
+			} else {
+				tbodyLis.push('<tr><th>'+ (curpage+i+1) +'</th>');
+			}
             tbodyLis.push('<th>' + data[i].hospital + '</th>');
             tbodyLis.push('<th>' + data[i].num + '</th></tr>');
         }
     } else if(listType === 'hos_2HospTime') {
         for(i = 0; i < data.length; i++) {
-            tbodyLis.push('<tr><th>'+ (curpage+i+1) +'</th>');
+        	if(i % 2 != 0) {
+				tbodyLis.push('<tr ' + bgColor + '><th>'+ (curpage+i+1) +'</th>');
+			} else {
+				tbodyLis.push('<tr><th>'+ (curpage+i+1) +'</th>');
+			}
             tbodyLis.push('<th>' + data[i].hospital + '</th>');
             tbodyLis.push('<th>' + data[i].num + '% </th></tr>');
         }
     } else if(listType === 'hos_2DepYear') {
         for(i = 0; i < data.length; i++) {
-            tbodyLis.push('<tr><th>'+ (curpage+i+1) +'</th>');
+        	if(i % 2 != 0) {
+				tbodyLis.push('<tr ' + bgColor + '><th>'+ (curpage+i+1) +'</th>');
+			} else {
+				tbodyLis.push('<tr><th>'+ (curpage+i+1) +'</th>');
+			}
             tbodyLis.push('<th>' + data[i].hospital + '</th>');
             tbodyLis.push('<th>' + data[i].department + '</th>');
             tbodyLis.push('<th>' + data[i].num + '</th></tr>');
         }
     } else if(listType === 'hos_2DepTime') {
         for(i = 0; i < data.length; i++) {
-            tbodyLis.push('<tr><th>'+ (curpage+i+1) +'</th>');
+        	if(i % 2 != 0) {
+				tbodyLis.push('<tr ' + bgColor + '><th>'+ (curpage+i+1) +'</th>');
+			} else {
+				tbodyLis.push('<tr><th>'+ (curpage+i+1) +'</th>');
+			}
             tbodyLis.push('<th>' + data[i].hospital + '</th>');
             tbodyLis.push('<th>' + data[i].department + '</th>');
             tbodyLis.push('<th>' + data[i].num + '% </th></tr>');
         }
     } else if(listType === 'hos_2DocYear') {
         for(i = 0; i < data.length; i++) {
-            tbodyLis.push('<tr><th>'+ (curpage+i+1) +'</th>');
+        	if(i % 2 != 0) {
+				tbodyLis.push('<tr ' + bgColor + '><th>'+ (curpage+i+1) +'</th>');
+			} else {
+				tbodyLis.push('<tr><th>'+ (curpage+i+1) +'</th>');
+			}
             tbodyLis.push('<th>' + data[i].hospital + '</th>');
             tbodyLis.push('<th>' + data[i].department + '</th>');
             tbodyLis.push('<th>' + data[i].doctor + '</th>');
@@ -680,30 +906,136 @@ function renderList(data) {
         }
     } else if(listType === 'hos_2DocTime') {
         for(i = 0; i < data.length; i++) {
-            tbodyLis.push('<tr><th>'+ (curpage+i+1) +'</th>');
+        	if(i % 2 != 0) {
+				tbodyLis.push('<tr ' + bgColor + '><th>'+ (curpage+i+1) +'</th>');
+			} else {
+				tbodyLis.push('<tr><th>'+ (curpage+i+1) +'</th>');
+			}
             tbodyLis.push('<th>' + data[i].hospital + '</th>');
             tbodyLis.push('<th>' + data[i].department + '</th>');
             tbodyLis.push('<th>' + data[i].doctor + '</th>');
             tbodyLis.push('<th>' + data[i].num + '% </th></tr>');
         }
     }
-	
+
+	if(listType === 'specialHospYear') {
+		for(i = 0; i < data.length; i++) {
+			if(i % 2 != 0) {
+				tbodyLis.push('<tr ' + bgColor + '><th>'+ (curpage+i+1) +'</th>');
+			} else {
+				tbodyLis.push('<tr><th>'+ (curpage+i+1) +'</th>');
+			}
+			tbodyLis.push('<th>' + data[i].hospital + '</th>');
+			tbodyLis.push('<th>' + data[i].sum + '</th></tr>');
+		}
+	} else if(listType === 'specialHospTime') {
+		for(i = 0; i < data.length; i++) {
+			if(i % 2 != 0) {
+				tbodyLis.push('<tr ' + bgColor + '><th>'+ (curpage+i+1) +'</th>');
+			} else {
+				tbodyLis.push('<tr><th>'+ (curpage+i+1) +'</th>');
+			}
+			tbodyLis.push('<th>' + data[i].key + '</th>');
+			tbodyLis.push('<th>' + data[i].value + '% </th></tr>');
+		}
+	} else if(listType === 'specialDepYear') {
+		for(i = 0; i < data.length; i++) {
+			if(i % 2 != 0) {
+				tbodyLis.push('<tr ' + bgColor + '><th>'+ (curpage+i+1) +'</th>');
+			} else {
+				tbodyLis.push('<tr><th>'+ (curpage+i+1) +'</th>');
+			}
+			tbodyLis.push('<th>' + data[i].hospital + '</th>');
+			tbodyLis.push('<th>' + data[i].department + '</th>');
+			tbodyLis.push('<th>' + data[i].sum + '</th></tr>');
+		}
+	} else if(listType === 'specialDepTime') {
+		for(i = 0; i < data.length; i++) {
+			names = data[i].key.split('-');
+			if(i % 2 != 0) {
+				tbodyLis.push('<tr ' + bgColor + '><th>'+ (curpage+i+1) +'</th>');
+			} else {
+				tbodyLis.push('<tr><th>'+ (curpage+i+1) +'</th>');
+			}
+			tbodyLis.push('<th>' + names[0] + '</th>');
+			tbodyLis.push('<th>' + names[1] + '</th>');
+			tbodyLis.push('<th>' + data[i].value + '% </th></tr>');
+		}
+	}
+
+	if(listType === 'expenseHospYear') {
+		for(i = 0; i < data.length; i++) {
+			if(i % 2 != 0) {
+				tbodyLis.push('<tr ' + bgColor + '><th>'+ (curpage+i+1) +'</th>');
+			} else {
+				tbodyLis.push('<tr><th>'+ (curpage+i+1) +'</th>');
+			}
+			tbodyLis.push('<th>' + data[i].hospital + '</th>');
+			tbodyLis.push('<th>' + data[i].sum + '</th></tr>');
+		}
+	} else if(listType === 'expenseHospTime') {
+		for(i = 0; i < data.length; i++) {
+			if(i % 2 != 0) {
+				tbodyLis.push('<tr ' + bgColor + '><th>'+ (curpage+i+1) +'</th>');
+			} else {
+				tbodyLis.push('<tr><th>'+ (curpage+i+1) +'</th>');
+			}
+			tbodyLis.push('<th>' + data[i].key + '</th>');
+			tbodyLis.push('<th>' + data[i].value + '% </th></tr>');
+		}
+	} else if(listType === 'expenseDepYear') {
+		for(i = 0; i < data.length; i++) {
+			if(i % 2 != 0) {
+				tbodyLis.push('<tr ' + bgColor + '><th>'+ (curpage+i+1) +'</th>');
+			} else {
+				tbodyLis.push('<tr><th>'+ (curpage+i+1) +'</th>');
+			}
+			tbodyLis.push('<th>' + data[i].hospital + '</th>');
+			tbodyLis.push('<th>' + data[i].department + '</th>');
+			tbodyLis.push('<th>' + data[i].sum + '</th></tr>');
+		}
+	} else if(listType === 'expenseDepTime') {
+		for(i = 0; i < data.length; i++) {
+			names = data[i].key.split('-');
+			if(i % 2 != 0) {
+				tbodyLis.push('<tr ' + bgColor + '><th>'+ (curpage+i+1) +'</th>');
+			} else {
+				tbodyLis.push('<tr><th>'+ (curpage+i+1) +'</th>');
+			}
+			tbodyLis.push('<th>' + names[0] + '</th>');
+			tbodyLis.push('<th>' + names[1] + '</th>');
+			tbodyLis.push('<th>' + data[i].value + '% </th></tr>');
+		}
+	}
+
 	else if(listType === 'otherHosYear') {
 		for(i = 0; i < data.length; i++) {
-			tbodyLis.push('<tr><th>'+ (curpage+i+1) +'</th>');
+			if(i % 2 != 0) {
+				tbodyLis.push('<tr ' + bgColor + '><th>'+ (curpage+i+1) +'</th>');
+			} else {
+				tbodyLis.push('<tr><th>'+ (curpage+i+1) +'</th>');
+			}
 			tbodyLis.push('<th>' + data[i].hos_name + '</th>');
 			tbodyLis.push('<th>' + data[i].person_num + '</th></tr>');
 		}
 			
 	}else if(listType === 'otherHosTime') {
 		for(i = 0; i < data.length; i++) {
-			tbodyLis.push('<tr><th>'+ (curpage+i+1) +'</th>');
+			if(i % 2 != 0) {
+				tbodyLis.push('<tr ' + bgColor + '><th>'+ (curpage+i+1) +'</th>');
+			} else {
+				tbodyLis.push('<tr><th>'+ (curpage+i+1) +'</th>');
+			}
 			tbodyLis.push('<th>' + data[i].key + '</th>');
 			tbodyLis.push('<th>' + data[i].value + '% </th></tr>');
 		}
 	} else if(listType === 'otherDepYear') {
 		for(i = 0; i < data.length; i++) {
-			tbodyLis.push('<tr><th>'+ (curpage+i+1) +'</th>');
+			if(i % 2 != 0) {
+				tbodyLis.push('<tr ' + bgColor + '><th>'+ (curpage+i+1) +'</th>');
+			} else {
+				tbodyLis.push('<tr><th>'+ (curpage+i+1) +'</th>');
+			}
 			tbodyLis.push('<th>' + data[i].hos_name + '</th>');
 			tbodyLis.push('<th>' + data[i].dep_name + '</th>');
 			tbodyLis.push('<th>' + data[i].person_num + '</th></tr>');
@@ -711,7 +1043,11 @@ function renderList(data) {
 	} else if(listType === 'otherDepTime') {
 		for(i = 0; i < data.length; i++) {
 			names = data[i].key.split('-');
-			tbodyLis.push('<tr><th>'+ (curpage+i+1) +'</th>');
+			if(i % 2 != 0) {
+				tbodyLis.push('<tr ' + bgColor + '><th>'+ (curpage+i+1) +'</th>');
+			} else {
+				tbodyLis.push('<tr><th>'+ (curpage+i+1) +'</th>');
+			}
 			tbodyLis.push('<th>' + names[0] + '</th>');
 			tbodyLis.push('<th>' + names[1] + '</th>');
 			tbodyLis.push('<th>' + data[i].value + '% </th></tr>');
@@ -725,8 +1061,99 @@ function renderList(data) {
 			tbodyLis.push('<th>' + (data[i].percent*100).toFixed(2) + '%</th></tr>');
 		}
 	}
+	else if(listType === 'clinicHospYear'){
+		for(i = 0; i < data.length; i++) {
+			if(i % 2 != 0) {
+				tbodyLis.push('<tr ' + bgColor + '><th>'+ (curpage+i+1) +'</th>');
+			} else {
+				tbodyLis.push('<tr><th>'+ (curpage+i+1) +'</th>');
+			}
+			tbodyLis.push('<th>' + data[i].hospital + '</th>');
+			tbodyLis.push('<th>' + data[i].sum + '</th></tr>');
+		}
+	}else if(listType === 'clinicDepYear'){
+		for(i = 0;i < data.length; i++){
+			if(i % 2 != 0) {
+				tbodyLis.push('<tr ' + bgColor + '><th>'+ (curpage+i+1) +'</th>');
+			} else {
+				tbodyLis.push('<tr><th>'+ (curpage+i+1) +'</th>');
+			}
+			tbodyLis.push('<th>' + data[i].hospital + '</th>');
+			tbodyLis.push('<th>' + data[i].department + '</th>');
+			tbodyLis.push('<th>' + data[i].sum + '</th></tr>');
+		}
+	}else if(listType === 'clinicDocYear'){
+		for(i = 0;i < data.length; i++){
+			if(i % 2 != 0) {
+				tbodyLis.push('<tr ' + bgColor + '><th>'+ (curpage+i+1) +'</th>');
+			} else {
+				tbodyLis.push('<tr><th>'+ (curpage+i+1) +'</th>');
+			}
+			tbodyLis.push('<th>' + data[i].hospital + '</th>');
+			tbodyLis.push('<th>' + data[i].department + '</th>');
+			tbodyLis.push('<th>' + data[i].doctor + '</th>');
+			tbodyLis.push('<th>' + data[i].sum + '</th></tr>');
+		}
+	}
 	
-	
+	if(listType === 'npState'){
+		for(i = 0;i < data.length; i++){
+			if(i % 2 != 0) {
+				tbodyLis.push('<tr ' + bgColor + '><th>'+ (curpage+i+1) +'</th>');
+			} else {
+				tbodyLis.push('<tr><th>'+ (curpage+i+1) +'</th>');
+			}
+			tbodyLis.push('<th>' + data[i].branchName + '</th>');
+			tbodyLis.push('<th>' + data[i].branchAddress + '</th>');
+			tbodyLis.push('<th>' + data[i].work + '</th>');
+			tbodyLis.push('<th>' + data[i].notWork + '</th></tr>');
+		}
+	}else if(listType === 'npOperation'){
+		for(i = 0;i < data.length; i++){
+			if(i % 2 != 0) {
+				tbodyLis.push('<tr ' + bgColor + '><th>'+ (curpage+i+1) +'</th>');
+			} else {
+				tbodyLis.push('<tr><th>'+ (curpage+i+1) +'</th>');
+			}
+			tbodyLis.push('<th>' + data[i].branchName + '</th>');
+			tbodyLis.push('<th>' + data[i].branchAddress + '</th>');
+			tbodyLis.push('<th>' + data[i].operationAmount + '</th>');			
+		}
+	}else if(listType == 'npTerminal'){
+		for(i = 0;i < data.length; i++){
+			if(i % 2 != 0) {
+				tbodyLis.push('<tr ' + bgColor + '><th>'+ (curpage+i+1) +'</th>');
+			} else {
+				tbodyLis.push('<tr><th>'+ (curpage+i+1) +'</th>');
+			}
+			tbodyLis.push('<th>' + data[i].branchName + '</th>');
+			tbodyLis.push('<th>' + data[i].branchAddress + '</th>');
+			tbodyLis.push('<th>' + data[i].terminalAmount + '</th>');			
+		}
+	}
+	else if(listType === 'terminalType'||listType === 'terminalBusiness') {
+		for(i = 0; i < data.length; i++) {
+			if(i % 2 != 0) {
+				tbodyLis.push('<tr ' + bgColor + '><th>'+ (curpage+i+1) +'</th>');
+			} else {
+				tbodyLis.push('<tr><th>'+ (curpage+i+1) +'</th>');
+			}
+			tbodyLis.push('<th>' + data[i].category + '</th>');
+			tbodyLis.push('<th>' + data[i].value + '</th></tr>');
+		}
+	}
+	else if(listType === 'terminalStatus') {
+		for(i = 0; i < data.length; i++) {
+			if(i % 2 != 0) {
+				tbodyLis.push('<tr ' + bgColor + '><th>'+ (curpage+i+1) +'</th>');
+			} else {
+				tbodyLis.push('<tr><th>'+ (curpage+i+1) +'</th>');
+			}
+			tbodyLis.push('<th>' + data[i].category + '</th>');
+			tbodyLis.push('<th>' + data[i].value + '</th>');
+			tbodyLis.push('<th>' + data[i].errorDays + '</th></tr>');
+		}
+	}
 	$('.table thead tr').html(theadLis.join(''));
 	$('.table tbody').html(tbodyLis.join(''));
 }

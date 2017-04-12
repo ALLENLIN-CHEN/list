@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.scut.mychart.mapper.TerminalMapper">
+	<!-- 开启二级缓存 -->
+	<cache size="1024" readOnly="true" />
+	<select id="selectTerminalType" parameterType="java.util.Map" resultType="org.scut.mychart.model.TerminalModel" statementType="STATEMENT">
+		select device_type as "category",count(distinct terminal_no) as "value"
+		from zdsj2
+		where operation_time between '${stime}' and '${etime}'
+		group by device_type
+		order by value desc
+	</select>
+	<select id="selectTerminalStatus" parameterType="java.util.Map" resultType="org.scut.mychart.model.TerminalModel" statementType="STATEMENT">
+		select terminal_no as "category",count(distinct operation_time) as "value"
+		from zdsj2
+		where operation_time between '${stime}' and '${etime}'
+		group by terminal_no
+		order by value desc
+	</select>
+	<select id="selectTerminalBusiness" parameterType="java.util.Map" resultType="org.scut.mychart.model.TerminalModel" statementType="STATEMENT">
+		select terminal_no as "category",count(*) as "value"
+		from zdsj2
+		where operation_time between '${stime}' and '${etime}'
+		group by terminal_no
+		order by value desc
+	</select>
+</mapper>
