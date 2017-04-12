@@ -31,7 +31,20 @@ var classData = {
 				key: 'financialType',
 				value: '经济类型参保业务'
 			}
+		],
+		staff:[
+			{
+				key:'totalData',
+				value:'全部流入流出统计'
+					
+			},
+			{
+				key:'partData',
+				value:'经济发达地区统计'
+			}
+			
 		]
+
 };
 
 var moduleData = {
@@ -153,6 +166,16 @@ var moduleData = {
 			list: 'otherDepTime',
 			value: '科室占比排名'
 		}],
+		
+		totalData:[
+			{
+				url:'staff/staffAllData',
+				key:'time',
+				list:'allData',
+				value:'同一城市流入流出情况'
+			}
+			
+		],
 	
 		
 		companyType: [{
@@ -212,6 +235,8 @@ var listThead = {
 	otherHosTime: ['医院名称', '年总住院登记数量占比'],
 	otherDepYear: ['医院名称', '科室名称', '年总住院登记数量'],
 	otherDepTime: ['医院名称', '科室名称', '年总住院登记数量占比'],
+	
+	allData:['城市','流出人次','流入人次','流入流出率'],
 
 	enterpriseIndustryType: ['行业名称', '行业参保基数'],
 
@@ -690,6 +715,14 @@ function renderList(data) {
 			tbodyLis.push('<th>' + names[0] + '</th>');
 			tbodyLis.push('<th>' + names[1] + '</th>');
 			tbodyLis.push('<th>' + data[i].value + '% </th></tr>');
+		}
+	}else if(listType === 'allData') {
+		for(i = 0; i < data.length; i++) {
+			tbodyLis.push('<tr><th>'+ (curpage+i+1) +'</th>');
+			tbodyLis.push('<th>' + data[i].name + '</th>');
+			tbodyLis.push('<th>' + data[i].num + '</th>');
+			tbodyLis.push('<th>' + data[i].otherNum + '</th>');
+			tbodyLis.push('<th>' + (data[i].percent*100).toFixed(2) + '%</th></tr>');
 		}
 	}
 	
