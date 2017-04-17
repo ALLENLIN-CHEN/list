@@ -40,7 +40,7 @@ var classData = {
 				value: '经济类型参保业务'
 			}
 		],
-<<<<<<< HEAD
+
 		staff:[
 			{
 				key:'totalData',
@@ -52,14 +52,13 @@ var classData = {
 				value:'经济发达地区统计'
 			}
 			
-		]
+		],
 
-=======
 		cardTotal:[{
 			key:'netpoint',
 			value:'社保终端网点分析'
 		}]
->>>>>>> 4358f785ac5c5dd10f37eae354599b72674fb01e
+
 };
 
 var moduleData = {
@@ -376,8 +375,8 @@ var listThead = {
 	npTerminal:['网点名称','网点地址','终端数量'],
 
 	terminalType:['终端类型','终端数量'],
-	terminalBusiness:['终端编号','终端业务量'],
-	terminalStatus:['终端编号','正常工作天数','异常工作天数']
+	terminalBusiness:['终端编号','终端类型','所属网点','终端业务量'],
+	terminalStatus:['终端编号','终端类型','所属网点','正常工作天数','异常工作天数']
 };
 
 var curP = 1, totalP = 1;
@@ -1131,7 +1130,7 @@ function renderList(data) {
 			tbodyLis.push('<th>' + data[i].terminalAmount + '</th>');			
 		}
 	}
-	else if(listType === 'terminalType'||listType === 'terminalBusiness') {
+	else if(listType === 'terminalType') {
 		for(i = 0; i < data.length; i++) {
 			if(i % 2 != 0) {
 				tbodyLis.push('<tr ' + bgColor + '><th>'+ (curpage+i+1) +'</th>');
@@ -1139,6 +1138,19 @@ function renderList(data) {
 				tbodyLis.push('<tr><th>'+ (curpage+i+1) +'</th>');
 			}
 			tbodyLis.push('<th>' + data[i].category + '</th>');
+			tbodyLis.push('<th>' + data[i].value + '</th></tr>');
+		}
+	}
+	else if(listType === 'terminalBusiness') {
+		for(i = 0; i < data.length; i++) {
+			if(i % 2 != 0) {
+				tbodyLis.push('<tr ' + bgColor + '><th>'+ (curpage+i+1) +'</th>');
+			} else {
+				tbodyLis.push('<tr><th>'+ (curpage+i+1) +'</th>');
+			}
+			tbodyLis.push('<th>' + data[i].category + '</th>');
+			tbodyLis.push('<th>' + data[i].device_type + '</th>');
+			tbodyLis.push('<th>' + data[i].branch_name + '</th>');
 			tbodyLis.push('<th>' + data[i].value + '</th></tr>');
 		}
 	}
@@ -1150,6 +1162,8 @@ function renderList(data) {
 				tbodyLis.push('<tr><th>'+ (curpage+i+1) +'</th>');
 			}
 			tbodyLis.push('<th>' + data[i].category + '</th>');
+			tbodyLis.push('<th>' + data[i].device_type + '</th>');
+			tbodyLis.push('<th>' + data[i].branch_name + '</th>');
 			tbodyLis.push('<th>' + data[i].value + '</th>');
 			tbodyLis.push('<th>' + data[i].errorDays + '</th></tr>');
 		}
