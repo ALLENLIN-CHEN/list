@@ -57,7 +57,12 @@ var classData = {
 		cardTotal:[{
 			key:'netpoint',
 			value:'社保终端网点分析'
-		}]
+		    },
+			{
+				key:'cardFunction',
+				value:'用户常用卡功能分析'
+			}
+		]
 
 };
 
@@ -310,8 +315,22 @@ var moduleData = {
 				list: 'terminalStatus',
 				value: '终端工作状态'
 			}
+		],
+
+	cardFunction:[
+		{
+			url: 'charts/card_3_2/card_3_2_1list',
+			key: 'year',
+			list: 'cardPrimaryType',
+			value: '全市社保卡应用情况'
+	    },
+		{
+			url: 'charts/card_3_2/card_3_2_2list',
+			key: 'year',
+			list: 'cardDetailType',
+			value: '社保102项应用情况'
+		},
 		]
-			
 };
 
 var filterData = {
@@ -376,7 +395,10 @@ var listThead = {
 
 	terminalType:['终端类型','终端数量'],
 	terminalBusiness:['终端编号','终端类型','所属网点','终端业务量'],
-	terminalStatus:['终端编号','终端类型','所属网点','正常工作天数','异常工作天数']
+	terminalStatus:['终端编号','终端类型','所属网点','正常工作天数','异常工作天数'],
+
+	cardPrimaryType:['应用名称/业务名称','用卡次数'],
+	cardDetailType:['社保102项应用名称','用卡次数']
 };
 
 var curP = 1, totalP = 1;
@@ -1166,6 +1188,26 @@ function renderList(data) {
 			tbodyLis.push('<th>' + data[i].branch_name + '</th>');
 			tbodyLis.push('<th>' + data[i].value + '</th>');
 			tbodyLis.push('<th>' + data[i].errorDays + '</th></tr>');
+		}
+	}else if(listType === 'cardPrimaryType') {
+		for(i = 0; i < data.length; i++) {
+			if(i % 2 != 0) {
+				tbodyLis.push('<tr ' + bgColor + '><th>'+ (curpage+i+1) +'</th>');
+			} else {
+				tbodyLis.push('<tr><th>'+ (curpage+i+1) +'</th>');
+			}
+			tbodyLis.push('<th>' + data[i].type + '</th>');
+			tbodyLis.push('<th>' + data[i].num + '</th></tr>');
+		}
+	}else if(listType === 'cardDetailType') {
+		for(i = 0; i < data.length; i++) {
+			if(i % 2 != 0) {
+				tbodyLis.push('<tr ' + bgColor + '><th>'+ (curpage+i+1) +'</th>');
+			} else {
+				tbodyLis.push('<tr><th>'+ (curpage+i+1) +'</th>');
+			}
+			tbodyLis.push('<th>' + data[i].type + '</th>');
+			tbodyLis.push('<th>' + data[i].num + '</th></tr>');
 		}
 	}
 	$('.table thead tr').html(theadLis.join(''));
