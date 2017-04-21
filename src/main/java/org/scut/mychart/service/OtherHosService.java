@@ -18,7 +18,7 @@ public interface OtherHosService {
 	public Map<String,Object> getHistogramData();
 	
 	
-	/**
+	/**	
 	 * 获取折线图数据
 	 * @return
 	 */

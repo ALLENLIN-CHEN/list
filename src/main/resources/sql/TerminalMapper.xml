@@ -4,24 +4,24 @@
 	<!-- 开启二级缓存 -->
 	<cache size="1024" readOnly="true" />
 	<select id="selectTerminalType" parameterType="java.util.Map" resultType="org.scut.mychart.model.TerminalModel" statementType="STATEMENT">
-		select device_type as "category",count(distinct terminal_no) as "value"
+		select device_info as "category",count(distinct terminal_no) as "value"
 		from zdsj2
 		where operation_time between '${stime}' and '${etime}'
-		group by device_type
+		group by device_info
 		order by value desc
 	</select>
 	<select id="selectTerminalStatus" parameterType="java.util.Map" resultType="org.scut.mychart.model.TerminalModel" statementType="STATEMENT">
-		select terminal_no as "category",count(distinct operation_time) as "value"
+		select terminal_no as "category",count(distinct operation_time) as "value",branch_name,device_info as "device_type"
 		from zdsj2
 		where operation_time between '${stime}' and '${etime}'
-		group by terminal_no
+		group by terminal_no,branch_name,device_info
 		order by value desc
 	</select>
 	<select id="selectTerminalBusiness" parameterType="java.util.Map" resultType="org.scut.mychart.model.TerminalModel" statementType="STATEMENT">
-		select terminal_no as "category",count(*) as "value"
+		select terminal_no as "category",count(*) as "value",branch_name,device_info as "device_type"
 		from zdsj2
 		where operation_time between '${stime}' and '${etime}'
-		group by terminal_no
+		group by terminal_no,branch_name,device_info
 		order by value desc
 	</select>
 </mapper>

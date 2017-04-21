@@ -40,10 +40,30 @@ var classData = {
 				value: '经济类型参保业务'
 			}
 		],
+
+		staff:[
+			{
+				key:'totalData',
+				value:'全部流入流出统计'
+					
+			},
+			{
+				key:'partData',
+				value:'经济发达地区统计'
+			}
+			
+		],
+
 		cardTotal:[{
 			key:'netpoint',
 			value:'社保终端网点分析'
-		}]
+		    },
+			{
+				key:'cardFunction',
+				value:'用户常用卡功能分析'
+			}
+		]
+
 };
 
 var moduleData = {
@@ -208,6 +228,16 @@ var moduleData = {
 			list: 'otherDepTime',
 			value: '科室占比排名'
 		}],
+		
+		totalData:[
+			{
+				url:'staff/staffAllData',
+				key:'time',
+				list:'allData',
+				value:'同一城市流入流出情况'
+			}
+			
+		],
 	
 		clinic:[{
 		        	url: 'charts/clinic/hospitalTotal',
@@ -285,8 +315,22 @@ var moduleData = {
 				list: 'terminalStatus',
 				value: '终端工作状态'
 			}
+		],
+
+	cardFunction:[
+		{
+			url: 'charts/card_3_2/card_3_2_1list',
+			key: 'year',
+			list: 'cardPrimaryType',
+			value: '全市社保卡应用情况'
+	    },
+		{
+			url: 'charts/card_3_2/card_3_2_2list',
+			key: 'year',
+			list: 'cardDetailType',
+			value: '社保102项应用情况'
+		},
 		]
-			
 };
 
 var filterData = {
@@ -334,6 +378,8 @@ var listThead = {
 	otherHosTime: ['医院名称', '年总住院登记数量占比'],
 	otherDepYear: ['医院名称', '科室名称', '年总住院登记数量'],
 	otherDepTime: ['医院名称', '科室名称', '年总住院登记数量占比'],
+	
+	allData:['城市','流出人次','流入人次','流入流出率'],
 
 	clinicHospYear: ['医院名称', '年总门诊统筹申请数量'],
 	clinicDepYear: ['医院名称', '科室名称', '年总门诊统筹申请数量'],
@@ -348,8 +394,11 @@ var listThead = {
 	npTerminal:['网点名称','网点地址','终端数量'],
 
 	terminalType:['终端类型','终端数量'],
-	terminalBusiness:['终端编号','终端业务量'],
-	terminalStatus:['终端编号','正常工作天数','异常工作天数']
+	terminalBusiness:['终端编号','终端类型','所属网点','终端业务量'],
+	terminalStatus:['终端编号','终端类型','所属网点','正常工作天数','异常工作天数'],
+
+	cardPrimaryType:['应用名称/业务名称','用卡次数'],
+	cardDetailType:['社保102项应用名称','用卡次数']
 };
 
 var curP = 1, totalP = 1;
@@ -1024,6 +1073,14 @@ function renderList(data) {
 			tbodyLis.push('<th>' + names[1] + '</th>');
 			tbodyLis.push('<th>' + data[i].value + '% </th></tr>');
 		}
+	}else if(listType === 'allData') {
+		for(i = 0; i < data.length; i++) {
+			tbodyLis.push('<tr><th>'+ (curpage+i+1) +'</th>');
+			tbodyLis.push('<th>' + data[i].name + '</th>');
+			tbodyLis.push('<th>' + data[i].num + '</th>');
+			tbodyLis.push('<th>' + data[i].otherNum + '</th>');
+			tbodyLis.push('<th>' + (data[i].percent*100).toFixed(2) + '%</th></tr>');
+		}
 	}
 	else if(listType === 'clinicHospYear'){
 		for(i = 0; i < data.length; i++) {
@@ -1095,7 +1152,7 @@ function renderList(data) {
 			tbodyLis.push('<th>' + data[i].terminalAmount + '</th>');			
 		}
 	}
-	else if(listType === 'terminalType'||listType === 'terminalBusiness') {
+	else if(listType === 'terminalType') {
 		for(i = 0; i < data.length; i++) {
 			if(i % 2 != 0) {
 				tbodyLis.push('<tr ' + bgColor + '><th>'+ (curpage+i+1) +'</th>');
@@ -1103,6 +1160,19 @@ function renderList(data) {
 				tbodyLis.push('<tr><th>'+ (curpage+i+1) +'</th>');
 			}
 			tbodyLis.push('<th>' + data[i].category + '</th>');
+			tbodyLis.push('<th>' + data[i].value + '</th></tr>');
+		}
+	}
+	else if(listType === 'terminalBusiness') {
+		for(i = 0; i < data.length; i++) {
+			if(i % 2 != 0) {
+				tbodyLis.push('<tr ' + bgColor + '><th>'+ (curpage+i+1) +'</th>');
+			} else {
+				tbodyLis.push('<tr><th>'+ (curpage+i+1) +'</th>');
+			}
+			tbodyLis.push('<th>' + data[i].category + '</th>');
+			tbodyLis.push('<th>' + data[i].device_type + '</th>');
+			tbodyLis.push('<th>' + data[i].branch_name + '</th>');
 			tbodyLis.push('<th>' + data[i].value + '</th></tr>');
 		}
 	}
@@ -1114,8 +1184,30 @@ function renderList(data) {
 				tbodyLis.push('<tr><th>'+ (curpage+i+1) +'</th>');
 			}
 			tbodyLis.push('<th>' + data[i].category + '</th>');
+			tbodyLis.push('<th>' + data[i].device_type + '</th>');
+			tbodyLis.push('<th>' + data[i].branch_name + '</th>');
 			tbodyLis.push('<th>' + data[i].value + '</th>');
 			tbodyLis.push('<th>' + data[i].errorDays + '</th></tr>');
+		}
+	}else if(listType === 'cardPrimaryType') {
+		for(i = 0; i < data.length; i++) {
+			if(i % 2 != 0) {
+				tbodyLis.push('<tr ' + bgColor + '><th>'+ (curpage+i+1) +'</th>');
+			} else {
+				tbodyLis.push('<tr><th>'+ (curpage+i+1) +'</th>');
+			}
+			tbodyLis.push('<th>' + data[i].type + '</th>');
+			tbodyLis.push('<th>' + data[i].num + '</th></tr>');
+		}
+	}else if(listType === 'cardDetailType') {
+		for(i = 0; i < data.length; i++) {
+			if(i % 2 != 0) {
+				tbodyLis.push('<tr ' + bgColor + '><th>'+ (curpage+i+1) +'</th>');
+			} else {
+				tbodyLis.push('<tr><th>'+ (curpage+i+1) +'</th>');
+			}
+			tbodyLis.push('<th>' + data[i].type + '</th>');
+			tbodyLis.push('<th>' + data[i].num + '</th></tr>');
 		}
 	}
 	$('.table thead tr').html(theadLis.join(''));
