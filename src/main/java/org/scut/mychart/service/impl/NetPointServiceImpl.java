@@ -72,8 +72,8 @@ public class NetPointServiceImpl implements INetPointService {
 		
 		int pageCount = getPageCount(total);		
 		
-		if(checkAll){	//Í³¼Æ2010µ½2015ÄêËùÓĞµÄÈòÄê
-			for (NetPointModel netPointModel : data) {		//°´ÕÕ·ÇÈòÄêÉèÖÃÒì³£¹¤×÷ÌìÊı
+		if(checkAll){	//ç»Ÿè®¡2010åˆ°2015å¹´æ‰€æœ‰çš„é—°å¹´
+			for (NetPointModel netPointModel : data) {		//æŒ‰ç…§éé—°å¹´è®¾ç½®å¼‚å¸¸å·¥ä½œå¤©æ•°
 				netPointModel.setNotWork(365*6-netPointModel.getWork());
 			}
 			for(int idx = 2010;idx<=2015;idx++)
@@ -82,8 +82,8 @@ public class NetPointServiceImpl implements INetPointService {
 						netPointModel.setNotWork(netPointModel.getNotWork()+1);
 					}
 				}
-		}else{		//ÅĞ¶ÏyearÊÇ·ñÎªÈòÄê£¬Èç¹ûÊÇÔòËùÓĞÍøµãÒË²ı¹¤×÷ÌìÊı¼Ó1
-			for (NetPointModel netPointModel : data) {		//°´ÕÕ·ÇÈòÄêÉèÖÃÒì³£¹¤×÷ÌìÊı
+		}else{		//åˆ¤æ–­yearæ˜¯å¦ä¸ºé—°å¹´ï¼Œå¦‚æœæ˜¯åˆ™æ‰€æœ‰ç½‘ç‚¹å®œæ˜Œå·¥ä½œå¤©æ•°åŠ 1
+			for (NetPointModel netPointModel : data) {		//æŒ‰ç…§éé—°å¹´è®¾ç½®å¼‚å¸¸å·¥ä½œå¤©æ•°
 				netPointModel.setNotWork(365-netPointModel.getWork());
 			}
 			if(checkLeapYear(year))
@@ -125,7 +125,7 @@ public class NetPointServiceImpl implements INetPointService {
 	}
 	
 	/**
-	 * »ñÈ¡Ò³ÃæÊıÁ¿
+	 * è·å–é¡µé¢æ•°é‡
 	 * @param total
 	 * @return
 	 */
@@ -144,7 +144,7 @@ public class NetPointServiceImpl implements INetPointService {
 	}
 	
 	/**
-	 * ÅĞ¶ÏÈòÄê
+	 * åˆ¤æ–­é—°å¹´
 	 * @param year
 	 * @return
 	 */
