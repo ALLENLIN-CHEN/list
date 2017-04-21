@@ -40,7 +40,7 @@ var classData = {
 				value: '经济类型参保业务'
 			}
 		],
-<<<<<<< HEAD
+
 		staff:[
 			{
 				key:'totalData',
@@ -52,14 +52,14 @@ var classData = {
 				value:'经济发达地区统计'
 			}
 			
-		]
+		],
 
-=======
+
 		cardTotal:[{
 			key:'netpoint',
 			value:'社保终端网点分析'
 		}]
->>>>>>> 4358f785ac5c5dd10f37eae354599b72674fb01e
+
 };
 
 var moduleData = {
