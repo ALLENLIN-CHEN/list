@@ -42,6 +42,10 @@ public interface StaffService {
 	 */
 	public Map<String, Object> getAllData(String sTime,String eTime,String p);
 	
+	public Map<String, Object> getAllDevelopData(String sTime,String eTime,String p);
+	
+	
+	
 	
 	public List<StaffModel> getDeveloped(List<StaffModel> cur);
 	

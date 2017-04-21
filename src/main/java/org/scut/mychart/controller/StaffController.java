@@ -76,6 +76,13 @@ public class StaffController {
         return map;
     }
 	
+	@RequestMapping("/staffAllDevelopedData")
+    @ResponseBody
+    public Map<String, Object> getStaffAllDevelopedData(@RequestParam String startTime, @RequestParam String endTime,@RequestParam String p){
+		Map<String, Object> map =  staffservice.getAllDevelopData(startTime,endTime,p);
+        return map;
+    }
+	
 	
 	
 	

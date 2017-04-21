@@ -685,10 +685,91 @@ public class StaffServiceImpl implements StaffService{
 	
 	}
 	@Override
+	public Map<String, Object> getAllDevelopData(String sTime,String eTime,String p){
+		Map<String,Object> data = new HashMap<String,Object>();
+		String stime=sTime+"-01-01 00:00:00";
+		String etime=eTime+"-12-31 00:00:00";
+		
+		List<StaffModel> list_in = this.staff.selectIn(stime,etime);
+		List<StaffModel> list_out = this.staff.selectOut(stime,etime);
+		
+		List<StaffModel> listIn=getDeveloped(list_in);
+		List<StaffModel> listOut=getDeveloped(list_out);
+		
+
+		
+		for(int i=0;i<listOut.size();i++){
+			double cur=0.0;
+			String string=listOut.get(i).getName();
+			
+			for(int j=0;j<listIn.size();j++){
+				if(listIn.get(j).getName().equals(string)){
+					cur=(double)listIn.get(j).getNum()/listOut.get(i).getNum();					
+					listOut.get(i).setOtherNum(listIn.get(j).getNum());
+					listOut.get(i).setPercent(cur);
+					listOut.get(i).setIsExist(false);
+					listIn.get(j).setIsExist(false);
+					break;
+				}			
+			}
+		}
+		
+
+		
+		
+		for(int i =0 ;i<listIn.size();i++){
+			if(listIn.get(i).getIsExist()){
+				StaffModel c = new StaffModel();
+				c.setName(listIn.get(i).getName());
+				c.setOtherNum(listIn.get(i).getNum());
+				c.setNum(0);
+				c.setPercent(0.0);
+				c.setIsExist(false);
+				listOut.add(c);
+
+
+			}
+		}
+			
+		for(int i =0 ;i<listOut.size();i++){
+			if(listOut.get(i).getIsExist()){
+				StaffModel c = new StaffModel();
+				c.setName(listOut.get(i).getName());
+				c.setOtherNum(listOut.get(i).getNum());
+				c.setNum(0);
+				c.setPercent(0.0);
+				c.setIsExist(false);
+				listIn.add(c);
+			}
+		}
+		int pageCount = getPageCount(listOut.size());
+		Collections.sort(listOut);
+		int offset = (Integer.valueOf(p).intValue() - 1) * PAGE_NUM;
+		int len = offset+PAGE_NUM;
+		if(len > listOut.size()) {
+			len = listOut.size();
+		}
+		listOut = listOut.subList(offset, len);
+	
+		data.put("listIn", listIn);
+		data.put("pageCount", pageCount);
+		data.put("data", listOut);
+
+		return data;
+	}
+	@Override
 	public List<StaffModel> getDeveloped(List<StaffModel> cur){
 		List<StaffModel> res = new ArrayList<StaffModel>();
 		StaffModel tmp = new StaffModel();
+		String[] dev={"广东省-广州市","广东省-深圳市","广东省-珠海市","广东省-佛山市","广东省-江门市","广东省-东莞市","广东省-中山市","广东省-惠州市","广东省-肇庆市","上海市","江苏省-南京市","浙江省-杭州市","安徽省-合肥市","北京市"};
 		
+		for(int i =0;i<cur.size();i++){
+			String name = cur.get(i).getName();
+			if(Arrays.asList(dev).contains(name)){
+				res.add(cur.get(i));
+				
+			}
+		}
 		return res;
 		
 	}
