@@ -26,8 +26,17 @@ var classData = {
 			   {
 				   key: 'clinic',
 				   value: '门诊统筹业务'			   
-		       
-		}],
+			   },
+			{
+				key:'netpoint',
+				value:'社保终端网点分析'
+
+			},
+			{
+				key:'cardFunction',
+				value:'用户常用卡功能分析'
+			}
+		],
 		enterprise: [{
 			key: 'companyType',
 			value: '单位类型参保业务'
@@ -52,18 +61,6 @@ var classData = {
 				value:'经济发达地区统计'
 			}
 			
-		],
-
-
-		cardTotal:[{
-			key:'netpoint',
-			value:'社保终端网点分析'
-
-		    },
-			{
-				key:'cardFunction',
-				value:'用户常用卡功能分析'
-			}
 		]
 
 
