@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.scut.mychart.mapper.StaffMapper">
+	<!-- 开启二级缓存 -->
+    <cache size="1024" readOnly="true" />
+    <select id ="selectIn" resultType="org.scut.mychart.model.StaffModel" useCache="true">
+    	<![CDATA[
+		    select current_work_place as name,count(*) as num
+		    from ryld2
+		    where turn_in_date between #{0} and #{1}
+		    group by name
+		    order by name
+    	]]>
+    </select>
+    
+    <select id ="selectOut" resultType="org.scut.mychart.model.StaffModel" useCache="true">
+    	<![CDATA[
+		    select original_work_place as name,count(*) as num
+		    from ryld2 
+		    where turn_out_date between #{0} and #{1}
+		    group by name
+		    order by name
+    	]]>
+    </select>
+    
+    <select id ="selectInAll" resultType="org.scut.mychart.model.StaffModel" useCache="true">
+    	<![CDATA[
+		    select year(turn_in_date) as year,current_work_place as name,count(*) as num
+		    from ryld2 
+		    group by year,name
+		    order by year,name  
+		    
+		   
+		    
+		    
+    	]]>
+    </select>
+       <select id ="selectRelationship" resultType="org.scut.mychart.model.StaffModel" useCache="true">
+    	<![CDATA[
+		     
+		    
+		    select original_work_place as name,current_work_place as name2,count(*) as num
+		    from ryld2 
+		    where turn_out_date  between #{0} and #{1}
+		    group by name,name2
+		    order by name,name2
+		    
+		   
+		    
+		    
+		    
+    	]]>
+    </select>
+    
+    
+       <select id ="selectRelationshipPlus" resultType="org.scut.mychart.model.StaffModel" useCache="true">
+    	<![CDATA[
+		     
+		    
+		    select current_work_place as name,original_work_place as name2,count(*) as num
+		    from ryld2
+		    where turn_out_date  between #{0} and #{1}
+		    group by name,name2
+		    order by name,name2
+ 
+		    
+    	]]>
+    </select>
+    
+    <select id ="selectOutAll" resultType="org.scut.mychart.model.StaffModel" useCache="true">
+    	<![CDATA[
+		    select year(turn_out_date) as year,original_work_place as name,count(*) as num
+		    from ryld2
+		    group by year,name
+		    order by year,name
+    	]]>
+    </select> 
+    
+</mapper>
+    
+    

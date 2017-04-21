@@ -39,7 +39,31 @@ var classData = {
 				key: 'financialType',
 				value: '经济类型参保业务'
 			}
+		],
+
+		staff:[
+			{
+				key:'totalData',
+				value:'全部流入流出统计'
+					
+			},
+			{
+				key:'partData',
+				value:'经济发达地区统计'
+			}
+			
+		],
+
+		cardTotal:[{
+			key:'netpoint',
+			value:'社保终端网点分析'
+		    },
+			{
+				key:'cardFunction',
+				value:'用户常用卡功能分析'
+			}
 		]
+
 };
 
 var moduleData = {
@@ -75,7 +99,7 @@ var moduleData = {
 			value: '医生占比排名'
 		}],
 
-	external: [{
+		external: [{
 		url: 'charts/externalList/hospitalTotal',
 		key: 'year',
 		list: 'externalHospYear',
@@ -139,7 +163,7 @@ var moduleData = {
 			value: '医生占比排名'
 		}],
 
-	special: [{
+		special: [{
 		url: 'charts/special/hospitalTotal',
 		key: 'year',
 		list: 'specialHospYear',
@@ -183,8 +207,6 @@ var moduleData = {
 			value: '科室占比排名'
 		}],
 
-
-
 		other: [{
 			url: 'charts/other/otherGetHisHospital',
 			key: 'year',
@@ -206,6 +228,16 @@ var moduleData = {
 			list: 'otherDepTime',
 			value: '科室占比排名'
 		}],
+		
+		totalData:[
+			{
+				url:'staff/staffAllData',
+				key:'time',
+				list:'allData',
+				value:'同一城市流入流出情况'
+			}
+			
+		],
 	
 		clinic:[{
 		        	url: 'charts/clinic/hospitalTotal',
@@ -245,7 +277,60 @@ var moduleData = {
 	    	key: 'year',
 	    	list: 'enterpriseFinancialType',
 	    	value: '经济类型参保基数分析'
-	    }]
+	    }],
+	    
+	    netpoint:[{
+        	url: 'charts/netpoint/getWorkState',
+        	key: 'year',
+        	list: 'npState',
+        	value: '网点状态统计'
+        },
+        {
+        	url: 'charts/netpoint/getOperationAmount',
+        	key: 'year',
+        	list: 'npOperation',
+        	value: '网点业务量'
+        },
+        {
+        	url:'charts/netpoint/getTerminalAmount',
+        	key:'year',
+        	list:'npTerminal',
+        	value:'网点终端数量'
+        },
+			{
+				url: 'charts/terminal/getTypeData',
+				key: 'year',
+				list: 'terminalType',
+				value: '终端类型数量'
+			},
+			{
+				url: 'charts/terminal/getBusinessData',
+				key: 'year',
+				list: 'terminalBusiness',
+				value: '终端业务量'
+			},
+			{
+				url: 'charts/terminal/getStatusData',
+				key: 'year',
+				list: 'terminalStatus',
+				value: '终端工作状态'
+			}
+		],
+
+	cardFunction:[
+		{
+			url: 'charts/card_3_2/card_3_2_1list',
+			key: 'year',
+			list: 'cardPrimaryType',
+			value: '全市社保卡应用情况'
+	    },
+		{
+			url: 'charts/card_3_2/card_3_2_2list',
+			key: 'year',
+			list: 'cardDetailType',
+			value: '社保102项应用情况'
+		},
+		]
 };
 
 var filterData = {
@@ -293,6 +378,8 @@ var listThead = {
 	otherHosTime: ['医院名称', '年总住院登记数量占比'],
 	otherDepYear: ['医院名称', '科室名称', '年总住院登记数量'],
 	otherDepTime: ['医院名称', '科室名称', '年总住院登记数量占比'],
+	
+	allData:['城市','流出人次','流入人次','流入流出率'],
 
 	clinicHospYear: ['医院名称', '年总门诊统筹申请数量'],
 	clinicDepYear: ['医院名称', '科室名称', '年总门诊统筹申请数量'],
@@ -300,8 +387,18 @@ var listThead = {
 	
 	enterpriseIndustryType: ['行业名称', '行业参保基数'],
 
-	enterpriseFinancialType: ['经济类型名称', '经济类型参保基数']
+	enterpriseFinancialType: ['经济类型名称', '经济类型参保基数'],
 
+	npState:['网点名称','网点地址','正常工作天数','异常工作天数'],
+	npOperation:['网点名称','网点地址','业务量'],
+	npTerminal:['网点名称','网点地址','终端数量'],
+
+	terminalType:['终端类型','终端数量'],
+	terminalBusiness:['终端编号','终端类型','所属网点','终端业务量'],
+	terminalStatus:['终端编号','终端类型','所属网点','正常工作天数','异常工作天数'],
+
+	cardPrimaryType:['应用名称/业务名称','用卡次数'],
+	cardDetailType:['社保102项应用名称','用卡次数']
 };
 
 var curP = 1, totalP = 1;
@@ -566,6 +663,10 @@ function handleData(res) {
 }
 
 function renderList(data) {
+	// for(var index=0;index<data.length;index++){
+	// 	console.log(data[index].branchName);
+	// 	console.log(data[index].branchAddress);
+	// }
 	var i = 0;
 	var names = [];
 	var listType = $('.module-label label').data('list');
@@ -754,8 +855,8 @@ function renderList(data) {
 			} else {
 				tbodyLis.push('<tr><th>'+ (curpage+i+1) +'</th>');
 			}
-			tbodyLis.push('<th>' + data[i].key + '</th>');
-			tbodyLis.push('<th>' + data[i].value + '元</th></tr>');
+			tbodyLis.push('<th>' + data[i].industry_code + '</th>');
+			tbodyLis.push('<th>' + data[i].cardinality + '元</th></tr>');
 		}
 	}
 	else if(listType === 'enterpriseFinancialType') {
@@ -972,6 +1073,14 @@ function renderList(data) {
 			tbodyLis.push('<th>' + names[1] + '</th>');
 			tbodyLis.push('<th>' + data[i].value + '% </th></tr>');
 		}
+	}else if(listType === 'allData') {
+		for(i = 0; i < data.length; i++) {
+			tbodyLis.push('<tr><th>'+ (curpage+i+1) +'</th>');
+			tbodyLis.push('<th>' + data[i].name + '</th>');
+			tbodyLis.push('<th>' + data[i].num + '</th>');
+			tbodyLis.push('<th>' + data[i].otherNum + '</th>');
+			tbodyLis.push('<th>' + (data[i].percent*100).toFixed(2) + '%</th></tr>');
+		}
 	}
 	else if(listType === 'clinicHospYear'){
 		for(i = 0; i < data.length; i++) {
@@ -1008,6 +1117,99 @@ function renderList(data) {
 		}
 	}
 	
+	if(listType === 'npState'){
+		for(i = 0;i < data.length; i++){
+			if(i % 2 != 0) {
+				tbodyLis.push('<tr ' + bgColor + '><th>'+ (curpage+i+1) +'</th>');
+			} else {
+				tbodyLis.push('<tr><th>'+ (curpage+i+1) +'</th>');
+			}
+			tbodyLis.push('<th>' + data[i].branchName + '</th>');
+			tbodyLis.push('<th>' + data[i].branchAddress + '</th>');
+			tbodyLis.push('<th>' + data[i].work + '</th>');
+			tbodyLis.push('<th>' + data[i].notWork + '</th></tr>');
+		}
+	}else if(listType === 'npOperation'){
+		for(i = 0;i < data.length; i++){
+			if(i % 2 != 0) {
+				tbodyLis.push('<tr ' + bgColor + '><th>'+ (curpage+i+1) +'</th>');
+			} else {
+				tbodyLis.push('<tr><th>'+ (curpage+i+1) +'</th>');
+			}
+			tbodyLis.push('<th>' + data[i].branchName + '</th>');
+			tbodyLis.push('<th>' + data[i].branchAddress + '</th>');
+			tbodyLis.push('<th>' + data[i].operationAmount + '</th>');			
+		}
+	}else if(listType == 'npTerminal'){
+		for(i = 0;i < data.length; i++){
+			if(i % 2 != 0) {
+				tbodyLis.push('<tr ' + bgColor + '><th>'+ (curpage+i+1) +'</th>');
+			} else {
+				tbodyLis.push('<tr><th>'+ (curpage+i+1) +'</th>');
+			}
+			tbodyLis.push('<th>' + data[i].branchName + '</th>');
+			tbodyLis.push('<th>' + data[i].branchAddress + '</th>');
+			tbodyLis.push('<th>' + data[i].terminalAmount + '</th>');			
+		}
+	}
+	else if(listType === 'terminalType') {
+		for(i = 0; i < data.length; i++) {
+			if(i % 2 != 0) {
+				tbodyLis.push('<tr ' + bgColor + '><th>'+ (curpage+i+1) +'</th>');
+			} else {
+				tbodyLis.push('<tr><th>'+ (curpage+i+1) +'</th>');
+			}
+			tbodyLis.push('<th>' + data[i].category + '</th>');
+			tbodyLis.push('<th>' + data[i].value + '</th></tr>');
+		}
+	}
+	else if(listType === 'terminalBusiness') {
+		for(i = 0; i < data.length; i++) {
+			if(i % 2 != 0) {
+				tbodyLis.push('<tr ' + bgColor + '><th>'+ (curpage+i+1) +'</th>');
+			} else {
+				tbodyLis.push('<tr><th>'+ (curpage+i+1) +'</th>');
+			}
+			tbodyLis.push('<th>' + data[i].category + '</th>');
+			tbodyLis.push('<th>' + data[i].device_type + '</th>');
+			tbodyLis.push('<th>' + data[i].branch_name + '</th>');
+			tbodyLis.push('<th>' + data[i].value + '</th></tr>');
+		}
+	}
+	else if(listType === 'terminalStatus') {
+		for(i = 0; i < data.length; i++) {
+			if(i % 2 != 0) {
+				tbodyLis.push('<tr ' + bgColor + '><th>'+ (curpage+i+1) +'</th>');
+			} else {
+				tbodyLis.push('<tr><th>'+ (curpage+i+1) +'</th>');
+			}
+			tbodyLis.push('<th>' + data[i].category + '</th>');
+			tbodyLis.push('<th>' + data[i].device_type + '</th>');
+			tbodyLis.push('<th>' + data[i].branch_name + '</th>');
+			tbodyLis.push('<th>' + data[i].value + '</th>');
+			tbodyLis.push('<th>' + data[i].errorDays + '</th></tr>');
+		}
+	}else if(listType === 'cardPrimaryType') {
+		for(i = 0; i < data.length; i++) {
+			if(i % 2 != 0) {
+				tbodyLis.push('<tr ' + bgColor + '><th>'+ (curpage+i+1) +'</th>');
+			} else {
+				tbodyLis.push('<tr><th>'+ (curpage+i+1) +'</th>');
+			}
+			tbodyLis.push('<th>' + data[i].type + '</th>');
+			tbodyLis.push('<th>' + data[i].num + '</th></tr>');
+		}
+	}else if(listType === 'cardDetailType') {
+		for(i = 0; i < data.length; i++) {
+			if(i % 2 != 0) {
+				tbodyLis.push('<tr ' + bgColor + '><th>'+ (curpage+i+1) +'</th>');
+			} else {
+				tbodyLis.push('<tr><th>'+ (curpage+i+1) +'</th>');
+			}
+			tbodyLis.push('<th>' + data[i].type + '</th>');
+			tbodyLis.push('<th>' + data[i].num + '</th></tr>');
+		}
+	}
 	$('.table thead tr').html(theadLis.join(''));
 	$('.table tbody').html(tbodyLis.join(''));
 }
