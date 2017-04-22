@@ -845,9 +845,7 @@ function renderList(data) {
 			tbodyLis.push('<th>' + names[2] + '</th>');
 			tbodyLis.push('<th>' + data[i].value + '% </th></tr>');
 		}
-	}
-
-	else if(listType === 'enterpriseCompanyType') {
+	} else if(listType === 'enterpriseCompanyType') {
 		for(i = 0; i < data.length; i++) {
 			if(i % 2 != 0) {
 				tbodyLis.push('<tr ' + bgColor + '><th>'+ (curpage+i+1) +'</th>');
@@ -857,8 +855,7 @@ function renderList(data) {
 			tbodyLis.push('<th>' + data[i].key + '</th>');
 			tbodyLis.push('<th>' + data[i].value + '元</th></tr>');
 		}
-	}
-	else if(listType === 'enterpriseIndustryType') {
+	} else if(listType === 'enterpriseIndustryType') {
 		for(i = 0; i < data.length; i++) {
 			if(i % 2 != 0) {
 				tbodyLis.push('<tr ' + bgColor + '><th>'+ (curpage+i+1) +'</th>');
@@ -868,8 +865,7 @@ function renderList(data) {
 			tbodyLis.push('<th>' + data[i].industry_code + '</th>');
 			tbodyLis.push('<th>' + data[i].cardinality + '元</th></tr>');
 		}
-	}
-	else if(listType === 'enterpriseFinancialType') {
+	} else if(listType === 'enterpriseFinancialType') {
 		for(i = 0; i < data.length; i++) {
 			if(i % 2 != 0) {
 				tbodyLis.push('<tr ' + bgColor + '><th>'+ (curpage+i+1) +'</th>');
@@ -879,9 +875,7 @@ function renderList(data) {
 			tbodyLis.push('<th>' + data[i].key + '</th>');
 			tbodyLis.push('<th>' + data[i].value + '元</th></tr>');
 		}
-	}
-
-    else if(listType === 'hos_2HospYear') {
+	} else if(listType === 'hos_2HospYear') {
         for(i = 0; i < data.length; i++) {
         	if(i % 2 != 0) {
 				tbodyLis.push('<tr ' + bgColor + '><th>'+ (curpage+i+1) +'</th>');
@@ -947,9 +941,7 @@ function renderList(data) {
             tbodyLis.push('<th>' + data[i].doctor + '</th>');
             tbodyLis.push('<th>' + data[i].num + '% </th></tr>');
         }
-    }
-
-	if(listType === 'specialHospYear') {
+    } else if(listType === 'specialHospYear') {
 		for(i = 0; i < data.length; i++) {
 			if(i % 2 != 0) {
 				tbodyLis.push('<tr ' + bgColor + '><th>'+ (curpage+i+1) +'</th>');
@@ -992,9 +984,7 @@ function renderList(data) {
 			tbodyLis.push('<th>' + names[1] + '</th>');
 			tbodyLis.push('<th>' + data[i].value + '% </th></tr>');
 		}
-	}
-
-	if(listType === 'expenseHospYear') {
+	} else if(listType === 'expenseHospYear') {
 		for(i = 0; i < data.length; i++) {
 			if(i % 2 != 0) {
 				tbodyLis.push('<tr ' + bgColor + '><th>'+ (curpage+i+1) +'</th>');
@@ -1085,7 +1075,11 @@ function renderList(data) {
 		}
 	}else if(listType === 'allData') {
 		for(i = 0; i < data.length; i++) {
-			tbodyLis.push('<tr><th>'+ (curpage+i+1) +'</th>');
+			if(i % 2 != 0) {
+				tbodyLis.push('<tr ' + bgColor + '><th>'+ (curpage+i+1) +'</th>');
+			} else {
+				tbodyLis.push('<tr><th>'+ (curpage+i+1) +'</th>');
+			}
 			tbodyLis.push('<th>' + data[i].name + '</th>');
 			tbodyLis.push('<th>' + data[i].num + '</th>');
 			tbodyLis.push('<th>' + data[i].otherNum + '</th>');
@@ -1094,7 +1088,11 @@ function renderList(data) {
 	}
 	else if(listType === 'partData') {
 		for(i = 0; i < data.length; i++) {
-			tbodyLis.push('<tr><th>'+ (curpage+i+1) +'</th>');
+			if(i % 2 != 0) {
+				tbodyLis.push('<tr ' + bgColor + '><th>'+ (curpage+i+1) +'</th>');
+			} else {
+				tbodyLis.push('<tr><th>'+ (curpage+i+1) +'</th>');
+			}
 			tbodyLis.push('<th>' + data[i].name + '</th>');
 			tbodyLis.push('<th>' + data[i].num + '</th>');
 			tbodyLis.push('<th>' + data[i].otherNum + '</th>');
