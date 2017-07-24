@@ -17,7 +17,12 @@
 
 	<script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
 	<script type="text/javascript" src="js/semantic.min.js"></script>
-	
+
+	<!-- 输入自动提示 -->
+	<link href="css/styles.css" rel="stylesheet" />
+	<script type="text/javascript" src="js/jquery.autocomplete.js"></script>
+	<script type="text/javascript" src="js/countries.js"></script>
+
 	<style>
 		.main {
 			margin-top: 4%;
@@ -28,7 +33,14 @@
 			width: 30%;
 			margin-left: 20%;
 		}
-		
+
+		.choosebtn{
+			font-size:12px;
+			font:bold;
+			width:10%;
+			margin-left:1%;
+		}
+
 		.user {
 			width: 90%;
 			margin: 2% auto 0;
@@ -59,9 +71,9 @@
 	</style>
 </head>
 <body>
-	<div class="navbar navbar-fixed-top navbar-inverse" >
-	    <div class="container">
-	        <a id="logo" href="#">社保大数据业务平台精准就业推荐</a>
+	<div class="navbar navbar-fixed-top navbar-inverse" style="heigth:12%;">
+	    <div class="container" style="margin:0px;">
+	        <a id="logo" href="#" style="margin-left:5%;font-size:30px;">社保大数据业务平台精准就业推荐</a>
 	    </div>
 	</div>
 	
@@ -70,45 +82,18 @@
 <!-- 		  <input type="text" placeholder="请输入搜索用户ID"> -->
 <!-- 		  <i class="inverted circular search link icon"></i> -->
 <!-- 		</div> -->
-		<div class="ui left icon huge action input">
+		<div class="ui left icon huge action input" style="margin-left:5%;margin-buttom:0px;">
 		    <i class="search icon"></i>
-		    <input type="text" class="content" placeholder="请输入搜索用户ID">
-		    <div class="ui blue submit button">搜索</div>
+		    <input id="autocomplete" type="text" class="content" placeholder="请输入参保人ID,例如1500442" style="width:90%;font-size:20px;">
+			<div class="ui blue submit button">查看推荐结果</div>
+			<input type="text" name="country" id="autocomplete-ajax-x" disabled="disabled" style="color: #f8f8f8; position: absolute; background: transparent; z-index: -1;"/>
 		</div>
-		<h4 class="ui horizontal divider header"><i class="bar chart icon"></i> 用户个人信息 </h4>
+		<h4 class="ui horizontal divider header"><i class="bar chart icon"></i> 参保人个人信息 </h4>
 		<div class="user">
-<!-- 			<div class="row"> -->
-<!-- 			  <div class="col-md-3 info"><span class="tag">用户ID：</span><span>2222222</span></div> -->
-<!-- 			  <div class="col-md-3 info">.col-md-3 .col-md-offset-3</div> -->
-<!-- 			  <div class="col-md-3 info">.col-md-3 .col-md-offset-3</div> -->
-<!-- 			  <div class="col-md-3 info">.col-md-3 .col-md-offset-3</div> -->
-<!-- 			</div> -->
-		
-<!-- 			<div class="ui grid"> -->
-<!-- 			  <div class="four wide column"><span class="tag">用户ID：</span><span class="user-id"></span></div> -->
-<!-- 			  <div class="four wide column"><span class="tag">年龄：</span><span class="user-age"></span></div> -->
-<!-- 			  <div class="four wide column"><span class="tag">性别：</span><span class="user-sex"></span></div> -->
-<!-- 			  <div class="four wide column"><span class="tag">历史工作1：</span><span class="user-history-job"></span></div> -->
-<!-- 			  <div class="four wide column"><span class="tag">历史工作2：</span><span class="user-history-job"></span></div> -->
-<!-- 			  <div class="four wide column"><span class="tag">历史工作3：</span><span class="user-history-job"></span></div> -->
-<!-- 			  <div class="four wide column"><span class="tag">历史工作4：</span><span class="user-history-job"></span></div> -->
-<!-- 			  <div class="four wide column"><span class="tag">历史工作5：</span><span class="user-history-job"></span></div> -->
-<!-- 			  <div class="four wide column"><span class="tag">意向工作1：</span><span class="user-wish-job"></span></div> -->
-<!-- 			  <div class="four wide column"><span class="tag">意向工作2：</span><span class="user-wish-job"></span></div> -->
-<!-- 			  <div class="four wide column"><span class="tag">意向工作3：</span><span class="user-wish-job"></span></div> -->
-<!-- 			  <div class="four wide column"><span class="tag">意向工作4：</span><span class="user-wish-job"></span></div> -->
-<!-- 			  <div class="four wide column"><span class="tag">意向工作5：</span><span class="user-wish-job"></span></div> -->
-<!-- 			  <div class="four wide column"><span class="tag">工作性质：</span><span class="user-job-way"></span></div> -->
-<!-- 			  <div class="four wide column"><span class="tag">工资：</span><span class="user-job-wage"></span></div> -->
-<!-- 			  <div class="four wide column"><span class="tag">文化程度：</span><span class="user-edu"></span></div> -->
-<!-- 			  <div class="four wide column"><span class="tag">所在市：</span><span class="user-city"></span></div> -->
-<!-- 			  <div class="four wide column"><span class="tag">希望开始时间：</span><span class="user-wish-start-time"></span></div> -->
-<!-- 			  <div class="four wide column"><span class="tag">希望结束时间：</span><span class="user-wish-end-time"></span></div> -->
-<!-- 			</div> -->
 			<table class="ui fixed celled padded table">
 			  <thead>
 			    <tr>
-			    	<th>用户ID</th>
+			    	<th>参保人ID</th>
 			    	<th>年龄</th>
 			    	<th>性别</th>
 			    	<th>历史工作1</th>
@@ -304,6 +289,14 @@
 				      <td class="company-age-max"></td>
 				      <td class="company-age-max"></td>
 				    </tr>
+				  	<tr>
+						<td class="tag">企业联系电话</td>
+						<td class="company-age-max"></td>
+						<td class="company-age-max"></td>
+						<td class="company-age-max"></td>
+						<td class="company-age-max"></td>
+						<td class="company-age-max"></td>
+				  	</tr>
 				  </tbody>
 				</table>
 			</div>
@@ -327,6 +320,50 @@
 		}
 		
 		$(function() {
+			<!-- 获取所有参保用户的ID -->
+			var persons = {};
+			var personsArray;
+			var test;
+			$.ajax({
+				type: 'GET',
+				url: 'recommend/personsid',
+				dataType: 'json',
+				async: false,
+				success: function(res) {
+					<!--persons = res;-->
+					persons = res.result;
+					console.log(persons);
+				},
+				error: function(err) {
+					alert('获取信息失败，原因：' + err);
+				}
+			});
+			test = {
+				"1500442":"1500442",
+				"1501447":"1501447",
+				"1501611":"1501611"
+			};
+			<!--var personsArray = $.map(test,function(key,value){return {key:key,value:value};});-->
+			personsArray = $.map(persons, function (value, key) { return { value: value, data: key }; });
+			<!--console.log(personsArray);-->
+			// Initialize ajax autocomplete:
+			$('#autocomplete').autocomplete({
+				lookup: personsArray,
+				lookupFilter: function(suggestion, originalQuery, queryLowerCase) {
+					var re = new RegExp('\\b' + $.Autocomplete.utils.escapeRegExChars(queryLowerCase), 'gi');
+					return re.test(suggestion.value);
+				},
+		//        onSelect: function(suggestion) {
+		//            $('#selction-ajax').html('You selected: ' + suggestion.value + ', ' + suggestion.data);
+		//        },
+		         onHint: function (hint) {
+		              $('#autocomplete-ajax-x').val(hint);
+		          },
+		//        onInvalidateSelection: function() {
+		//            $('#selction-ajax').html('You selected: none');
+		//        }
+			});
+
 			var result;
 			//var id = '1502980';
 			var index = 0;

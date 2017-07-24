@@ -21,5 +21,9 @@ public class RecommendServiceImpl  {
     	param.put("id",id);
     	return recommendDao.selectRecommendResult(param);
     }
+
+    public List<String> getAllPersons(){
+        return recommendDao.selectAllPersons();
+    }
 }
 

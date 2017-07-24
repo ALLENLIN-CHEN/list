@@ -11,5 +11,6 @@ import java.util.Map;
 public interface RecommendMapper {
 	List<RecommendResultModel> selectRecommendResult(Map<String, String> param);
 
+	List<String> selectAllPersons();
 }	
 
