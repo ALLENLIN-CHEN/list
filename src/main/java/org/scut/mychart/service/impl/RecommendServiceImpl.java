@@ -25,6 +25,7 @@ public class RecommendServiceImpl  {
     	param.put("id",id);
     	return recommendDao.selectRecommendResult(param);
     }
+
     public Map<String, Object> getResult(String id){
     	Map<String,Object> result=new HashMap<String,Object>();
     	HashMap<String,String> param = new HashMap<String,String>();
@@ -126,6 +127,11 @@ public class RecommendServiceImpl  {
     	result.put("data", rating);
     	return result;
     	
+    }
+
+    public List<String> getAllPersons(){
+        return recommendDao.selectAllPersons();
+
     }
 }
 

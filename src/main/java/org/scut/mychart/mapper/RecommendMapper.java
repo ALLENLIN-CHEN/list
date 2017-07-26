@@ -15,5 +15,6 @@ public interface RecommendMapper {
 	List<RecommendResultModel> selectExInfo();
 	
 
+	List<String> selectAllPersons();
 }	
 

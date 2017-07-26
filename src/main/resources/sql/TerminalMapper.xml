@@ -15,7 +15,7 @@
 		from zdsj2
 		where operation_time between '${stime}' and '${etime}'
 		group by terminal_no,branch_name,device_info
-		order by value desc
+		order by value asc
 	</select>
 	<select id="selectTerminalBusiness" parameterType="java.util.Map" resultType="org.scut.mychart.model.TerminalModel" statementType="STATEMENT">
 		select terminal_no as "category",count(*) as "value",branch_name,device_info as "device_type"

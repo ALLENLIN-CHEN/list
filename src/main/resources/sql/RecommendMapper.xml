@@ -9,6 +9,7 @@
     	where person_id="${id}"
 
   	</select>
+
   	  	<select id="selectRecommendRating" parameterType="java.util.Map" resultType="org.scut.mychart.model.RecommendResultModel" statementType="STATEMENT">
 
     	
@@ -43,6 +44,18 @@
   	
   	
   	
+
+
+	<cache size="1024" readOnly="true"/>
+	<select id="selectAllPersons" resultType="String">
+		select distinct person_id from recommendresult;
+	</select>
+	
+	
+	
+	
+	
+
 	<!--<select id="selectRecommendResult" parameterType="java.util.Map" resultType="org.scut.mychart.model.RecommendResultModel" statementType="STATEMENT">-->
 		<!--select id ,-->
 		<!--age ,-->

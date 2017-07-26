@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -36,6 +35,7 @@ public class RecommendController {
         result.put("data",recommendResultModelList);
         return result;
     }
+
     
     @RequestMapping(value = "/result",produces = "application/json;charset=UTF-8")
     @ResponseBody
@@ -46,5 +46,22 @@ public class RecommendController {
     }
     
    
-}   
+
+
+    @RequestMapping(value = "/personsid",produces = "application/json;charset=UTF-8")
+    @ResponseBody
+    public Map<String,Object> getPersonsID(){
+        Map<String,Object> result = new HashMap<String,Object>();
+        Map<String,String> allpersons = new HashMap<>();
+        List<String> persons = recommendService.getAllPersons();
+//        for(int i=0;i<persons.size();i++)
+//            result.put(persons.get(i).getPerson_id(),persons.get(i).getPerson_id());
+        for(int i=0;i<persons.size();i++)
+            allpersons.put(persons.get(i),persons.get(i));
+        result.put("result",allpersons);
+        return  result;
+    }
+}
+
+ 
 

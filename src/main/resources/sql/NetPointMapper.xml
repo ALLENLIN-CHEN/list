@@ -43,7 +43,7 @@
 				where operation_time between #{stime} and #{etime}
 			) temp
 			group by branchName,branchAddress		
-			order by work desc
+			order by work asc
 			limit 15 offset #{offset}	
 		]]>
 	</select>
