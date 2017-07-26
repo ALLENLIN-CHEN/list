@@ -1,5 +1,7 @@
 package org.scut.mychart.model;
 
+import org.apache.hadoop.hive.ql.parse.HiveParser.resourceType_return;
+
 /**
  * Created by gzw on 2016/9/27.
  */
@@ -51,7 +53,18 @@ public class RecommendResultModel {
     private String c_wage_unit ;
     private String c_age_min ;
     private String c_age_max ;
-
+    
+    private String ex_id;
+    private String ex_name;
+    
+    public String getEx_id(){
+    	return ex_id;
+    }
+  
+    public String getEx_name(){
+    	return ex_name;
+    }
+    
     public String getId() {
         return id;
     }

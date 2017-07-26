@@ -9,6 +9,40 @@
     	where person_id="${id}"
 
   	</select>
+  	  	<select id="selectRecommendRating" parameterType="java.util.Map" resultType="org.scut.mychart.model.RecommendResultModel" statementType="STATEMENT">
+
+    	
+        select l.id as id,l.age as age ,l.sex as sex, l.person_id as person_id,l.history_job1 as history_job1,
+               l.history_job2 as history_job2, l.history_job3 as history_job3, l.history_job4 as history_job4,l.history_job5 as history_job5,
+               l.intend_job1 as intend_job1,l.intend_job2 as intend_job2,l.intend_job3 as intend_job3,
+               l.intend_job4 as intend_job4,l.intend_job5 as intend_job5,
+               l.job_way_id as job_way_id,l.wage_way as wage_way,l.education_id as education_id,l.skill as skill,
+               l.intend_wage as intend_wage,l.area_scope as area_scope,l.city_id as city_id,l.work_date_start as work_date_start,
+               l.work_date_end as work_date_end,l.expiry_date as expiry_date,l.flag as flag,l.publish_time as publish_time,
+               
+               h.id as c_id, h.person_id as c_person_id,h.area_scope as c_area_scope,h.city_id as c_city_id,
+               h.province_id as c_province_id,h.job_type_id as c_job_type_id,h.count as c_count,h.job_way_id as c_job_way_id,
+               h.wage_way as c_wage_way,h.education_id as c_education_id,h.wage as c_wage,h.welfare_id as c_welfare_id,
+               h.work_date_start as c_work_date_start,h.work_date_end as c_work_date_end,h.expiry_date as c_expiry_date,
+               h.flag as c_flag,h.publish_time as c_publish_time,h.wage_unit as c_wage_unit,h.age_min as c_age_min,h.age_max as c_age_max
+        from rating_res r,t_hr_labour l ,t_hr_hire h 
+    	where l.person_id ="${id}" and h.id =r.c_id and l.id = r.p_id
+    	
+
+  	</select>
+  	<select id="selectPlaceInfo" parameterType="java.util.Map" resultType="org.scut.mychart.model.RecommendResultModel" statementType="STATEMENT">
+        select id as ex_id ,name as ex_name from place 
+    
+
+  	</select>
+  	<select id="selectExInfo" parameterType="java.util.Map" resultType="org.scut.mychart.model.RecommendResultModel" statementType="STATEMENT">
+        select id as ex_id,name as ex_name from t_hr_dictionary
+
+  	</select>
+  	    
+  	
+  	
+  	
 	<!--<select id="selectRecommendResult" parameterType="java.util.Map" resultType="org.scut.mychart.model.RecommendResultModel" statementType="STATEMENT">-->
 		<!--select id ,-->
 		<!--age ,-->

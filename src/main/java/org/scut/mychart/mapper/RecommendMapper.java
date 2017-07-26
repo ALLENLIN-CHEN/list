@@ -10,6 +10,10 @@ import java.util.Map;
  */
 public interface RecommendMapper {
 	List<RecommendResultModel> selectRecommendResult(Map<String, String> param);
+	List<RecommendResultModel> selectRecommendRating(Map<String, String> param);
+	List<RecommendResultModel> selectPlaceInfo();
+	List<RecommendResultModel> selectExInfo();
+	
 
 }	
 

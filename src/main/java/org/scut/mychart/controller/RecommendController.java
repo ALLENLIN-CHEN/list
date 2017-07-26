@@ -28,7 +28,7 @@ public class RecommendController {
      * @param id
      * @return
      */
-    @RequestMapping(value = "/result",produces = "application/json;charset=UTF-8")
+    @RequestMapping(value = "/testing",produces = "application/json;charset=UTF-8")
     @ResponseBody
     public Map<String, Object> getChartMap3dMarkBarOption(@RequestParam("id") String id){
         Map<String,Object> result=new HashMap<String,Object>();
@@ -36,5 +36,15 @@ public class RecommendController {
         result.put("data",recommendResultModelList);
         return result;
     }
+    
+    @RequestMapping(value = "/result",produces = "application/json;charset=UTF-8")
+    @ResponseBody
+    public Map<String, Object> getResults(@RequestParam("id") String id){
+    	
+        Map<String, Object> result = recommendService.getResult(id);
+        return result;
+    }
+    
+   
 }   
 
