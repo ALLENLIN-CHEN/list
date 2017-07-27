@@ -289,14 +289,6 @@
 				      <td class="company-age-max"></td>
 				      <td class="company-age-max"></td>
 				    </tr>
-				  	<tr>
-						<td class="tag">企业联系电话</td>
-						<td class="company-age-max"></td>
-						<td class="company-age-max"></td>
-						<td class="company-age-max"></td>
-						<td class="company-age-max"></td>
-						<td class="company-age-max"></td>
-				  	</tr>
 				  </tbody>
 				</table>
 			</div>
@@ -338,11 +330,6 @@
 					alert('获取信息失败，原因：' + err);
 				}
 			});
-			test = {
-				"1500442":"1500442",
-				"1501447":"1501447",
-				"1501611":"1501611"
-			};
 			<!--var personsArray = $.map(test,function(key,value){return {key:key,value:value};});-->
 			personsArray = $.map(persons, function (value, key) { return { value: value, data: key }; });
 			<!--console.log(personsArray);-->
