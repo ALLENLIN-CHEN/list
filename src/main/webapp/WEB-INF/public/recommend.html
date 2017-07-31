@@ -312,44 +312,44 @@
 		}
 		
 		$(function() {
-			<!-- 获取所有参保用户的ID -->
-			var persons = {};
-			var personsArray;
-			var test;
-			$.ajax({
-				type: 'GET',
-				url: 'recommend/personsid',
-				dataType: 'json',
-				async: false,
-				success: function(res) {
-					<!--persons = res;-->
-					persons = res.result;
-					console.log(persons);
-				},
-				error: function(err) {
-					alert('获取信息失败，原因：' + err);
-				}
-			});
-			<!--var personsArray = $.map(test,function(key,value){return {key:key,value:value};});-->
-			personsArray = $.map(persons, function (value, key) { return { value: value, data: key }; });
-			<!--console.log(personsArray);-->
-			// Initialize ajax autocomplete:
-			$('#autocomplete').autocomplete({
-				lookup: personsArray,
-				lookupFilter: function(suggestion, originalQuery, queryLowerCase) {
-					var re = new RegExp('\\b' + $.Autocomplete.utils.escapeRegExChars(queryLowerCase), 'gi');
-					return re.test(suggestion.value);
-				},
-		//        onSelect: function(suggestion) {
-		//            $('#selction-ajax').html('You selected: ' + suggestion.value + ', ' + suggestion.data);
-		//        },
-		         onHint: function (hint) {
-		              $('#autocomplete-ajax-x').val(hint);
-		          },
-		//        onInvalidateSelection: function() {
-		//            $('#selction-ajax').html('You selected: none');
-		//        }
-			});
+			<!--&lt;!&ndash; 获取所有参保用户的ID &ndash;&gt;-->
+			<!--var persons = {};-->
+			<!--var personsArray;-->
+			<!--var test;-->
+			<!--$.ajax({-->
+				<!--type: 'GET',-->
+				<!--url: 'recommend/personsid',-->
+				<!--dataType: 'json',-->
+				<!--async: false,-->
+				<!--success: function(res) {-->
+					<!--&lt;!&ndash;persons = res;&ndash;&gt;-->
+					<!--persons = res.result;-->
+					<!--console.log(persons);-->
+				<!--},-->
+				<!--error: function(err) {-->
+					<!--alert('获取信息失败，原因：' + err);-->
+				<!--}-->
+			<!--});-->
+			<!--&lt;!&ndash;var personsArray = $.map(test,function(key,value){return {key:key,value:value};});&ndash;&gt;-->
+			<!--personsArray = $.map(persons, function (value, key) { return { value: value, data: key }; });-->
+			<!--&lt;!&ndash;console.log(personsArray);&ndash;&gt;-->
+			<!--// Initialize ajax autocomplete:-->
+			<!--$('#autocomplete').autocomplete({-->
+				<!--lookup: personsArray,-->
+				<!--lookupFilter: function(suggestion, originalQuery, queryLowerCase) {-->
+					<!--var re = new RegExp('\\b' + $.Autocomplete.utils.escapeRegExChars(queryLowerCase), 'gi');-->
+					<!--return re.test(suggestion.value);-->
+				<!--},-->
+		<!--//        onSelect: function(suggestion) {-->
+		<!--//            $('#selction-ajax').html('You selected: ' + suggestion.value + ', ' + suggestion.data);-->
+		<!--//        },-->
+		         <!--onHint: function (hint) {-->
+		              <!--$('#autocomplete-ajax-x').val(hint);-->
+		          <!--},-->
+		<!--//        onInvalidateSelection: function() {-->
+		<!--//            $('#selction-ajax').html('You selected: none');-->
+		<!--//        }-->
+			<!--});-->
 
 			var result;
 			//var id = '1502980';
