@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+	<title>社保大数据业务平台</title>
+
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom styles for this template -->
+	<link href="css/semantic.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/layout.css" type="text/css" media="screen" />
+    <!--[if lt IE 9]>
+    <link rel="stylesheet" href="css/ie.css" type="text/css" media="screen" />
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+	<script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
+	<script type="text/javascript" src="js/semantic.min.js"></script>
+
+	<!-- 输入自动提示 -->
+	<link href="css/styles.css" rel="stylesheet" />
+	<script type="text/javascript" src="js/jquery.autocomplete.js"></script>
+	<script type="text/javascript" src="js/countries.js"></script>
+
+	<style>
+		.main {
+			margin-top: 4%;
+			
+		}
+		
+		.ui.input{
+			width: 30%;
+			margin-left: 20%;
+		}
+
+		.choosebtn{
+			font-size:12px;
+			font:bold;
+			width:10%;
+			margin-left:1%;
+		}
+
+		.user {
+			width: 90%;
+			margin: 2% auto 0;
+			font-size: 18px;
+		}
+		
+		.user .info {
+			text-align: center;
+		}
+		
+		.user .tag {
+			font-weight: bold;
+		}
+		
+		.ui.grid {
+			margin: 0 6%;
+			text-align: left;
+		}
+		
+		.company {
+			width: 96%;
+			margin: 2% auto;
+		}
+		
+		.company table .tag {
+			font-weight: bold;
+		}
+	</style>
+</head>
+<body>
+	<div class="navbar navbar-fixed-top navbar-inverse" style="heigth:12%;">
+	    <div class="container" style="margin:0px;">
+	        <a id="logo" href="#" style="margin-left:5%;font-size:30px;">社保大数据业务平台精准就业推荐</a>
+	    </div>
+	</div>
+	
+	<div class="main">
+<!-- 		<div class="ui huge icon input"> -->
+<!-- 		  <input type="text" placeholder="请输入搜索用户ID"> -->
+<!-- 		  <i class="inverted circular search link icon"></i> -->
+<!-- 		</div> -->
+		<div class="ui left icon huge action input" style="margin-left:5%;margin-buttom:0px;">
+		    <i class="search icon"></i>
+		    <input id="autocomplete" type="text" class="content" placeholder="请输入参保人ID,例如1" style="width:90%;font-size:20px;">
+			<div class="ui blue submit button">查看推荐结果</div>
+			<input type="text" name="country" id="autocomplete-ajax-x" disabled="disabled" style="color: #f8f8f8; position: absolute; background: transparent; z-index: -1;"/>
+		</div>
+		<h4 class="ui horizontal divider header"><i class="bar chart icon"></i> 参保人个人信息 </h4>
+		<div class="user">
+			<table class="ui fixed celled padded table">
+			  <thead>
+			    <tr>
+			    	<th>用户姓名</th>
+			    	<th>年龄</th>
+			    	<th>性别</th>
+			    	<th>目标职业</th>
+			    </tr>
+			  </thead>
+			  <tbody>
+			    <tr>
+			      <td class="single line user-name"></td>
+			      <td class="single line user-age"></td>
+			      <td class="single line user-sex"></td>
+			      <td class="single line user-target-job"></td>
+			    </tr>
+			  </tbody>
+			  
+
+			  
+
+			  
+			  <thead>
+			    <tr>
+			    	<th>工作经验</th>
+			    	<th>工作区域</th>
+			    	<th>期望工资</th>
+			    	<th>文化程度</th>
+			    </tr>
+			  </thead>
+			  <tbody>
+			    <tr>
+			      <td class="single line user-workyear"></td>
+			      <td class="single line user-job-area"></td>
+			      <td class="single line user-job-wage"></td>
+			      <td class="single line user-edu"></td>
+			    </tr>
+			  </tbody>
+			  
+
+			</table>
+		</div>
+		<div class="ui horizontal divider"> 推荐企业工作 </div>
+		<div class="company">
+			<div class="ui segment">
+			  <div class="ui inverted dimmer">
+			    <div class="ui small text loader">Loading</div>
+			  </div>
+			  <table class="ui celled table">
+				  <tbody>
+				    <tr>
+				      <td class="tag">岗位ID</td>
+				      <td class="job-id"></td>
+				      <td class="job-id"></td>
+				      <td class="job-id"></td>
+				      <td class="job-id"></td>
+				      <td class="job-id"></td>
+				    </tr>
+				    <tr>
+				      <td class="tag">公司名称</td>
+				      <td class="company-name"></td>
+				      <td class="company-name"></td>
+				      <td class="company-name"></td>
+				      <td class="company-name"></td>
+				      <td class="company-name"></td>
+				    </tr>
+				    <tr>
+				      <td class="tag">工作岗位</td>
+				      <td class="company-job"></td>
+				      <td class="company-job"></td>
+				      <td class="company-job"></td>
+				      <td class="company-job"></td>
+				      <td class="company-job"></td>
+				    </tr>
+
+				    <tr>
+				      <td class="tag">发布日期</td>
+				      <td class="company-day"></td>
+				      <td class="company-day"></td>
+				      <td class="company-day"></td>
+				      <td class="company-day"></td>
+				      <td class="company-day"></td>
+				    </tr>
+
+
+				    <tr>
+				      <td class="tag">工资</td>
+				      <td class="company-wage"></td>
+				      <td class="company-wage"></td>
+				      <td class="company-wage"></td>
+				      <td class="company-wage"></td>
+				      <td class="company-wage"></td>
+				    </tr>
+				    <tr>
+				      <td class="tag">工作时间</td>
+				      <td class="company-worktime"></td>
+				      <td class="company-worktime"></td>
+				      <td class="company-worktime"></td>
+				      <td class="company-worktime"></td>
+				      <td class="company-worktime"></td>
+				    </tr>
+
+
+
+				  </tbody>
+				</table>
+			</div>
+			
+		</div>
+	</div>
+	
+	<script type="text/javascript">
+
+		
+		$(function() {
+			<!-- 获取所有参保用户的ID -->
+			<!--var persons = {};-->
+			<!--var personsArray;-->
+			<!--var test;-->
+			<!--$.ajax({-->
+				<!--type: 'GET',-->
+				<!--url: 'recommend/personsid',-->
+				<!--dataType: 'json',-->
+				<!--async: false,-->
+				<!--success: function(res) {-->
+					<!--&lt;!&ndash;persons = res;&ndash;&gt;-->
+					<!--persons = res.result;-->
+					<!--console.log(persons);-->
+				<!--},-->
+				<!--error: function(err) {-->
+					<!--alert('获取信息失败，原因：' + err);-->
+				<!--}-->
+			<!--});-->
+			<!--&lt;!&ndash;var personsArray = $.map(test,function(key,value){return {key:key,value:value};});&ndash;&gt;-->
+			<!--personsArray = $.map(persons, function (value, key) { return { value: value, data: key }; });-->
+			<!--&lt;!&ndash;console.log(personsArray);&ndash;&gt;-->
+			<!--// Initialize ajax autocomplete:-->
+			<!--$('#autocomplete').autocomplete({-->
+				<!--lookup: personsArray,-->
+				<!--lookupFilter: function(suggestion, originalQuery, queryLowerCase) {-->
+					<!--var re = new RegExp('\\b' + $.Autocomplete.utils.escapeRegExChars(queryLowerCase), 'gi');-->
+					<!--return re.test(suggestion.value);-->
+				<!--},-->
+		<!--//        onSelect: function(suggestion) {-->
+		<!--//            $('#selction-ajax').html('You selected: ' + suggestion.value + ', ' + suggestion.data);-->
+		<!--//        },-->
+		         <!--onHint: function (hint) {-->
+		              <!--$('#autocomplete-ajax-x').val(hint);-->
+		          <!--},-->
+		<!--//        onInvalidateSelection: function() {-->
+		<!--//            $('#selction-ajax').html('You selected: none');-->
+		<!--//        }-->
+			<!--});-->
+
+			var result;
+			//var id = '1502980';
+			var index = 0;
+			
+			$('.submit').on('click', function() {
+				var id = $('.content').val();
+				if(id) {
+					$('.dimmer').addClass('active');
+					$.ajax({
+						type: 'GET',
+						url: 'recommend2/result',
+						dataType: 'json',
+						data: {id: id},
+						async: true,
+						success: function(res) {
+							result = res.data;
+							if(result.length > 0) {
+								var tmp = result[0];
+
+								var job_id = $('.job-id');
+								var company_name = $('.company-name');
+								var company_job = $('.company-job');
+								var company_day = $('.company-day');
+								var company_wage = $('.company-wage');
+								var company_worktime = $('.company-worktime');
+
+								
+								
+								// 填写用户信息
+								$('.user-name').html(tmp.name);
+								$('.user-age').html(tmp.age);
+								$('.user-sex').html(tmp.sex);
+								$('.user-target-job').html(tmp.target_job);
+					            $('.user-workyear').html(tmp.workyear);
+				                $('.user-job-area').html(tmp.area);
+				                $('.user-job-wage').html(tmp.salary);
+				                $('.user-edu').html(tmp.education);
+
+								
+
+								
+								// 填写企业信息
+								for(index = 0; index < result.length; index++) {
+									job_id.eq(index).html(result[index].jobid);
+									company_name.eq(index).html(result[index].company);
+									company_job.eq(index).html(result[index].title);
+									company_day.eq(index).html(result[index].posttime);
+									company_wage.eq(index).html(result[index].wage);
+									company_worktime.eq(index).html(result[index].worktime);
+
+								}
+								
+								$('.content').val('');
+								$('.dimmer').removeClass('active');
+								
+							}
+							
+						},
+						error: function(err) {
+							alert('获取推荐信息失败，原因：' + err);
+						}
+					});
+				}
+			});
+			
+			
+		});
+	</script>
+</body>
+</html>

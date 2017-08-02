@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.scut.mychart.mapper.Recommend2Mapper">
+	<!-- 开启二级缓存 -->
+	<cache size="1024" readOnly="true" />
+  	<select id="selectRecommendResult" parameterType="java.util.Map" resultType="org.scut.mychart.model.RecommendResultModel" statementType="STATEMENT">
+    	select *
+    	from recommendresult
+    	where person_id="${id}"
+
+  	</select>
+
+  	  	<select id="selectRecommend2Rating" parameterType="java.util.Map" resultType="org.scut.mychart.model.Recommend2ResultModel" statementType="STATEMENT">
+
+    	
+        select t_user.name,t_user.sex,t_user.age,t_user.target_job,t_user.workyear,t_user.area,t_user.salary,t_user.education,
+        t_job.id as jobid,t_job.company,t_job.title,t_job.posttime,t_job.wage,t_job.worktime
+        from t_user,t_job,t_result
+        where t_result.userid=${id}
+        and t_result.userid=t_user.id
+        and t_result.prediction=3 and
+        t_result.jobid=t_job.id order by t_job.id limit 5
+    	
+
+  	</select>
+  	<select id="selectPlaceInfo" parameterType="java.util.Map" resultType="org.scut.mychart.model.RecommendResultModel" statementType="STATEMENT">
+        select id as ex_id ,name as ex_name from place 
+    
+
+  	</select>
+  	<select id="selectExInfo" parameterType="java.util.Map" resultType="org.scut.mychart.model.RecommendResultModel" statementType="STATEMENT">
+        select id as ex_id,name as ex_name from t_hr_dictionary
+
+  	</select>
+  	    
+  	
+  	
+  	
+
+
+	<cache size="1024" readOnly="true"/>
+	<select id="selectAllPersons" resultType="String">
+		select distinct person_id from recommendresult;
+	</select>
+	
+	
+	
+	
+	
+
+	<!--<select id="selectRecommendResult" parameterType="java.util.Map" resultType="org.scut.mychart.model.RecommendResultModel" statementType="STATEMENT">-->
+		<!--select id ,-->
+		<!--age ,-->
+		<!--sex ,-->
+		<!--person_id,-->
+		<!--history_job1,-->
+		<!--history_job2,-->
+		<!--history_job3,-->
+		<!--intend_job1,-->
+		<!--intend_job2,-->
+		<!--intend_job3,-->
+		<!--job_way_id,-->
+		<!--wage_way,-->
+		<!--education_id,-->
+		<!--skill,-->
+		<!--intend_wage,-->
+		<!--area_scope,-->
+		<!--city_id,-->
+		<!--work_date_start,-->
+		<!--work_date_end,-->
+		<!--expiry_date,-->
+		<!--flag,-->
+		<!--publish_time,-->
+		<!--history_job4,-->
+		<!--history_job5,-->
+		<!--intend_job4,-->
+		<!--intend_job5-->
+		<!--from recommendresult-->
+		<!--where  id="${id}"-->
+
+	<!--</select>-->
+</mapper>
