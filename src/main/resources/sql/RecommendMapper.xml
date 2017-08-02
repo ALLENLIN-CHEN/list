@@ -48,13 +48,10 @@
 
 	<cache size="1024" readOnly="true"/>
 	<select id="selectAllPersons" resultType="String">
-		select distinct person_id from recommendresult;
+		select person_id from t_hr_labour,rating_res where rating_res.p_id = t_hr_labour.id group by t_hr_labour.person_id
 	</select>
-	
-	
-	
-	
-	
+	 
+
 
 	<!--<select id="selectRecommendResult" parameterType="java.util.Map" resultType="org.scut.mychart.model.RecommendResultModel" statementType="STATEMENT">-->
 		<!--select id ,-->
