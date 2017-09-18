@@ -15,11 +15,11 @@
     	
         select t_user.name,t_user.sex,t_user.age,t_user.target_job,t_user.workyear,t_user.area,t_user.salary,t_user.education,
         t_job.id as jobid,t_job.company,t_job.title,t_job.posttime,t_job.wage,t_job.worktime
-        from t_user,t_job,t_result
-        where t_result.userid=${id}
-        and t_result.userid=t_user.id
-        and t_result.prediction=3 and
-        t_result.jobid=t_job.id order by t_job.id limit 5
+        from t_user,t_job,t_result_simple
+        where t_result_simple.user_id=${id}
+        and t_result_simple.user_id=t_user.id
+        and t_result_simple.prediction=3 and
+        t_result_simple.job_id=t_job.id  limit 5
     	
 
   	</select>
