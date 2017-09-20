@@ -15,14 +15,45 @@
     	
         select t_user.name,t_user.sex,t_user.age,t_user.target_job,t_user.workyear,t_user.area,t_user.salary,t_user.education,
         t_job.id as jobid,t_job.company,t_job.title,t_job.posttime,t_job.wage,t_job.worktime
-        from t_user,t_job,t_result_simple
-        where t_result_simple.user_id=${id}
-        and t_result_simple.user_id=t_user.id
-        and t_result_simple.prediction=3 and
-        t_result_simple.job_id=t_job.id  limit 5
+        from t_user,t_job,t_cf_result as b
+        where b.user_id=${id}
+        and b.user_id=t_user.id
+         and
+        b.job_id=t_job.id  order by b.rating desc limit 5
     	
 
   	</select>
+	<select id="selectuser" parameterType="java.util.Map" resultType="org.scut.mychart.model.UserModel" statementType="STATEMENT">
+
+
+		select t_user.name,t_user.sex,t_user.age,t_user.target_job,t_user.workyear,t_user.area,t_user.salary,t_user.education
+		from t_user
+		where t_user.id=${id}
+
+
+
+	</select>
+
+	<select id="selectRecommenduser" parameterType="java.util.Map" resultType="org.scut.mychart.model.UserStructModel" statementType="STATEMENT">
+
+
+		select t_user.id,t_user.name,t_user.sex,t_user.age,t_user.target_job,t_user.workyear,t_user.region,t_user.min_salary,t_user.educationno,t_user.category
+		from t_user
+		where t_user.id=${id}
+
+
+
+	</select>
+	<select id="selectAlluser" parameterType="java.util.Map" resultType="org.scut.mychart.model.UserStructModel" statementType="STATEMENT">
+
+
+		select t_user.id,t_user.name,t_user.sex,t_user.age,t_user.target_job,t_user.workyear,t_user.region,t_user.min_salary,t_user.educationno,t_user.category
+		from t_user,(select distinct(user_id) from t_cf_result) as b
+		where t_user.id=b.user_id
+
+
+
+	</select>
   	<select id="selectPlaceInfo" parameterType="java.util.Map" resultType="org.scut.mychart.model.RecommendResultModel" statementType="STATEMENT">
         select id as ex_id ,name as ex_name from place 
     
