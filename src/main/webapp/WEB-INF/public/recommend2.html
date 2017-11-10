@@ -68,15 +68,14 @@
 		.company table .tag {
 			font-weight: bold;
 		}
+
 	</style>
+
 </head>
-<body>
-	<div class="navbar navbar-fixed-top navbar-inverse" style="heigth:12%;">
-	    <div class="container" style="margin:0px;">
-	        <a id="logo" href="#" style="margin-left:5%;font-size:30px;">社保大数据业务平台精准就业推荐</a>
-	    </div>
-	</div>
-	
+
+
+
+
 	<div class="main">
 <!-- 		<div class="ui huge icon input"> -->
 <!-- 		  <input type="text" placeholder="请输入搜索用户ID"> -->
@@ -85,7 +84,9 @@
 		<div class="ui left icon huge action input" style="margin-left:5%;margin-buttom:0px;">
 		    <i class="search icon"></i>
 		    <input id="autocomplete" type="text" class="content" placeholder="请输入参保人ID,例如1" style="width:90%;font-size:20px;">
-			<div class="ui blue submit button">查看推荐结果</div>
+			<div class="ui blue submit1 button">查看ALS推荐结果</div>
+			<div class="ui blue submit2 button">查看PMF推荐结果</div>
+
 			<input type="text" name="country" id="autocomplete-ajax-x" disabled="disabled" style="color: #f8f8f8; position: absolute; background: transparent; z-index: -1;"/>
 		</div>
 		<h4 class="ui horizontal divider header"><i class="bar chart icon"></i> 参保人个人信息 </h4>
@@ -138,64 +139,246 @@
 			  <div class="ui inverted dimmer">
 			    <div class="ui small text loader">Loading</div>
 			  </div>
-			  <table class="ui celled table">
-				  <tbody>
-				    <tr>
-				      <td class="tag">岗位ID</td>
-				      <td class="job-id"></td>
-				      <td class="job-id"></td>
-				      <td class="job-id"></td>
-				      <td class="job-id"></td>
-				      <td class="job-id"></td>
-				    </tr>
-				    <tr>
-				      <td class="tag">公司名称</td>
-				      <td class="company-name"></td>
-				      <td class="company-name"></td>
-				      <td class="company-name"></td>
-				      <td class="company-name"></td>
-				      <td class="company-name"></td>
-				    </tr>
-				    <tr>
-				      <td class="tag">工作岗位</td>
-				      <td class="company-job"></td>
-				      <td class="company-job"></td>
-				      <td class="company-job"></td>
-				      <td class="company-job"></td>
-				      <td class="company-job"></td>
-				    </tr>
+			  <table class="ui celled table" id="table1">
+				  <tbody id="table2">
+				  <tr>
+					  <td class="tag">序号</td>
+					  <td class="tag">岗位ID</td>
+					  <td class="tag">公司名称</td>
+					  <td class="tag">工作岗位</td>
+					  <td class="tag">发布日期</td>
+					  <td class="tag">工资</td>
+					  <td class="tag">工作时间</td>
 
-				    <tr>
-				      <td class="tag">发布日期</td>
-				      <td class="company-day"></td>
-				      <td class="company-day"></td>
-				      <td class="company-day"></td>
-				      <td class="company-day"></td>
-				      <td class="company-day"></td>
-				    </tr>
+				  </tr>
+				  <tr>
+					  <td class="tag">1</td>
+					  <td class="job-id"></td>
+					  <td class="company-name"></td>
+					  <td class="company-job"></td>
+					  <td class="company-day"></td>
+					  <td class="company-wage"></td>
+					  <td class="company-worktime"></td>
+				  </tr>
+				  <tr>
+					  <td class="tag">2</td>
+					  <td class="job-id"></td>
+					  <td class="company-name"></td>
+					  <td class="company-job"></td>
+					  <td class="company-day"></td>
+					  <td class="company-wage"></td>
+					  <td class="company-worktime"></td>
+				  </tr>
+				  <tr>
+					  <td class="tag">3</td>
+					  <td class="job-id"></td>
+					  <td class="company-name"></td>
+					  <td class="company-job"></td>
+					  <td class="company-day"></td>
+					  <td class="company-wage"></td>
+					  <td class="company-worktime"></td>
+				  </tr>
+				  <tr>
+					  <td class="tag">4</td>
+					  <td class="job-id"></td>
+					  <td class="company-name"></td>
+					  <td class="company-job"></td>
+					  <td class="company-day"></td>
+					  <td class="company-wage"></td>
+					  <td class="company-worktime"></td>
+				  </tr>
+				  <tr>
+					  <td class="tag">序号</td>
+					  <td class="tag">岗位ID</td>
+					  <td class="tag">公司名称</td>
+					  <td class="tag">工作岗位</td>
+					  <td class="tag">发布日期</td>
+					  <td class="tag">工资</td>
+					  <td class="tag">工作时间</td>
+
+				  </tr>
+				  <tr>
+					  <td class="tag">5</td>
+					  <td class="job-id"></td>
+					  <td class="company-name"></td>
+					  <td class="company-job"></td>
+					  <td class="company-day"></td>
+					  <td class="company-wage"></td>
+					  <td class="company-worktime"></td>
+				  </tr>
+				  <tr>
+					  <td class="tag">6</td>
+					  <td class="job-id"></td>
+					  <td class="company-name"></td>
+					  <td class="company-job"></td>
+					  <td class="company-day"></td>
+					  <td class="company-wage"></td>
+					  <td class="company-worktime"></td>
+				  </tr>
+				  <tr>
+					  <td class="tag">7</td>
+					  <td class="job-id"></td>
+					  <td class="company-name"></td>
+					  <td class="company-job"></td>
+					  <td class="company-day"></td>
+					  <td class="company-wage"></td>
+					  <td class="company-worktime"></td>
+				  </tr>
+				  <tr>
+					  <td class="tag">8</td>
+					  <td class="job-id"></td>
+					  <td class="company-name"></td>
+					  <td class="company-job"></td>
+					  <td class="company-day"></td>
+					  <td class="company-wage"></td>
+					  <td class="company-worktime"></td>
+				  </tr>
+				  <tr>
+					  <td class="tag">序号</td>
+					  <td class="tag">岗位ID</td>
+					  <td class="tag">公司名称</td>
+					  <td class="tag">工作岗位</td>
+					  <td class="tag">发布日期</td>
+					  <td class="tag">工资</td>
+					  <td class="tag">工作时间</td>
+
+				  </tr>
+				  <tr>
+					  <td class="tag">9</td>
+					  <td class="job-id"></td>
+					  <td class="company-name"></td>
+					  <td class="company-job"></td>
+					  <td class="company-day"></td>
+					  <td class="company-wage"></td>
+					  <td class="company-worktime"></td>
+				  </tr>
+				  <tr>
+					  <td class="tag">10</td>
+					  <td class="job-id"></td>
+					  <td class="company-name"></td>
+					  <td class="company-job"></td>
+					  <td class="company-day"></td>
+					  <td class="company-wage"></td>
+					  <td class="company-worktime"></td>
+				  </tr>
+				  <tr>
+					  <td class="tag">11</td>
+					  <td class="job-id"></td>
+					  <td class="company-name"></td>
+					  <td class="company-job"></td>
+					  <td class="company-day"></td>
+					  <td class="company-wage"></td>
+					  <td class="company-worktime"></td>
+				  </tr>
+				  <tr>
+					  <td class="tag">12</td>
+					  <td class="job-id"></td>
+					  <td class="company-name"></td>
+					  <td class="company-job"></td>
+					  <td class="company-day"></td>
+					  <td class="company-wage"></td>
+					  <td class="company-worktime"></td>
+				  </tr>
+				  <tr>
+					  <td class="tag">序号</td>
+					  <td class="tag">岗位ID</td>
+					  <td class="tag">公司名称</td>
+					  <td class="tag">工作岗位</td>
+					  <td class="tag">发布日期</td>
+					  <td class="tag">工资</td>
+					  <td class="tag">工作时间</td>
+
+				  </tr>
+				  <tr>
+					  <td class="tag">13</td>
+					  <td class="job-id"></td>
+					  <td class="company-name"></td>
+					  <td class="company-job"></td>
+					  <td class="company-day"></td>
+					  <td class="company-wage"></td>
+					  <td class="company-worktime"></td>
+				  </tr>
+				  <tr>
+					  <td class="tag">14</td>
+					  <td class="job-id"></td>
+					  <td class="company-name"></td>
+					  <td class="company-job"></td>
+					  <td class="company-day"></td>
+					  <td class="company-wage"></td>
+					  <td class="company-worktime"></td>
+				  </tr>
+				  <tr>
+					  <td class="tag">15</td>
+					  <td class="job-id"></td>
+					  <td class="company-name"></td>
+					  <td class="company-job"></td>
+					  <td class="company-day"></td>
+					  <td class="company-wage"></td>
+					  <td class="company-worktime"></td>
+				  </tr>
+				  <tr>
+					  <td class="tag">16</td>
+					  <td class="job-id"></td>
+					  <td class="company-name"></td>
+					  <td class="company-job"></td>
+					  <td class="company-day"></td>
+					  <td class="company-wage"></td>
+					  <td class="company-worktime"></td>
+				  </tr>
+				  <tr>
+					  <td class="tag">序号</td>
+					  <td class="tag">岗位ID</td>
+					  <td class="tag">公司名称</td>
+					  <td class="tag">工作岗位</td>
+					  <td class="tag">发布日期</td>
+					  <td class="tag">工资</td>
+					  <td class="tag">工作时间</td>
+
+				  </tr>
+				  <tr>
+					  <td class="tag">17</td>
+					  <td class="job-id"></td>
+					  <td class="company-name"></td>
+					  <td class="company-job"></td>
+					  <td class="company-day"></td>
+					  <td class="company-wage"></td>
+					  <td class="company-worktime"></td>
+				  </tr>
+				  <tr>
+					  <td class="tag">18</td>
+					  <td class="job-id"></td>
+					  <td class="company-name"></td>
+					  <td class="company-job"></td>
+					  <td class="company-day"></td>
+					  <td class="company-wage"></td>
+					  <td class="company-worktime"></td>
+				  </tr>
 
 
-				    <tr>
-				      <td class="tag">工资</td>
-				      <td class="company-wage"></td>
-				      <td class="company-wage"></td>
-				      <td class="company-wage"></td>
-				      <td class="company-wage"></td>
-				      <td class="company-wage"></td>
-				    </tr>
-				    <tr>
-				      <td class="tag">工作时间</td>
-				      <td class="company-worktime"></td>
-				      <td class="company-worktime"></td>
-				      <td class="company-worktime"></td>
-				      <td class="company-worktime"></td>
-				      <td class="company-worktime"></td>
-				    </tr>
+				  <tr>
+					  <td class="tag">19</td>
+					  <td class="job-id"></td>
+					  <td class="company-name"></td>
+					  <td class="company-job"></td>
+					  <td class="company-day"></td>
+					  <td class="company-wage"></td>
+					  <td class="company-worktime"></td>
+				  </tr>
+				  <tr>
+					  <td class="tag">20</td>
+					  <td class="job-id"></td>
+					  <td class="company-name"></td>
+					  <td class="company-job"></td>
+					  <td class="company-day"></td>
+					  <td class="company-wage"></td>
+					  <td class="company-worktime"></td>
+				  </tr>
 
 
 
 				  </tbody>
 				</table>
+				<span id="spanFirst">第一页</span> <span id="spanPre">上一页</span> <span id="spanNext">下一页</span> <span id="spanLast">最后一页</span> 第<span id="spanPageNum"></span>共<span id="spanTotalPage"></span>页
 			</div>
 			
 		</div>
@@ -248,7 +431,7 @@
 			//var id = '1502980';
 			var index = 0;
 			
-			$('.submit').on('click', function() {
+			$('.submit1').on('click', function() {
 				var id = $('.content').val();
 				if(id) {
 					$('.dimmer').addClass('active');
@@ -308,9 +491,226 @@
 					});
 				}
 			});
-			
+
+			$('.submit2').on('click', function() {
+				var id = $('.content').val();
+				if(id) {
+				$('.dimmer').addClass('active');
+				$.ajax({
+				type: 'GET',
+				url: 'recommend3/result',
+				dataType: 'json',
+				data: {id: id},
+				async: true,
+				success: function(res) {
+					result = res.data;
+					if(result.length > 0) {
+						var tmp = result[0];
+
+						var job_id = $('.job-id');
+						var company_name = $('.company-name');
+						var company_job = $('.company-job');
+						var company_day = $('.company-day');
+						var company_wage = $('.company-wage');
+						var company_worktime = $('.company-worktime');
+
+
+
+						// 填写用户信息
+						$('.user-name').html(tmp.name);
+						$('.user-age').html(tmp.age);
+						$('.user-sex').html(tmp.sex);
+						$('.user-target-job').html(tmp.target_job);
+						$('.user-workyear').html(tmp.workyear);
+						$('.user-job-area').html(tmp.area);
+						$('.user-job-wage').html(tmp.salary);
+						$('.user-edu').html(tmp.education);
+
+
+
+
+						// 填写企业信息
+						for(index = 0; index < result.length; index++) {
+							job_id.eq(index).html(result[index].jobid);
+							company_name.eq(index).html(result[index].company);
+							company_job.eq(index).html(result[index].title);
+							company_day.eq(index).html(result[index].posttime);
+							company_wage.eq(index).html(result[index].wage);
+							company_worktime.eq(index).html(result[index].worktime);
+
+						}
+
+						$('.content').val('');
+						$('.dimmer').removeClass('active');
+
+					}
+
+				},
+				error: function(err) {
+					alert('获取推荐信息失败，原因：' + err);
+				}
+			});
+			}
+			});
+
+
 			
 		});
 	</script>
+<script>
+	var theTable = document.getElementById("table2");
+	var totalPage = document.getElementById("spanTotalPage");
+	var pageNum = document.getElementById("spanPageNum");
+
+
+	var spanPre = document.getElementById("spanPre");
+	var spanNext = document.getElementById("spanNext");
+	var spanFirst = document.getElementById("spanFirst");
+	var spanLast = document.getElementById("spanLast");
+
+
+	var numberRowsInTable = theTable.rows.length;
+	var pageSize = 5;
+	var page = 1;
+
+
+	//涓嬩竴椤?
+	function next() {
+
+
+		hideTable();
+
+
+		currentRow = pageSize * page;
+		maxRow = currentRow + pageSize;
+		if (maxRow > numberRowsInTable) maxRow = numberRowsInTable;
+		for (var i = currentRow; i < maxRow; i++) {
+			theTable.rows[i].style.display = '';
+		}
+		page++;
+
+
+		if (maxRow == numberRowsInTable) { nextText(); lastText(); }
+		showPage();
+		preLink();
+		firstLink();
+	}
+
+
+	//涓婁竴椤?
+	function pre() {
+
+
+		hideTable();
+
+
+		page--;
+
+
+		currentRow = pageSize * page;
+		maxRow = currentRow - pageSize;
+		if (currentRow > numberRowsInTable) currentRow = numberRowsInTable;
+		for (var i = maxRow; i < currentRow; i++) {
+			theTable.rows[i].style.display = '';
+		}
+
+
+
+
+		if (maxRow == 0) { preText(); firstText(); }
+		showPage();
+		nextLink();
+		lastLink();
+	}
+
+
+	//绗竴椤?
+	function first() {
+		hideTable();
+		page = 1;
+		for (var i = 0; i < pageSize; i++) {
+			theTable.rows[i].style.display = '';
+		}
+		showPage();
+
+
+		preText();
+		nextLink();
+		lastLink();
+	}
+
+
+	//鏈€鍚庝竴椤?
+	function last() {
+		hideTable();
+		page = pageCount();
+		currentRow = pageSize * (page - 1);
+		for (var i = currentRow; i < numberRowsInTable; i++) {
+			theTable.rows[i].style.display = '';
+		}
+		showPage();
+
+
+		preLink();
+		nextText();
+		firstLink();
+	}
+
+
+	function hideTable() {
+		for (var i = 0; i < numberRowsInTable; i++) {
+			theTable.rows[i].style.display = 'none';
+		}
+	}
+
+
+	function showPage() {
+		pageNum.innerHTML = page;
+	}
+
+
+	//鎬诲叡椤垫暟
+	function pageCount() {
+		var count = 0;
+		if (numberRowsInTable % pageSize != 0) count = 1;
+		return parseInt(numberRowsInTable / pageSize) + count;
+	}
+
+
+	//鏄剧ず閾炬帴
+	function preLink() { spanPre.innerHTML = "<a href='javascript:pre();'>上一页</a>"; }
+	function preText() { spanPre.innerHTML = "上一页"; }
+
+
+	function nextLink() { spanNext.innerHTML = "<a href='javascript:next();'>下一页</a>"; }
+	function nextText() { spanNext.innerHTML = "下一页"; }
+
+
+	function firstLink() { spanFirst.innerHTML = "<a href='javascript:first();'>第一页</a>"; }
+	function firstText() { spanFirst.innerHTML = "第一页"; }
+
+
+	function lastLink() { spanLast.innerHTML = "<a href='javascript:last();'>最后一页</a>"; }
+	function lastText() { spanLast.innerHTML = "最后一页"; }
+
+
+	//闅愯棌琛ㄦ牸
+	function hide() {
+		for (var i = pageSize; i < numberRowsInTable; i++) {
+			theTable.rows[i].style.display = 'none';
+		}
+
+
+		totalPage.innerHTML = pageCount();
+		pageNum.innerHTML = '1';
+
+
+		nextLink();
+		lastLink();
+	}
+
+
+	hide();
+</script>
 </body>
 </html>
